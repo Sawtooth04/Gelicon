@@ -1,0 +1,11 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  background-color: #1e1e1e;
+}
+.header * {
+  margin: 0.5%;
+}
+
+/*# sourceMappingURL=header.css.map */

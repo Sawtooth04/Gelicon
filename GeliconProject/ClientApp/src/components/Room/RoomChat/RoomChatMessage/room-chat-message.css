@@ -1,0 +1,10 @@
+.message {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.message .message__meta {
+  display: flex;
+}
+
+/*# sourceMappingURL=room-chat-message.css.map */

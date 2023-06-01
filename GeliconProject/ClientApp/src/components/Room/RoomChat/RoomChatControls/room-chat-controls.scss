@@ -1,0 +1,27 @@
+@import "../../../UI/TextArea/text-area";
+
+.chat__controls {
+  display: flex;
+  min-height: 5vh;
+  max-height: 20vh;
+  margin: 0 2%;
+  align-items: end;
+
+  & .controls__message-input {
+    width: 90%;
+    height: auto;
+    resize: none;
+  }
+
+  & .controls__buttons-wrapper {
+    display: flex;
+    align-items: center;
+    width: 10%;
+    height: 100%;
+
+    & .controls__submit-button {
+      height: auto;
+      margin: 0 auto 0 auto;
+    }
+  }
+}

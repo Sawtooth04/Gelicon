@@ -1,0 +1,15 @@
+@import "user-label-colors";
+@import "../../../variables";
+
+.user-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 1.5em;
+  padding: 2%;
+  border-style: solid;
+  border-width: 0.1em;
+  border-radius: 0.1em;
+  background-color: $users_labels_background_color;
+}

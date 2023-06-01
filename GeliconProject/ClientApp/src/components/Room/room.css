@@ -1,0 +1,19 @@
+.room {
+  display: flex;
+  height: 100%;
+  background-color: aqua;
+}
+.room .room__playlists {
+  width: 35%;
+  height: 100%;
+}
+.room .room__chat {
+  width: 35%;
+  height: 100%;
+}
+.room .room__users {
+  width: 30%;
+  height: 100%;
+}
+
+/*# sourceMappingURL=room.css.map */

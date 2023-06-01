@@ -1,0 +1,10 @@
+.room__chat {
+  display: flex;
+  flex-direction: column;
+}
+.room__chat .controls {
+  min-height: 3vh;
+  max-height: 6vh;
+}
+
+/*# sourceMappingURL=room-chat.css.map */

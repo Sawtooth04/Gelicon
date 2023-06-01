@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="beea6af8-eaf2-4370-922f-111c44de418b" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="SCSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="2LE3PMD4T4ZZyUEUxyJD11APvbv" />
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ClientApp/src/components/Room/RoomChat/RoomChatMessage" />
+    <property name="list.type.of.created.stylesheet" value="SCSS" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="C:\Users\Sawtooth\Desktop\Gelicon\GeliconProject\ClientApp\node_modules\typescript\lib" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Sawtooth\Desktop\Gelicon\GeliconProject\ClientApp\src\components\Room\RoomChat\RoomChatMessage" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Sawtooth\Desktop\Gelicon\GeliconProject\ClientApp\src\components\Room\RoomUsersList" />
+      <recent name="C:\Users\Sawtooth\Desktop\Gelicon\GeliconProject\ClientApp\src\components\Room" />
+      <recent name="C:\Users\Sawtooth\Desktop\Gelicon\GeliconProject\ClientApp\src\components\Rooms" />
+      <recent name="C:\Users\Sawtooth\Desktop\Gelicon\GeliconProject\ClientApp\src\components" />
+      <recent name="C:\Users\Sawtooth\Desktop\Gelicon\GeliconProject\ClientApp\src\components\UI\Input" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="HubConnector.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/ClientApp/src/Utils/HubConnector.js" working-dir="$PROJECT_DIR$/ClientApp/src/Utils">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.HubConnector.js" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="beea6af8-eaf2-4370-922f-111c44de418b" name="Default Changelist" comment="" />
+      <created>1675422389885</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1675422389885</updated>
+      <workItem from="1675422391342" duration="5004000" />
+      <workItem from="1675515010483" duration="4477000" />
+      <workItem from="1675587361551" duration="3249000" />
+      <workItem from="1675608889666" duration="10000" />
+      <workItem from="1675608921222" duration="1302000" />
+      <workItem from="1675669711335" duration="1170000" />
+      <workItem from="1676235318225" duration="1806000" />
+      <workItem from="1677240726297" duration="2727000" />
+      <workItem from="1677250849487" duration="1961000" />
+      <workItem from="1677332115484" duration="592000" />
+      <workItem from="1677344105182" duration="4598000" />
+      <workItem from="1677398073514" duration="687000" />
+      <workItem from="1677405650042" duration="1198000" />
+      <workItem from="1677412971894" duration="7294000" />
+      <workItem from="1677433985840" duration="594000" />
+      <workItem from="1677697778276" duration="595000" />
+      <workItem from="1677699826122" duration="1055000" />
+      <workItem from="1678021835690" duration="6895000" />
+      <workItem from="1678035971565" duration="15000" />
+      <workItem from="1678036009145" duration="6509000" />
+      <workItem from="1678117842937" duration="2807000" />
+      <workItem from="1678265257006" duration="595000" />
+      <workItem from="1678279169095" duration="1754000" />
+      <workItem from="1678290596847" duration="1853000" />
+      <workItem from="1678299560407" duration="3643000" />
+      <workItem from="1678303747983" duration="3194000" />
+      <workItem from="1678352064724" duration="2503000" />
+      <workItem from="1678372844794" duration="3492000" />
+      <workItem from="1678383044190" duration="8769000" />
+      <workItem from="1678626755264" duration="3547000" />
+      <workItem from="1678803409372" duration="2702000" />
+      <workItem from="1678808941496" duration="1960000" />
+      <workItem from="1678824367339" duration="2545000" />
+      <workItem from="1678875449458" duration="1247000" />
+      <workItem from="1678915731175" duration="335000" />
+      <workItem from="1678976406696" duration="3754000" />
+      <workItem from="1679140378139" duration="2010000" />
+      <workItem from="1679229562430" duration="13944000" />
+      <workItem from="1679342427007" duration="3845000" />
+      <workItem from="1679418112896" duration="796000" />
+      <workItem from="1679422857725" duration="6898000" />
+      <workItem from="1679469332422" duration="13224000" />
+      <workItem from="1679507209383" duration="4431000" />
+      <workItem from="1679557402169" duration="2655000" />
+      <workItem from="1679688137100" duration="4602000" />
+      <workItem from="1679753741698" duration="6948000" />
+      <workItem from="1679839460431" duration="4737000" />
+      <workItem from="1679849290863" duration="7382000" />
+      <workItem from="1680077037486" duration="17000" />
+      <workItem from="1680077075516" duration="4342000" />
+      <workItem from="1680177702825" duration="10208000" />
+      <workItem from="1680195414408" duration="5778000" />
+      <workItem from="1680256124406" duration="3777000" />
+      <workItem from="1680276055974" duration="4182000" />
+      <workItem from="1680359119621" duration="2315000" />
+      <workItem from="1680960442609" duration="592000" />
+      <workItem from="1680981970942" duration="4472000" />
+      <workItem from="1681028991062" duration="4595000" />
+      <workItem from="1681044059362" duration="594000" />
+      <workItem from="1681052057946" duration="4666000" />
+      <workItem from="1681058627739" duration="2461000" />
+      <workItem from="1681108650193" duration="4000" />
+      <workItem from="1681217163664" duration="5004000" />
+      <workItem from="1681652227808" duration="629000" />
+      <workItem from="1683301454614" duration="24000" />
+      <workItem from="1683301495157" duration="10000" />
+      <workItem from="1683480907196" duration="6000" />
+      <workItem from="1683556651341" duration="594000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+</project>

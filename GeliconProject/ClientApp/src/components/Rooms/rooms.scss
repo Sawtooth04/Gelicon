@@ -1,0 +1,10 @@
+@import "RoomLabel/rooms-label";
+@import "../Room/RoomUsersList/UserLabel/user-label";
+@import "../variables";
+
+.rooms {
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+  width: 100%;
+}

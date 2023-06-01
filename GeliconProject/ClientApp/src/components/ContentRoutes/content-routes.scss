@@ -1,0 +1,15 @@
+@import "../variables";
+
+.wrapper {
+  min-height: 100vh;
+
+  & .main {
+    min-height: 100vh;
+    background-color: $main_background_color;
+
+    & .content {
+      display: flex;
+      flex-grow: 1;
+    }
+  }
+}

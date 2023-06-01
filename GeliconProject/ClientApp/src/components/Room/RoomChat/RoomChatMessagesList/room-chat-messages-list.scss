@@ -1,0 +1,20 @@
+@import "../../../variables";
+
+.messages {
+  padding: 1%;
+  overflow-y: auto;
+}
+
+.messages::-webkit-scrollbar {
+  width: 10px;
+}
+
+.messages::-webkit-scrollbar-track {
+  background-color: $default_scroll_bar_color;
+  border-radius: 10px;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background-color: $default_scroll_button_color;
+  border-radius: 10px;
+}

@@ -1,0 +1,29 @@
+@import "../variables";
+
+.room {
+  display: flex;
+  width: 100%;
+  flex-grow: 1;
+  align-items: stretch;
+
+  & .room__playlists {
+    width: 25%;
+    background-color: $room_playlists_background_color;
+  }
+
+  & .room__chat {
+    width: 55%;
+  }
+
+  & .room__users {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+    background-color: $room_users_background_color;
+
+    & .users__user-label {
+      margin: 0.2%;
+    }
+  }
+}

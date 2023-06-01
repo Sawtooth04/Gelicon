@@ -1,0 +1,9 @@
+.rooms-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 10%;
+  height: 10%;
+}
+
+/*# sourceMappingURL=rooms-label.css.map */

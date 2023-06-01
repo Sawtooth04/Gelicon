@@ -1,0 +1,26 @@
+@import "../../variables";
+
+.ui-textarea {
+  background-color: $default_textarea_background_color;
+  border-color: $default_textarea_border_color;
+  transition: border-color ease-out 0.5s;
+}
+
+.ui-textarea::-webkit-scrollbar {
+  width: 7px;
+  border-radius: 5px;
+}
+
+.ui-textarea::-webkit-scrollbar-track {
+  background-color: $default_scroll_bar_color;
+}
+
+.ui-textarea::-webkit-scrollbar-thumb {
+  background-color: $default_scroll_button_color;
+  border-radius: 5px;
+}
+
+.ui-textarea:focus {
+  outline: none;
+  border-color: $default_textarea_focus_border_color;
+}
