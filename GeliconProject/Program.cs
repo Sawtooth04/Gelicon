@@ -6,6 +6,8 @@ using GeliconProject.Middlewares;
 using GeliconProject.Utils.JWTValidationParameters;
 using GeliconProject.Utils.ApplicationContexts;
 using GeliconProject.Hubs;
+using GeliconProject.ApplicationContexts;
+using GeliconProject.Repositories;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddJWTValidationParameters();
@@ -18,7 +20,8 @@ builder.Services.AddCors();
 builder.Services.AddControllersWithViews();
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(new JWTValidationParameters().SetJWTOptionsToken);
-builder.Services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<IAppContext, ApplicationContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Singleton);
+builder.Services.AddDbRepository();
 
 WebApplication app = builder.Build();
 

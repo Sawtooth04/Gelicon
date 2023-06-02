@@ -1,4 +1,5 @@
 ﻿using GeliconProject.Models;
+using GeliconProject.Repositories;
 using GeliconProject.Utils.ApplicationContexts;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
@@ -8,14 +9,14 @@ namespace GeliconProject.Controllers
 {
     public class ColorController : Controller
     {
-        private ApplicationContext context;
+        private IRepository repository;
         private JsonSerializerOptions serializerOptions;
 
-        public ColorController(ApplicationContext context)
+        public ColorController(IRepository repository)
         {
-            this.context = context;
+            this.repository = repository;
             serializerOptions = new JsonSerializerOptions();
-            serializerOptions.MaxDepth = 8;
+            serializerOptions.MaxDepth = 4;
             serializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         }
 
@@ -23,7 +24,7 @@ namespace GeliconProject.Controllers
         [ActionName("get-colors")]
         public IActionResult GetColors()
         {
-            return Json(context.Colors.ToList(), serializerOptions);
+            return Json(repository.GetColors(), serializerOptions);
         }
     }
 }

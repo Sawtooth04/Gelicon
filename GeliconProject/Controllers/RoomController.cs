@@ -1,4 +1,5 @@
 ﻿using GeliconProject.Models;
+using GeliconProject.Repositories;
 using GeliconProject.Utils.ApplicationContexts;
 using GeliconProject.Utils.Claims;
 using Microsoft.AspNetCore.Mvc;
@@ -11,12 +12,12 @@ namespace GeliconProject.Controllers
 {
     public class RoomController : Controller
     {
-        private ApplicationContext context;
+        private IRepository repository;
         private JsonSerializerOptions serializerOptions;
 
-        public RoomController(ApplicationContext context)
+        public RoomController(IRepository repository)
         {
-            this.context = context;
+            this.repository = repository;
             serializerOptions = new JsonSerializerOptions();
             serializerOptions.MaxDepth = 8;
             serializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
@@ -26,14 +27,14 @@ namespace GeliconProject.Controllers
         public async Task<ActionResult> Join()
         {
             int roomID = await Request.ReadFromJsonAsync<int>();
-            Room? room = context.Rooms.Where(r => r.roomID == roomID).Include(r => r.roomUsersColors!).ThenInclude(r => r.color).Include(r => r.users).FirstOrDefault();
+            Room? room = repository.GetRoomByID(roomID);
             Claim? userIDClaim = Request.HttpContext.User.FindFirst(Claims.UserID);
             User? user;
 
             if (userIDClaim == null)
                 return NotFound();
-            user = context.Users.Where(u => u.userID == int.Parse(userIDClaim.Value)).Include(u => u.rooms).FirstOrDefault();
-            if (user != null && user.rooms != null && room != null && user.rooms.Contains(room))
+            user = repository.GetUserByID(int.Parse(userIDClaim.Value));
+            if (user != null && user.rooms != null && room != null && user.rooms.Find(r => r.roomID == room.roomID) != null)
                 return Json(room, serializerOptions);
             return NotFound();
         }

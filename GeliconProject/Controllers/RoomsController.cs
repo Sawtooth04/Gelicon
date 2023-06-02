@@ -1,4 +1,5 @@
 ﻿using GeliconProject.Models;
+using GeliconProject.Repositories;
 using GeliconProject.Utils.ApplicationContexts;
 using GeliconProject.Utils.Claims;
 using Microsoft.AspNetCore.Mvc;
@@ -11,12 +12,12 @@ namespace GeliconProject.Controllers
 {
     public class RoomsController : Controller
     {
-        private ApplicationContext context;
+        private IRepository repository;
         private JsonSerializerOptions serializerOptions;
 
-        public RoomsController(ApplicationContext context)
+        public RoomsController(IRepository repository)
         {
-            this.context = context;
+            this.repository = repository;
             serializerOptions = new JsonSerializerOptions();
             serializerOptions.MaxDepth = 10;
             serializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
@@ -30,7 +31,7 @@ namespace GeliconProject.Controllers
             if (userIDClaim == null)
                 return NotFound();
             int userID = int.Parse(userIDClaim.Value);
-            User? user = context.Users.Where(u => u.userID == userID).Include(u => u.rooms).ThenInclude(r => r.owner).FirstOrDefault();
+            User? user = repository.GetUserByID(userID);
             return Json(user?.rooms, serializerOptions);
         }
     }

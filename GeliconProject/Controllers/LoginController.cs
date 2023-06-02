@@ -8,23 +8,20 @@ using GeliconProject.Utils.JWTValidationParameters;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using GeliconProject.Utils.Claims;
+using GeliconProject.ApplicationContexts;
+using GeliconProject.Repositories;
 
 namespace GeliconProject.Controllers
 {
     public class LoginController : Controller
     {
         private readonly IJWTValidationParameters validationParameters;
-        private ApplicationContext context;
+        private IRepository repository;
 
-        public LoginController(IJWTValidationParameters validationParameters, ApplicationContext context)
+        public LoginController(IJWTValidationParameters validationParameters, IRepository repository)
         {
             this.validationParameters = validationParameters;
-            this.context = context;
-        }
-
-        private User getUserByEmail(string email)
-        {
-            return context.Users.Where(user => user.email == email).First();
+            this.repository = repository;
         }
 
         private bool isPasswordValid(User user, string password)
@@ -36,10 +33,8 @@ namespace GeliconProject.Controllers
 
         private bool isUserValid(string email, string password)
         {
-            User user = getUserByEmail(email);
-            if (user == null)
-                return false;
-            return isPasswordValid(user, password);
+            User? user;
+            return ((user = repository.GetUserByEmail(email)) == null) ? false : isPasswordValid(user, password);
         }
 
         private List<Claim> getLoginClaims(User user)
@@ -56,7 +51,7 @@ namespace GeliconProject.Controllers
         {
             if (isUserValid(email, password))
             {
-                User user = context.Users.Where(user => user.email == email).First();
+                User? user = repository.GetUserByEmail(email);
                 JwtSecurityToken jwt = new JwtSecurityToken
                 (
                     issuer: IJWTValidationParameters.issuer,

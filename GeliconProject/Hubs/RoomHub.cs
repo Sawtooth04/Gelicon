@@ -1,4 +1,5 @@
 ﻿using GeliconProject.Models;
+using GeliconProject.Repositories;
 using GeliconProject.Utils.ApplicationContexts;
 using GeliconProject.Utils.Claims;
 using Microsoft.AspNetCore.Authorization;
@@ -11,11 +12,11 @@ namespace GeliconProject.Hubs
 {
     public class RoomHub : Hub
     {
-        private ApplicationContext context;
+        private IRepository repository;
 
-        public RoomHub(ApplicationContext context)
+        public RoomHub(IRepository repository)
         {
-            this.context = context;
+            this.repository = repository;
         }
 
         public async Task Init(string roomID)
@@ -28,7 +29,7 @@ namespace GeliconProject.Hubs
         {
             Random random = new Random();
             int userID = int.Parse(Context.User!.FindFirst(Claims.UserID)!.Value);
-            User? sender = context.Users.Where(u => u.userID == userID).First();
+            User? sender = repository.GetUserByIDWithoutJoins(userID);
 
             await Clients.Group(roomID).SendAsync("AppendMessage", new
             {
