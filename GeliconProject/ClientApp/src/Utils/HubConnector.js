@@ -35,6 +35,10 @@ class HubConnector {
     async sendMessage(message, roomID) {
         await this._connection.invoke("Send", message, roomID);
     }
+
+    async pingResponse(roomID) {
+        await this._connection.invoke("PingResponse", roomID);
+    }
 }
 
 export default HubConnector

@@ -6,6 +6,19 @@ const RoomChat = ({connector, roomID, roomUsersColors}) => {
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
+        function addEventHandlers() {
+            connector.addEventHandler("AppendMessage", appendMessage);
+            connector.addEventHandler("PingReceive", pingReceive);
+            connector.addEventHandler("LogPing", logPing);
+        }
+
+        function removeEventHandlers() {
+            connector.removeEventHandler("AppendMessage", appendMessage);
+            connector.removeEventHandler("PingReceive", pingReceive);
+            connector.addEventHandler("LogPing", logPing);
+        }
+
+        //Handlers
         function appendMessage(message) {
             if (message) {
                 message.time = (new Date().toLocaleTimeString());
@@ -13,12 +26,20 @@ const RoomChat = ({connector, roomID, roomUsersColors}) => {
                     setMessages([...messages.slice(1, messages.length), message]);
                 else
                     setMessages([...messages, message]);
-                connector.removeEventHandler("AppendMessage", appendMessage);
+                removeEventHandlers();
             }
         }
 
+        async function pingReceive() {
+            await connector.pingResponse(roomID);
+        }
+
+        function logPing(ping) {
+            console.log(`Current ping: ${ping} ms`)
+        }
+
         if (connector.connected)
-            connector.addEventHandler("AppendMessage", appendMessage);
+            addEventHandlers();
     }, [connector, connector.connected, messages]);
 
     async function sendMessage(message) {
