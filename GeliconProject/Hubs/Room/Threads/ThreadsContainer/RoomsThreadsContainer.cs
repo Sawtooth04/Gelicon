@@ -19,6 +19,7 @@ namespace GeliconProject.Hubs.Room.Threads.ThreadsContainer
             {
                 roomObserverThread = new RoomObserverThread(roomID);
                 roomObserverThread.clients = clients;
+                roomObserverThread.addEmptyRoomHandler(EmptyRoomHandler);
                 roomObservers.Add(roomObserverThread);
                 roomObserverThread.Start();
             }
@@ -28,6 +29,11 @@ namespace GeliconProject.Hubs.Room.Threads.ThreadsContainer
         public RoomObserverThread? FindRoomObserverThread(string roomID)
         {
             return roomObservers.Find(r => r.RoomID == roomID);
+        }
+
+        private void EmptyRoomHandler(RoomObserverThread thread)
+        {
+            roomObservers.Remove(thread);
         }
     }
 }

@@ -23,7 +23,14 @@ namespace GeliconProject.Hubs.Room
             this.roomsThreadsContainer = roomsThreadsContainer;
         }
 
-        public async Task Init(string roomID)
+        public override async Task<Task> OnConnectedAsync()
+        {
+            await base.OnConnectedAsync();
+            await Clients.Caller.SendAsync("Connected");
+            return Task.CompletedTask;
+        }
+
+        public async Task UserConnect(string roomID)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, roomID);
             roomsThreadsContainer.CreateRoomObserverThread(roomID, Clients).AddNewClient(Context.ConnectionId);
@@ -53,5 +60,7 @@ namespace GeliconProject.Hubs.Room
             if (roomObserverThread != null)
                 await roomObserverThread.HandlePingResponse(Context.ConnectionId, responseReceived);
         }
+
+
     }
 }

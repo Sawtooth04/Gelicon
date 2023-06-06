@@ -15,7 +15,7 @@ const RoomChat = ({connector, roomID, roomUsersColors}) => {
         function removeEventHandlers() {
             connector.removeEventHandler("AppendMessage", appendMessage);
             connector.removeEventHandler("PingReceive", pingReceive);
-            connector.addEventHandler("LogPing", logPing);
+            connector.removeEventHandler("LogPing", logPing);
         }
 
         //Handlers
@@ -31,7 +31,7 @@ const RoomChat = ({connector, roomID, roomUsersColors}) => {
         }
 
         async function pingReceive() {
-            await connector.pingResponse(roomID);
+            await connector.pingResponse();
         }
 
         function logPing(ping) {

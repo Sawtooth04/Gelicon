@@ -2,6 +2,8 @@
 
 namespace GeliconProject.Hubs.Room.Threads
 {
+    public delegate void OnEmptyRoom(RoomObserverThread thread);
+
     public class RoomObserverThread
     {
         private Thread thread;
@@ -9,6 +11,7 @@ namespace GeliconProject.Hubs.Room.Threads
         private string roomID;
         public IHubCallerClients? clients;
         private List<ClientObserverThread> clientObservers;
+        private event OnEmptyRoom? emptyRoomEvent;
         public string RoomID { get => roomID; }
 
         public RoomObserverThread(string roomID)
@@ -34,6 +37,7 @@ namespace GeliconProject.Hubs.Room.Threads
             if (clients != null)
             {
                 ClientObserverThread clientObserverThread = new ClientObserverThread(connectionID, clients.Client(connectionID));
+                clientObserverThread.addConnectionLostHandler(ClientDisconnectHandler);
                 clientObservers.Add(clientObserverThread);
                 clientObserverThread.Start();
             }
@@ -54,6 +58,18 @@ namespace GeliconProject.Hubs.Room.Threads
                 clientObserverThread.SetPingResult(responseReceived);
                 await clients.Client(connectionID).SendAsync("LogPing", clientObserverThread.ping);
             }
+        }
+
+        private void ClientDisconnectHandler(ClientObserverThread thread)
+        {
+            clientObservers.Remove(thread);
+            if (clientObservers.Count == 0)
+                emptyRoomEvent?.Invoke(this);
+        }
+
+        public void addEmptyRoomHandler(OnEmptyRoom handler)
+        {
+            emptyRoomEvent += handler;
         }
     }
 }

@@ -3,6 +3,7 @@ import {HubConnectionBuilder} from "@microsoft/signalr";
 class HubConnector {
     _connection;
     connected;
+    roomID;
 
     constructor() {
         this._connection = null;
@@ -18,26 +19,31 @@ class HubConnector {
     }
 
     async setConnectionToHub(roomID) {
+        this.roomID = roomID;
         this._connection =  new HubConnectionBuilder()
             .withUrl("http://192.168.1.104:5092/hubs/room")
             .withAutomaticReconnect()
             .build();
+        this.addEventHandler('Connected', () => this.connectionHandler());
         await this._connection.start();
-        this._connection.onclose(this.onDisconnected);
         this.connected = true;
-        this.roomInit(roomID);
-    }
-
-    roomInit(roomID) {
-        void this._connection.invoke("Init", roomID);
     }
 
     async sendMessage(message, roomID) {
         await this._connection.invoke("Send", message, roomID);
     }
 
-    async pingResponse(roomID) {
-        await this._connection.invoke("PingResponse", roomID);
+    async pingResponse() {
+        await this._connection.invoke("PingResponse", this.roomID);
+    }
+
+    async connectionHandler() {
+        await this._connection.invoke("UserConnect", this.roomID);
+    }
+
+    disconnect() {
+        this._connection.stop();
+        this.connected = false;
     }
 }
 

@@ -12,6 +12,10 @@ const Room = () => {
     const [colors, setColors] = useState([]);
 
     useEffect(() => {
+        return () => connector.disconnect();
+    }, []);
+
+    useEffect(() => {
         async function getRoom() {
             return await fetch("/room/join", {
                 method: "POST",
