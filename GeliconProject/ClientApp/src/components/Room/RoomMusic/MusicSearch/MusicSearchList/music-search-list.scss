@@ -1,0 +1,48 @@
+@import "MusicSearchListItem/music-search-list-item";
+@import "../../../../variables";
+
+.music-search-list {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+
+  & .music-search-list__music-search-list-item {
+    width: 90%;
+    position: relative;
+    margin: 1% 0 1% 0;
+    transition: margin 200ms ease-out;
+  }
+
+  & .music-search-list__music-search-list-item:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0.5%;
+    top: 0;
+    background-color: $default_music_search_item_borders_color;
+    transition: width 200ms ease-out;
+  }
+
+  & .music-search-list__music-search-list-item:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0.5%;
+    bottom: 0;
+    background-color: $default_music_search_item_borders_color;
+    transition: width 200ms ease-out;
+  }
+
+  & .music-search-list__music-search-list-item:hover {
+    margin: 2% 0 2% 0;
+  }
+
+  & .music-search-list__music-search-list-item:hover:before {
+    width: 100%;
+  }
+
+  & .music-search-list__music-search-list-item:hover:after {
+    width: 100%;
+  }
+}

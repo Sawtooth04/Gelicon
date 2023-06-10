@@ -13,7 +13,7 @@ const ContentRoutes = () => {
                 <Header/>
                 <div className="content">
                     <Routes>
-                        <Route exact path="/room/:roomID" element={<Room/>}/>
+                        <Route exact path="/room/:roomID/*" element={<Room/>}/>
                         <Route path="*" element={<Rooms/>}/>
                     </Routes>
                 </div>

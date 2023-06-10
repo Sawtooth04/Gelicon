@@ -18,5 +18,7 @@ namespace GeliconProject.Repositories
         public User? GetUserByID(int id);
 
         public User? GetUserByIDWithoutJoins(int id);
+
+        public Task AddMusicToRoom(string roomID, string musicID);
     }
 }

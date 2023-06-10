@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom";
 import RoomChat from "./RoomChat/RoomChat";
 import HubConnector from "../../Utils/HubConnector";
 import RoomUsersList from "./RoomUsersList/RoomUsersList";
+import RoomMusic from "./RoomMusic/RoomMusic";
 
 const Room = () => {
     const [connector, setConnector] = useState(new HubConnector());
@@ -52,7 +53,7 @@ const Room = () => {
 
     return (
         <div className="room">
-            <div className="room__playlists playlists"> </div>
+            <RoomMusic connector={connector}/>
             <RoomChat connector={connector} roomID={roomID} roomUsersColors={roomUsersColors}/>
             <RoomUsersList users={users} roomUsersColors={roomUsersColors} className="room__users users"/>
         </div>

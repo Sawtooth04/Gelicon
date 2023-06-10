@@ -1,13 +1,16 @@
 import {HubConnectionBuilder} from "@microsoft/signalr";
+import MusicRepository from "./MusicRepository";
 
 class HubConnector {
     _connection;
     connected;
     roomID;
+    musicRepository;
 
     constructor() {
         this._connection = null;
         this.connected = false;
+        this.musicRepository = new MusicRepository();
     }
 
     addEventHandler(event, handler) {
@@ -25,7 +28,11 @@ class HubConnector {
             .withAutomaticReconnect()
             .build();
         this.addEventHandler('Connected', () => this.connectionHandler());
+        this.addEventHandler('SetMainAudioEndpoint', (endpoint) => this.setMainAudioEndpoint(endpoint));
+        this.addEventHandler('SetAppName', (appName) => this.setAppName(appName));
         await this._connection.start();
+        this.musicRepository.audioEndpoints = (await this.getAudioEndpoints()).data;
+        await this.getAppName();
         this.connected = true;
     }
 
@@ -44,6 +51,27 @@ class HubConnector {
     disconnect() {
         this._connection.stop();
         this.connected = false;
+    }
+
+    setMainAudioEndpoint(endpoint) {
+        this.musicRepository.mainAudioEndpoint = endpoint;
+    }
+
+    setAppName(appName) {
+        this.musicRepository.appName = appName;
+    }
+
+    async getAudioEndpoints() {
+        await this._connection.invoke("GetMainAudioEndpoint");
+        return await (await fetch(this.musicRepository.mainAudioEndpoint)).json();
+    }
+
+    async getAppName() {
+        await this._connection.invoke("GetAppName");
+    }
+
+    async addMusicToRoom(musicID) {
+        await this._connection.invoke("AddMusicToRoom", this.roomID, musicID);
     }
 }
 

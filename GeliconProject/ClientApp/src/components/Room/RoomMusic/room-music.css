@@ -1,0 +1,11 @@
+.music-search {
+  display: flex;
+  justify-content: center;
+}
+.music-search .music-search__query-input {
+  width: 90%;
+  height: auto;
+  resize: none;
+}
+
+/*# sourceMappingURL=room-music.css.map */

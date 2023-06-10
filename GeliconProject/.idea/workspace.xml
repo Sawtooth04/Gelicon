@@ -2,13 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="beea6af8-eaf2-4370-922f-111c44de418b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/Sawtooth.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationContexts/ApplicationContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationContexts/ApplicationContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationContexts/IAppContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationContexts/IAppContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/public/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/public/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/public/style.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/public/style.css.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/src/Utils/HubConnector.js" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/Utils/HubConnector.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/ContentRoutes/ContentRoutes.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/ContentRoutes/ContentRoutes.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Room/Room.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Room/Room.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Room/RoomChat/RoomChat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Room/RoomChat/RoomChat.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Room/room.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Room/room.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Rooms/rooms.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Rooms/rooms.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/UI/TextArea/TextArea.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/UI/TextArea/TextArea.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/variables.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Hubs/Room/RoomHub.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Hubs/Room/RoomHub.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hubs/Room/Threads/ClientObserverThread.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Hubs/Room/Threads/ClientObserverThread.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hubs/Room/Threads/RoomObserverThread.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Hubs/Room/Threads/RoomObserverThread.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/Room.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Room.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/IRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/IRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/Repository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/Repository.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,7 +43,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectId" id="2LE3PMD4T4ZZyUEUxyJD11APvbv" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -47,15 +59,15 @@
     <property name="ts.external.directory.path" value="C:\Users\Sawtooth\Desktop\Gelicon\Gelicon\GeliconProject\ClientApp\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Sawtooth\Desktop\Gelicon\GeliconProject\ClientApp\src\components\Room\RoomChat\RoomChatMessage" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Sawtooth\Desktop\Gelicon\GeliconProject\ClientApp\src\components\Room\RoomUsersList" />
       <recent name="C:\Users\Sawtooth\Desktop\Gelicon\GeliconProject\ClientApp\src\components\Room" />
       <recent name="C:\Users\Sawtooth\Desktop\Gelicon\GeliconProject\ClientApp\src\components\Rooms" />
       <recent name="C:\Users\Sawtooth\Desktop\Gelicon\GeliconProject\ClientApp\src\components" />
       <recent name="C:\Users\Sawtooth\Desktop\Gelicon\GeliconProject\ClientApp\src\components\UI\Input" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Sawtooth\Desktop\Gelicon\GeliconProject\ClientApp\src\components\Room\RoomChat\RoomChatMessage" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -161,6 +173,13 @@
       <workItem from="1685789758835" duration="2713000" />
       <workItem from="1685867243699" duration="4309000" />
       <workItem from="1686042377249" duration="8260000" />
+      <workItem from="1686126468008" duration="594000" />
+      <workItem from="1686215408475" duration="12709000" />
+      <workItem from="1686306891620" duration="3495000" />
+      <workItem from="1686322068317" duration="2890000" />
+      <workItem from="1686387496045" duration="4680000" />
+      <workItem from="1686405418786" duration="4491000" />
+      <workItem from="1686424442939" duration="2601000" />
     </task>
     <servers />
   </component>

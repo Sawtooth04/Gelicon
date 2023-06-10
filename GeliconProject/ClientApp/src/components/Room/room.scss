@@ -1,4 +1,7 @@
 @import "../variables";
+@import "RoomChat/room-chat";
+@import "RoomUsersList/UserLabel/user-label";
+@import "RoomMusic/room-music";
 
 .room {
   display: flex;
@@ -6,13 +9,13 @@
   flex-grow: 1;
   align-items: stretch;
 
-  & .room__playlists {
-    width: 25%;
+  & .room__room-music {
+    width: 27%;
     background-color: $room_playlists_background_color;
   }
 
   & .room__chat {
-    width: 55%;
+    width: 53%;
   }
 
   & .room__users {

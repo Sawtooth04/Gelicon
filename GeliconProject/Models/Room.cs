@@ -15,5 +15,6 @@ namespace GeliconProject.Models
         public User? owner { get; set; }
         public List<User>? users { get; set; }
         public List<RoomUserColor>? roomUsersColors { get; set; }
+        public List<RoomMusic>? roomMusics { get; set; }
     }
 }

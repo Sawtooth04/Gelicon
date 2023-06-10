@@ -78,6 +78,166 @@
   border-radius: 0.3em;
 }
 
+.rooms {
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.wrapper {
+  min-height: 100vh;
+}
+.wrapper .main {
+  min-height: 100vh;
+  background-color: #1e1e1e;
+}
+.wrapper .main .content {
+  display: flex;
+  flex-grow: 1;
+}
+
+.ui-textarea {
+  background-color: #2d2d2d;
+  border-color: #4f4f4f;
+  transition: border-color ease-out 0.5s;
+}
+
+.ui-textarea::-webkit-scrollbar {
+  width: 7px;
+  border-radius: 5px;
+}
+
+.ui-textarea::-webkit-scrollbar-track {
+  background-color: #323232;
+}
+
+.ui-textarea::-webkit-scrollbar-thumb {
+  background-color: #0f0f0f;
+  border-radius: 5px;
+}
+
+.ui-textarea:focus {
+  outline: none;
+  border-color: #7a7a7a;
+}
+
+.chat__controls {
+  display: flex;
+  min-height: 5vh;
+  max-height: 20vh;
+  margin: 0 2%;
+  align-items: end;
+}
+.chat__controls .controls__message-input {
+  width: 90%;
+  height: auto;
+  resize: none;
+}
+.chat__controls .controls__buttons-wrapper {
+  display: flex;
+  align-items: center;
+  width: 10%;
+  height: 100%;
+}
+.chat__controls .controls__buttons-wrapper .controls__submit-button {
+  height: auto;
+  margin: 0 auto 0 auto;
+}
+
+.message_crimson .meta__owner {
+  color: crimson;
+}
+
+.message_salmon .meta__owner {
+  color: salmon;
+}
+
+.message_pink .meta__owner {
+  color: pink;
+}
+
+.message_coral .meta__owner {
+  color: coral;
+}
+
+.message_khaki .meta__owner {
+  color: khaki;
+}
+
+.message_plum .meta__owner {
+  color: plum;
+}
+
+.message_purple .meta__owner {
+  color: purple;
+}
+
+.message_wheat .meta__owner {
+  color: wheat;
+}
+
+.message_brown .meta__owner {
+  color: brown;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: #b2b3b3;
+  margin: 1% 0;
+}
+.message .message__meta {
+  display: flex;
+  align-items: center;
+}
+.message .message__meta > * {
+  margin: 0.3% 1%;
+}
+.message .message__meta .meta__owner {
+  font-size: 20px;
+}
+.message .message__meta .meta__time {
+  font-size: 14px;
+}
+.message .message__text {
+  word-break: break-all;
+  padding: 0 1%;
+}
+
+.messages {
+  padding: 1%;
+  overflow-y: auto;
+}
+
+.messages::-webkit-scrollbar {
+  width: 10px;
+}
+
+.messages::-webkit-scrollbar-track {
+  background-color: #323232;
+  border-radius: 10px;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background-color: #0f0f0f;
+  border-radius: 10px;
+}
+
+.room__chat {
+  display: flex;
+  flex-direction: column;
+}
+.room__chat .chat__messages {
+  height: 90%;
+  max-height: 85vh;
+}
+.room__chat .chat__controls {
+  height: 5%;
+  max-height: 5vh;
+}
+
 .user-label_crimson {
   border-color: crimson;
 }
@@ -154,23 +314,98 @@
   background-color: #3c3c3c;
 }
 
-.rooms {
+.music-search-list-item {
   display: flex;
-  justify-content: start;
-  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 1.5em;
+  padding: 2%;
+}
+.music-search-list-item .music-search-list-item__description {
+  width: 80%;
+  overflow: hidden;
+}
+.music-search-list-item .music-search-list-item__description * {
+  white-space: nowrap;
+  overflow: hidden;
+}
+.music-search-list-item .music-search-list-item__controls {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  position: relative;
+  width: 20%;
+}
+.music-search-list-item .music-search-list-item__controls .music-search-list-item__controls__add-music-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0;
+  border-width: 0;
+  background-color: rgba(0, 0, 0, 0);
+}
+.music-search-list-item .music-search-list-item__controls .music-search-list-item__controls__add-music-button img {
+  width: 2.5vh;
+  height: 2.5vh;
+}
+
+.music-search-list {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+.music-search-list .music-search-list__music-search-list-item {
+  width: 90%;
+  position: relative;
+  margin: 1% 0 1% 0;
+  transition: margin 200ms ease-out;
+}
+.music-search-list .music-search-list__music-search-list-item:before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0.5%;
+  top: 0;
+  background-color: #4f4f4f;
+  transition: width 200ms ease-out;
+}
+.music-search-list .music-search-list__music-search-list-item:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0.5%;
+  bottom: 0;
+  background-color: #4f4f4f;
+  transition: width 200ms ease-out;
+}
+.music-search-list .music-search-list__music-search-list-item:hover {
+  margin: 2% 0 2% 0;
+}
+.music-search-list .music-search-list__music-search-list-item:hover:before {
+  width: 100%;
+}
+.music-search-list .music-search-list__music-search-list-item:hover:after {
   width: 100%;
 }
 
-.wrapper {
-  min-height: 100vh;
-}
-.wrapper .main {
-  min-height: 100vh;
-  background-color: #1e1e1e;
-}
-.wrapper .main .content {
+.music-search {
   display: flex;
-  flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
+}
+.music-search .music-search-controls {
+  display: flex;
+  width: 100%;
+  justify-content: start;
+  margin: 1% 0 1% 0;
+}
+.music-search .music-search-controls .music-search-controls__query-input {
+  width: 90%;
+  height: auto;
+  resize: none;
 }
 
 .room {
@@ -179,12 +414,12 @@
   flex-grow: 1;
   align-items: stretch;
 }
-.room .room__playlists {
-  width: 25%;
+.room .room__room-music {
+  width: 27%;
   background-color: #151515;
 }
 .room .room__chat {
-  width: 55%;
+  width: 53%;
 }
 .room .room__users {
   display: flex;

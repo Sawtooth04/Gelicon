@@ -1,0 +1,41 @@
+.music-search-list-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 1.5em;
+  padding: 2%;
+
+  & .music-search-list-item__description {
+    width: 80%;
+    overflow: hidden;
+
+    & * {
+      white-space: nowrap;
+      overflow: hidden;
+    }
+  }
+
+  & .music-search-list-item__controls {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    position: relative;
+    width: 20%;
+
+    & .music-search-list-item__controls__add-music-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      padding: 0;
+      border-width: 0;
+      background-color: rgba(0, 0, 0, 0);
+
+      & img {
+        width: 2.5vh;
+        height: 2.5vh;
+      }
+    }
+  }
+}

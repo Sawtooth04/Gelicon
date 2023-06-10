@@ -1,0 +1,10 @@
+.music-search-list-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 1.5em;
+  padding: 2%;
+}
+
+/*# sourceMappingURL=music-search-list-item.css.map */

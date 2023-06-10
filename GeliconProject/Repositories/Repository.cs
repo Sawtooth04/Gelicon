@@ -85,5 +85,11 @@ namespace GeliconProject.Repositories
             }
             return null;
         }
+
+        public async Task AddMusicToRoom(string roomID, string musicID)
+        {
+            if (context != null)
+                await Task.Run(() => context.RoomMusics.Add(new RoomMusic() { roomID = int.Parse(roomID), musicID = musicID }));
+        }
     }
 }

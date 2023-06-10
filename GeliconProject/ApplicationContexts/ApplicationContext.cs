@@ -9,6 +9,7 @@ namespace GeliconProject.Utils.ApplicationContexts
         public DbSet<User> Users => Set<User>();
         public DbSet<Room> Rooms => Set<Room>();
         public DbSet<Color> Colors => Set<Color>();
+        public DbSet<RoomMusic> RoomMusics => Set<RoomMusic>();
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {

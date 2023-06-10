@@ -3,6 +3,7 @@ using GeliconProject.Hubs.Room.Threads.ThreadsContainer;
 using GeliconProject.Models;
 using GeliconProject.Repositories;
 using GeliconProject.Utils.ApplicationContexts;
+using GeliconProject.Utils.Audius;
 using GeliconProject.Utils.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
@@ -61,6 +62,23 @@ namespace GeliconProject.Hubs.Room
                 await roomObserverThread.HandlePingResponse(Context.ConnectionId, responseReceived);
         }
 
+        [Authorize]
+        public async Task GetMainAudioEndpoint()
+        {
+            await Clients.Caller.SendAsync("SetMainAudioEndpoint", AudiusParameters.GetServersEndpoint);
+        }
 
+        [Authorize]
+        public async Task GetAppName()
+        {
+            await Clients.Caller.SendAsync("SetAppName", AudiusParameters.AppName);
+        }
+
+        [Authorize]
+        public async Task AddMusicToRoom(string roomID, string musicID)
+        {
+            await repository.AddMusicToRoom(roomID, musicID);
+            repository.SaveChanges();
+        }
     }
 }
