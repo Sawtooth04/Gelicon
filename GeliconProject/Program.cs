@@ -4,11 +4,15 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using GeliconProject.Middlewares;
 using GeliconProject.Utils.JWTValidationParameters;
-using GeliconProject.Utils.ApplicationContexts;
-using GeliconProject.ApplicationContexts;
-using GeliconProject.Repositories;
 using GeliconProject.Hubs.Room;
-using GeliconProject.Hubs.Room.Threads.ThreadsContainer;
+using GeliconProject.Storage.Abstractions.Context;
+using GeliconProject.Storage.Gelicon.Context;
+using GeliconProject.Storage.Abstractions;
+using GeliconProject.Storage.Gelicon;
+using GeliconProject.Hubs.Room.Abstractions.Threads.ThreadsProvider;
+using GeliconProject.Hubs.Room.Realizations.Threads.ThreadsProvider;
+using GeliconProject.Hubs.Room.Abstractions.Threads.ThreadsManager;
+using GeliconProject.Hubs.Room.Realizations.Threads.ThreadsManager;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddJWTValidationParameters();
@@ -21,9 +25,10 @@ builder.Services.AddCors();
 builder.Services.AddControllersWithViews();
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(new JWTValidationParameters().SetJWTOptionsToken);
-builder.Services.AddDbContext<IAppContext, ApplicationContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Singleton);
-builder.Services.AddSingleton<IRoomsThreadsContainer, RoomsThreadsContainer>();
-builder.Services.AddDbRepository();
+builder.Services.AddDbContext<IStorageContext, ApplicationContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Transient);
+builder.Services.AddScoped<IStorage, DbStorage>();
+builder.Services.AddSingleton<IRoomsThreadsProvider, RoomsThreadsProvider>();
+builder.Services.AddSingleton<IRoomsThreadsManager, RoomsThreadsManager>();
 
 WebApplication app = builder.Build();
 

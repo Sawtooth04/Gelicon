@@ -4,6 +4,7 @@ import RoomChat from "./RoomChat/RoomChat";
 import HubConnector from "../../Utils/HubConnector";
 import RoomUsersList from "./RoomUsersList/RoomUsersList";
 import RoomMusic from "./RoomMusic/RoomMusic";
+import RoomMusicPlayer from "./RoomMusicPlayer/RoomMusicPlayer";
 
 const Room = () => {
     const [connector, setConnector] = useState(new HubConnector());
@@ -56,6 +57,7 @@ const Room = () => {
             <RoomMusic connector={connector}/>
             <RoomChat connector={connector} roomID={roomID} roomUsersColors={roomUsersColors}/>
             <RoomUsersList users={users} roomUsersColors={roomUsersColors} className="room__users users"/>
+            <RoomMusicPlayer connector={connector}/>
         </div>
     );
 };

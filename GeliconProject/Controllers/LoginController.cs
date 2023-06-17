@@ -3,25 +3,24 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using GeliconProject.Models;
-using GeliconProject.Utils.ApplicationContexts;
 using GeliconProject.Utils.JWTValidationParameters;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using GeliconProject.Utils.Claims;
-using GeliconProject.ApplicationContexts;
-using GeliconProject.Repositories;
+using GeliconProject.Storage.Abstractions;
+using GeliconProject.Storage.Repositories.User;
 
 namespace GeliconProject.Controllers
 {
     public class LoginController : Controller
     {
         private readonly IJWTValidationParameters validationParameters;
-        private IRepository repository;
+        private IStorage storage;
 
-        public LoginController(IJWTValidationParameters validationParameters, IRepository repository)
+        public LoginController(IJWTValidationParameters validationParameters, IStorage storage)
         {
             this.validationParameters = validationParameters;
-            this.repository = repository;
+            this.storage = storage;
         }
 
         private bool isPasswordValid(User user, string password)
@@ -34,7 +33,7 @@ namespace GeliconProject.Controllers
         private bool isUserValid(string email, string password)
         {
             User? user;
-            return ((user = repository.GetUserByEmail(email)) == null) ? false : isPasswordValid(user, password);
+            return ((user = storage.GetRepository<IUserRepository>()?.GetUserByEmail(email)) == null) ? false : isPasswordValid(user, password);
         }
 
         private List<Claim> getLoginClaims(User user)
@@ -51,7 +50,7 @@ namespace GeliconProject.Controllers
         {
             if (isUserValid(email, password))
             {
-                User? user = repository.GetUserByEmail(email);
+                User? user = storage.GetRepository<IUserRepository>()?.GetUserByEmail(email);
                 JwtSecurityToken jwt = new JwtSecurityToken
                 (
                     issuer: IJWTValidationParameters.issuer,

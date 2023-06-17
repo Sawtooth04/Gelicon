@@ -1,0 +1,25 @@
+.music-list-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 1.5em;
+  padding: 2%;
+}
+.music-list-item .music-list-item__description {
+  width: 80%;
+  overflow: hidden;
+}
+.music-list-item .music-list-item__description * {
+  white-space: nowrap;
+  overflow: hidden;
+}
+.music-list-item .music-list-item__controls {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  position: relative;
+  width: 20%;
+}
+
+/*# sourceMappingURL=music-list-item.css.map */

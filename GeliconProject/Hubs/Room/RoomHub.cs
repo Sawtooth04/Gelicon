@@ -1,8 +1,10 @@
-﻿using GeliconProject.Hubs.Room.Threads;
-using GeliconProject.Hubs.Room.Threads.ThreadsContainer;
+﻿using GeliconProject.Hubs.Room.Abstractions.Threads;
+using GeliconProject.Hubs.Room.Abstractions.Threads.ThreadsManager;
+using GeliconProject.Hubs.Room.Abstractions.Threads.ThreadsProvider;
 using GeliconProject.Models;
-using GeliconProject.Repositories;
-using GeliconProject.Utils.ApplicationContexts;
+using GeliconProject.Storage.Abstractions;
+using GeliconProject.Storage.Abstractions.Repositories.RoomMusic;
+using GeliconProject.Storage.Repositories.User;
 using GeliconProject.Utils.Audius;
 using GeliconProject.Utils.Claims;
 using Microsoft.AspNetCore.Authorization;
@@ -15,13 +17,15 @@ namespace GeliconProject.Hubs.Room
 {
     public class RoomHub : Hub
     {
-        private IRoomsThreadsContainer roomsThreadsContainer;
-        private IRepository repository;
+        private IRoomsThreadsProvider roomsThreadsProvider;
+        private IRoomsThreadsManager roomsThreadsManager;
+        private IStorage storage;
 
-        public RoomHub(IRepository repository, IRoomsThreadsContainer roomsThreadsContainer)
+        public RoomHub(IStorage storage, IRoomsThreadsManager roomsThreadsManager, IRoomsThreadsProvider roomsThreadsProvider)
         {
-            this.repository = repository;
-            this.roomsThreadsContainer = roomsThreadsContainer;
+            this.storage = storage;
+            this.roomsThreadsManager = roomsThreadsManager;
+            this.roomsThreadsProvider = roomsThreadsProvider;
         }
 
         public override async Task<Task> OnConnectedAsync()
@@ -34,7 +38,7 @@ namespace GeliconProject.Hubs.Room
         public async Task UserConnect(string roomID)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, roomID);
-            roomsThreadsContainer.CreateRoomObserverThread(roomID, Clients).AddNewClient(Context.ConnectionId);
+            roomsThreadsProvider.CreateRoomObserverThread(roomID, Clients).AddNewClient(Context.ConnectionId, Clients.Client(Context.ConnectionId));
         }
 
         [Authorize]
@@ -42,7 +46,7 @@ namespace GeliconProject.Hubs.Room
         {
             Random random = new Random();
             int userID = int.Parse(Context.User!.FindFirst(Claims.UserID)!.Value);
-            User? sender = repository.GetUserByIDWithoutJoins(userID);
+            User? sender = storage.GetRepository<IUserRepository>()?.GetUserByIDWithoutJoins(userID);
 
             await Clients.Group(roomID).SendAsync("AppendMessage", new
             {
@@ -56,7 +60,7 @@ namespace GeliconProject.Hubs.Room
         public async Task PingResponse(string roomID)
         {
             DateTime responseReceived = DateTime.Now;
-            RoomObserverThread? roomObserverThread = roomsThreadsContainer.FindRoomObserverThread(roomID);
+            IRoomObserverThread? roomObserverThread = roomsThreadsProvider.FindRoomObserverThread(roomID);
 
             if (roomObserverThread != null)
                 await roomObserverThread.HandlePingResponse(Context.ConnectionId, responseReceived);
@@ -77,8 +81,21 @@ namespace GeliconProject.Hubs.Room
         [Authorize]
         public async Task AddMusicToRoom(string roomID, string musicID)
         {
-            await repository.AddMusicToRoom(roomID, musicID);
-            repository.SaveChanges();
+            await storage.GetRepository<IRoomMusicRepository>()?.Add(int.Parse(roomID), musicID)!;
+            storage.Save();
+        }
+
+        [Authorize]
+        public async Task GetRoomMusic(string roomID)
+        {
+            List<RoomMusic>? roomMusics = storage.GetRepository<IRoomMusicRepository>()?.GetRoomMusic(int.Parse(roomID));
+            await Clients.Caller.SendAsync("SetRoomMusic", roomMusics);
+        }
+
+        [Authorize]
+        public void GetCurrentMusic(string roomID)
+        {
+            roomsThreadsManager.Invoke("GetCurrentMusic", roomID, Context.ConnectionId);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using GeliconProject.Models;
-using GeliconProject.Repositories;
-using GeliconProject.Utils.ApplicationContexts;
+using GeliconProject.Storage.Abstractions;
+using GeliconProject.Storage.Repositories.User;
 using GeliconProject.Utils.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,12 +12,12 @@ namespace GeliconProject.Controllers
 {
     public class RoomsController : Controller
     {
-        private IRepository repository;
+        private IStorage storage;
         private JsonSerializerOptions serializerOptions;
 
-        public RoomsController(IRepository repository)
+        public RoomsController(IStorage storage)
         {
-            this.repository = repository;
+            this.storage = storage;
             serializerOptions = new JsonSerializerOptions();
             serializerOptions.MaxDepth = 10;
             serializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
@@ -31,7 +31,7 @@ namespace GeliconProject.Controllers
             if (userIDClaim == null)
                 return NotFound();
             int userID = int.Parse(userIDClaim.Value);
-            User? user = repository.GetUserByID(userID);
+            User? user = storage.GetRepository<IUserRepository>()?.GetUserByID(userID);
             return Json(user?.rooms, serializerOptions);
         }
     }

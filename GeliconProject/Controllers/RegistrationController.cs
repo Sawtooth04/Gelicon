@@ -1,32 +1,33 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using GeliconProject.Models;
-using GeliconProject.Utils.ApplicationContexts;
-using GeliconProject.Repositories;
+using GeliconProject.Storage.Abstractions;
+using GeliconProject.Storage.Repositories.User;
 
 namespace GeliconProject.Controllers
 {
     public class RegistrationController : ControllerBase
     {
-        private IRepository repository;
+        private IStorage storage;
 
-        public RegistrationController(IRepository repository)
+        public RegistrationController(IStorage storage)
         {
-            this.repository = repository;
+            this.storage = storage;
         }
 
         [HttpPost]
-        public async Task Register(string name, string password, string email)
+        public void Register(string name, string password, string email)
         {
+            
             PasswordHasher<User> hasher = new PasswordHasher<User>();
-            User user = new User
+            User user = new User()
             {
                 name = name,
                 email = email
             };
             user.passwordHash = hasher.HashPassword(user, password);
-            await repository.AddUser(user);
-            repository.SaveChanges();
+            storage.GetRepository<IUserRepository>()?.Add(user);
+            storage.Save();
         }
     }
 }

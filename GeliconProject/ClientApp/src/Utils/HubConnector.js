@@ -73,6 +73,14 @@ class HubConnector {
     async addMusicToRoom(musicID) {
         await this._connection.invoke("AddMusicToRoom", this.roomID, musicID);
     }
+
+    async getRoomMusic() {
+        await this._connection.invoke("GetRoomMusic", this.roomID);
+    }
+
+    async getCurrentMusic() {
+        await this._connection.invoke("GetCurrentMusic", this.roomID);
+    }
 }
 
 export default HubConnector

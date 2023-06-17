@@ -408,6 +408,70 @@
   resize: none;
 }
 
+.music-list-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 1.5em;
+  padding: 2%;
+}
+.music-list-item .music-list-item__description {
+  width: 80%;
+  overflow: hidden;
+}
+.music-list-item .music-list-item__description * {
+  white-space: nowrap;
+  overflow: hidden;
+}
+.music-list-item .music-list-item__controls {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  position: relative;
+  width: 20%;
+}
+
+.music-list {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+.music-list .music-list__music-list-item {
+  width: 90%;
+  position: relative;
+  margin: 1% 0 1% 0;
+  transition: margin 200ms ease-out;
+}
+.music-list .music-list__music-list-item:before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0.5%;
+  top: 0;
+  background-color: #4f4f4f;
+  transition: width 200ms ease-out;
+}
+.music-list .music-list__music-list-item:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0.5%;
+  bottom: 0;
+  background-color: #4f4f4f;
+  transition: width 200ms ease-out;
+}
+.music-list .music-list__music-list-item:hover {
+  margin: 2% 0 2% 0;
+}
+.music-list .music-list__music-list-item:hover:before {
+  width: 100%;
+}
+.music-list .music-list__music-list-item:hover:after {
+  width: 100%;
+}
+
 .room {
   display: flex;
   width: 100%;
