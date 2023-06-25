@@ -20,7 +20,7 @@
   flex-direction: column;
   align-items: flex-start;
   background-color: #000000;
-  min-width: 12%;
+  min-width: 5%;
   min-height: 100vh;
 }
 .sidebar * {
@@ -101,6 +101,7 @@
   background-color: #2d2d2d;
   border-color: #4f4f4f;
   transition: border-color ease-out 0.5s;
+  border-width: 0;
 }
 
 .ui-textarea::-webkit-scrollbar {
@@ -122,25 +123,25 @@
   border-color: #7a7a7a;
 }
 
-.chat__controls {
+.controls {
   display: flex;
   min-height: 5vh;
   max-height: 20vh;
-  margin: 0 2%;
   align-items: end;
 }
-.chat__controls .controls__message-input {
+.controls .controls__message-input {
   width: 90%;
   height: auto;
   resize: none;
+  padding: 0.3em;
 }
-.chat__controls .controls__buttons-wrapper {
+.controls .controls__buttons-wrapper {
   display: flex;
   align-items: center;
   width: 10%;
   height: 100%;
 }
-.chat__controls .controls__buttons-wrapper .controls__submit-button {
+.controls .controls__buttons-wrapper .controls__submit-button {
   height: auto;
   margin: 0 auto 0 auto;
 }
@@ -186,7 +187,6 @@
   flex-direction: column;
   width: 100%;
   color: #b2b3b3;
-  margin: 1% 0;
 }
 .message .message__meta {
   display: flex;
@@ -207,8 +207,11 @@
 }
 
 .messages {
-  padding: 1%;
   overflow-y: auto;
+}
+.messages .messages__message {
+  width: 96%;
+  margin: 2%;
 }
 
 .messages::-webkit-scrollbar {
@@ -235,6 +238,7 @@
 }
 .room__chat .chat__controls {
   height: 5%;
+  margin: 0 2%;
   max-height: 5vh;
 }
 
@@ -472,6 +476,103 @@
   width: 100%;
 }
 
+.volume-trackbar {
+  width: 6%;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  position: relative;
+}
+.volume-trackbar .trackbar {
+  position: absolute;
+  padding-bottom: 120%;
+  border: 0.5vw dashed rgba(0, 0, 0, 0);
+}
+.volume-trackbar .trackbar .noUi-target {
+  display: flex;
+  justify-content: center;
+  background: none;
+  border: none;
+  box-shadow: none;
+  height: 0;
+  transition: height 200ms ease-in-out;
+}
+.volume-trackbar .trackbar .noUi-base {
+  width: 0.3vw;
+  border-radius: 10%;
+  background-color: #4f4f4f;
+}
+.volume-trackbar .trackbar .noUi-connect {
+  background-color: #b2b3b3;
+}
+.volume-trackbar .trackbar .noUi-handle {
+  opacity: 0;
+  width: 0.5vw;
+  height: 0.5vw;
+  right: -0.1vw;
+  bottom: -0.25vw;
+  border-radius: 100%;
+  transition: opacity 100ms ease-out;
+}
+.volume-trackbar .trackbar .noUi-handle .noUi-touch-area {
+  width: 200%;
+  height: 200%;
+}
+.volume-trackbar .trackbar .noUi-handle::before, .volume-trackbar .trackbar .noUi-handle::after {
+  display: none;
+}
+.volume-trackbar .volume-trackbar__icon-wrapper {
+  position: relative;
+  padding-top: 100%;
+  width: 100%;
+}
+.volume-trackbar .volume-trackbar__icon-wrapper .volume-trackbar__icon-wrapper__icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: auto;
+}
+
+.volume-trackbar:hover .noUi-target {
+  height: 7vh;
+}
+.volume-trackbar:hover .noUi-handle {
+  opacity: 1;
+}
+
+.music-player {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.music-player .music-player__controls {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.room-music {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.room-music .room-music__navbar {
+  width: 100%;
+  height: 3%;
+}
+.room-music .room-music__routes {
+  width: 100%;
+  height: 87.2%;
+}
+.room-music .room-music__music-player {
+  width: 91%;
+  height: 5%;
+  margin: 0 9%;
+  background-color: #1e1e1e;
+}
+
 .room {
   display: flex;
   width: 100%;
@@ -500,6 +601,7 @@
   background-color: #2d2d2d;
   border-color: #4f4f4f;
   transition: border-color ease-out 0.5s;
+  border-width: 0;
 }
 
 .ui-textarea::-webkit-scrollbar {
@@ -521,25 +623,25 @@
   border-color: #7a7a7a;
 }
 
-.chat__controls {
+.controls {
   display: flex;
   min-height: 5vh;
   max-height: 20vh;
-  margin: 0 2%;
   align-items: end;
 }
-.chat__controls .controls__message-input {
+.controls .controls__message-input {
   width: 90%;
   height: auto;
   resize: none;
+  padding: 0.3em;
 }
-.chat__controls .controls__buttons-wrapper {
+.controls .controls__buttons-wrapper {
   display: flex;
   align-items: center;
   width: 10%;
   height: 100%;
 }
-.chat__controls .controls__buttons-wrapper .controls__submit-button {
+.controls .controls__buttons-wrapper .controls__submit-button {
   height: auto;
   margin: 0 auto 0 auto;
 }
@@ -585,7 +687,6 @@
   flex-direction: column;
   width: 100%;
   color: #b2b3b3;
-  margin: 1% 0;
 }
 .message .message__meta {
   display: flex;
@@ -606,8 +707,11 @@
 }
 
 .messages {
-  padding: 1%;
   overflow-y: auto;
+}
+.messages .messages__message {
+  width: 96%;
+  margin: 2%;
 }
 
 .messages::-webkit-scrollbar {
@@ -634,6 +738,7 @@
 }
 .room__chat .chat__controls {
   height: 5%;
+  margin: 0 2%;
   max-height: 5vh;
 }
 

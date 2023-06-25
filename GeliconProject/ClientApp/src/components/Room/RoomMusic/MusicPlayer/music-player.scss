@@ -1,0 +1,14 @@
+@import "VolumeTrackbar/volume-trackbar";
+
+.music-player {
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  & .music-player__controls {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+}

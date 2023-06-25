@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Route, Routes, Link} from "react-router-dom";
 import MusicSearch from "./MusicSearch/MusicSearch";
 import MusicList from "./MusicList/MusicList";
+import MusicPlayer from "./MusicPlayer/MusicPlayer";
 
 const RoomMusic = ({connector, ...props}) => {
     const [roomMusicList, setRoomMusicList] = useState([]);
@@ -41,10 +42,13 @@ const RoomMusic = ({connector, ...props}) => {
                 <Link to="music-search"> Search </Link>
                 <Link to="music-list"> Search </Link>
             </div>
-            <Routes>
-                <Route exact path="music-list" element={<MusicList musicList={roomMusicList}/>}/>
-                <Route path="*" element={<MusicSearch connector={connector} addMusicCallback={addMusic}/>}/>
-            </Routes>
+            <div className={"room-music__routes"}>
+                <Routes>
+                    <Route exact path="music-list" element={<MusicList musicList={roomMusicList}/>}/>
+                    <Route path="*" element={<MusicSearch connector={connector} addMusicCallback={addMusic}/>}/>
+                </Routes>
+            </div>
+            <MusicPlayer connector={connector}/>
         </div>
     );
 };

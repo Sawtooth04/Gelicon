@@ -11,6 +11,7 @@ namespace GeliconProject.Models
         public int roomMusicID { get; set; }
         public int roomID { get; set; }
         public string? musicID { get; set; }
+        public DateTime addedAt { get; set; }
         public Room? room { get; set; }
     }
 }

@@ -1,0 +1,78 @@
+@import "../../../../variables";
+
+.volume-trackbar {
+  width: 6%;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  position: relative;
+
+  & .trackbar {
+    position: absolute;
+    padding-bottom: 120%;
+    border: 0.5vw dashed rgba(0, 0, 0, 0);
+
+    & .noUi-target {
+      display: flex;
+      justify-content: center;
+      background: none;
+      border: none;
+      box-shadow: none;
+      height: 0;
+      transition: height 200ms ease-in-out;
+    }
+
+    & .noUi-base {
+      width: 0.3vw;
+      border-radius: 10%;
+      background-color: $default_music_player_volume_trackbar_background_color;
+    }
+
+    & .noUi-connect {
+      background-color: $default_music_player_volume_trackbar_color;
+    }
+
+    & .noUi-handle {
+      opacity: 0;
+      width: 0.5vw;
+      height: 0.5vw;
+      right: -0.1vw;
+      bottom: -0.25vw;
+      border-radius: 100%;
+      transition: opacity 100ms ease-out;
+
+      & .noUi-touch-area {
+        width: 200%;
+        height: 200%;
+      }
+    }
+
+    .noUi-handle::before, .noUi-handle::after {
+      display: none;
+    }
+  }
+
+  & .volume-trackbar__icon-wrapper {
+    position: relative;
+    padding-top: 100%;
+    width: 100%;
+
+    & .volume-trackbar__icon-wrapper__icon {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+.volume-trackbar:hover {
+  & .noUi-target {
+    height: 7vh;
+  }
+
+  & .noUi-handle {
+    opacity: 1;
+  }
+}

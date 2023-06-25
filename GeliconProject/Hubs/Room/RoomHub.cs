@@ -1,6 +1,6 @@
-﻿using GeliconProject.Hubs.Room.Abstractions.Threads;
-using GeliconProject.Hubs.Room.Abstractions.Threads.ThreadsManager;
-using GeliconProject.Hubs.Room.Abstractions.Threads.ThreadsProvider;
+﻿using GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer;
+using GeliconProject.Hubs.Room.Abstractions.Threads;
+using GeliconProject.Hubs.Room.Abstractions.Threads.ThreadsController;
 using GeliconProject.Models;
 using GeliconProject.Storage.Abstractions;
 using GeliconProject.Storage.Abstractions.Repositories.RoomMusic;
@@ -17,15 +17,13 @@ namespace GeliconProject.Hubs.Room
 {
     public class RoomHub : Hub
     {
-        private IRoomsThreadsProvider roomsThreadsProvider;
-        private IRoomsThreadsManager roomsThreadsManager;
         private IStorage storage;
+        private IRoomsThreadsController roomsThreadsController;
 
-        public RoomHub(IStorage storage, IRoomsThreadsManager roomsThreadsManager, IRoomsThreadsProvider roomsThreadsProvider)
+        public RoomHub(IStorage storage, IRoomsThreadsController roomsThreadsController)
         {
             this.storage = storage;
-            this.roomsThreadsManager = roomsThreadsManager;
-            this.roomsThreadsProvider = roomsThreadsProvider;
+            this.roomsThreadsController = roomsThreadsController;
         }
 
         public override async Task<Task> OnConnectedAsync()
@@ -38,7 +36,7 @@ namespace GeliconProject.Hubs.Room
         public async Task UserConnect(string roomID)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, roomID);
-            roomsThreadsProvider.CreateRoomObserverThread(roomID, Clients).AddNewClient(Context.ConnectionId, Clients.Client(Context.ConnectionId));
+            roomsThreadsController.CreateRoomObserverThread(roomID, Clients).AddNewClient(Context.ConnectionId, Clients.Client(Context.ConnectionId));
         }
 
         [Authorize]
@@ -60,7 +58,7 @@ namespace GeliconProject.Hubs.Room
         public async Task PingResponse(string roomID)
         {
             DateTime responseReceived = DateTime.Now;
-            IRoomObserverThread? roomObserverThread = roomsThreadsProvider.FindRoomObserverThread(roomID);
+            IRoomObserverThread? roomObserverThread = roomsThreadsController.FindRoomObserverThread(roomID);
 
             if (roomObserverThread != null)
                 await roomObserverThread.HandlePingResponse(Context.ConnectionId, responseReceived);
@@ -95,7 +93,31 @@ namespace GeliconProject.Hubs.Room
         [Authorize]
         public void GetCurrentMusic(string roomID)
         {
-            roomsThreadsManager.Invoke("GetCurrentMusic", roomID, Context.ConnectionId);
+            roomsThreadsController.GetCurrentMusic(Clients.Caller, roomID, Context.ConnectionId);
+        }
+
+        [Authorize]
+        public void SetPlayState(string roomID)
+        {
+            roomsThreadsController.SetPlayState(Clients.Group(roomID), roomID, Context.ConnectionId);
+        }
+
+        [Authorize]
+        public void SetPauseState(string roomID)
+        {
+            roomsThreadsController.SetPauseState(Clients.Group(roomID), roomID, Context.ConnectionId);
+        }
+
+        [Authorize]
+        public void SetNextMusic(string roomID)
+        {
+            roomsThreadsController.SetNextMusic(Clients.Group(roomID), roomID, Context.ConnectionId);
+        }
+
+        [Authorize]
+        public void SetPreviousMusic(string roomID)
+        {
+            roomsThreadsController.SetPreviousMusic(Clients.Group(roomID), roomID, Context.ConnectionId);
         }
     }
 }

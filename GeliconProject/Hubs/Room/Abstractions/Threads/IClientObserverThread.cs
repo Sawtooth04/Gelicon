@@ -14,7 +14,5 @@
         public void SetPingResult(DateTime responseReceived);
 
         public void AddConnectionLostHandler(OnConnectionLost handler);
-
-        public Task SendAsync(string method, object? arg);
     }
 }

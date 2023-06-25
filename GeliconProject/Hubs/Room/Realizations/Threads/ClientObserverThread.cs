@@ -77,10 +77,5 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads
         {
             connectionLostEvent += handler;
         }
-
-        public async Task SendAsync(string method, object? arg)
-        {
-            await client.SendAsync(method, arg);
-        }
     }
 }

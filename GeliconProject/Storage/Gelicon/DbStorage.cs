@@ -15,7 +15,7 @@ namespace GeliconProject.Storage.Gelicon
             StorageContext = storageContext;
         }
 
-        public T? GetRepository<T>() where T : IRepository
+        public T GetRepository<T>() where T : IRepository
         {
             foreach (Type type in this.GetType().GetTypeInfo().Assembly.GetTypes())
             {
@@ -26,7 +26,7 @@ namespace GeliconProject.Storage.Gelicon
                     return repository;
                 }
             }
-            return default(T);
+            throw new Exception("Cannot find repository.");
         }
 
         public void Save()

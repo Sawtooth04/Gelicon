@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer;
+using Microsoft.AspNetCore.SignalR;
 
 namespace GeliconProject.Hubs.Room.Abstractions.Threads
 {
@@ -8,6 +9,8 @@ namespace GeliconProject.Hubs.Room.Abstractions.Threads
     {
         public string? RoomID { get; set; }
 
+        public IRoomMusicPlayerModel? RoomMusicPlayerModel { get; set; }
+
         public void AddNewClient(string connectionID, IClientProxy client);
 
         public void Start();
@@ -15,7 +18,5 @@ namespace GeliconProject.Hubs.Room.Abstractions.Threads
         public Task HandlePingResponse(string connectionID, DateTime responseReceived);
 
         public void AddEmptyRoomHandler(OnEmptyRoom handler);
-
-        public void SetClientMusic(string connectionID);
     }
 }

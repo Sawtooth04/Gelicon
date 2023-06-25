@@ -1,5 +1,7 @@
 ﻿using GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer;
 using GeliconProject.Hubs.Room.Abstractions.Threads;
+using GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer;
+using GeliconProject.Storage.Abstractions;
 using Microsoft.AspNetCore.SignalR;
 
 namespace GeliconProject.Hubs.Room.Realizations.Threads
@@ -11,14 +13,16 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads
         private bool isInterrupted;
         private string? roomID;
         private List<IClientObserverThread> clientObservers;
-        private IRoomMusicPlayer? roomMusicPlayer;
+        private IRoomMusicPlayerModel? roomMusicPlayerModel;
         
         public string? RoomID { get => roomID; set => roomID = value; }
+
+        public IRoomMusicPlayerModel? RoomMusicPlayerModel { get => roomMusicPlayerModel; set => roomMusicPlayerModel = value; }
 
         public RoomObserverThread()
         {
             clientObservers = new List<IClientObserverThread>();
-            roomMusicPlayer = new RoomMusicPlayer.RoomMusicPlayer(clientObservers, new RoomMusicPlayer.Model.RoomMusicPlayerModel());
+            roomMusicPlayerModel = new RoomMusicPlayerModel();
             isInterrupted = true;
             thread = new Thread(ThreadDelegate);
         }
@@ -64,13 +68,5 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads
         {
             emptyRoomEvent += handler;
         }
-
-        public void SetClientMusic(string connectionID)
-        {
-            IClientObserverThread? client = clientObservers.Find(c => c.ConnectionID == connectionID);
-            if (client != null)
-                roomMusicPlayer?.SetClientMusic(client);
-        }
-    
     }
 }

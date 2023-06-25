@@ -1,8 +1,12 @@
 @import "../../../variables";
 
 .messages {
-  padding: 1%;
   overflow-y: auto;
+
+  & .messages__message {
+    width: 96%;
+    margin: 2%;
+  }
 }
 
 .messages::-webkit-scrollbar {

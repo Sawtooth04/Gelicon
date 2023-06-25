@@ -1,16 +1,16 @@
 @import "../../../UI/TextArea/text-area";
 
-.chat__controls {
+.controls {
   display: flex;
   min-height: 5vh;
   max-height: 20vh;
-  margin: 0 2%;
   align-items: end;
 
   & .controls__message-input {
     width: 90%;
     height: auto;
     resize: none;
+    padding: 0.3em;
   }
 
   & .controls__buttons-wrapper {

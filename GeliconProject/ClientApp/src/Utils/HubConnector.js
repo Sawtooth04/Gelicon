@@ -78,8 +78,25 @@ class HubConnector {
         await this._connection.invoke("GetRoomMusic", this.roomID);
     }
 
+    //Music player
     async getCurrentMusic() {
         await this._connection.invoke("GetCurrentMusic", this.roomID);
+    }
+
+    async setPlayState() {
+        await this._connection.invoke("SetPlayState", this.roomID);
+    }
+
+    async setPauseState() {
+        await this._connection.invoke("SetPauseState", this.roomID);
+    }
+
+    async setNextMusic() {
+        await this._connection.invoke("SetNextMusic", this.roomID);
+    }
+
+    async setPreviousMusic() {
+        await this._connection.invoke("SetPreviousMusic", this.roomID);
     }
 }
 
