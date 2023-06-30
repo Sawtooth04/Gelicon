@@ -6,7 +6,7 @@ $rooms_labels_background_color: #3c3c3c;
 $users_labels_background_color: #3c3c3c;
 $main_background_color: #1e1e1e;
 $room_users_background_color: #151515;
-$room_playlists_background_color: #151515;
+$room_music_background_color: #151515;
 $default_scroll_bar_color: #323232;
 $default_scroll_button_color: #0f0f0f;
 $default_textarea_background_color: #2d2d2d;
@@ -14,9 +14,13 @@ $default_textarea_border_color: #4f4f4f;
 $default_textarea_focus_border_color: #7a7a7a;
 $default_music_search_item_borders_color: #4f4f4f;
 $default_music_item_borders_color: #4f4f4f;
-$default_music_player_background_color: #1e1e1e;
+$default_music_player_background_color: #151515;
 $default_music_player_volume_trackbar_background_color: #4f4f4f;
 $default_music_player_volume_trackbar_color: #b2b3b3;
+$default_music_player_button_border_color: #4f4f4f;
+$default_loading_screen_background_color: #0f0f0f;
+$default_loading_screen_logo_color: #4f4f4f;
+$room_music_current_music_background_color: #1b1b1b;
 
 //size vars
 $header_font_size: 18px;

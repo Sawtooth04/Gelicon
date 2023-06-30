@@ -30,12 +30,28 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads.ThreadsController
             return roomObserversProvider.FindRoomObserverThread(roomID);
         }
 
+        public void GetRoomMusicList(IClientProxy clients, string roomID, string connectionID)
+        {
+            IRoomObserverThread? roomObserver = roomObserversProvider.FindRoomObserverThread(roomID);
+
+            if (roomObserver != null && roomObserver.RoomMusicPlayerModel != null)
+                roomMusicPlayerController.SetClientsRoomMusicList(clients, int.Parse(roomID), roomObserver.RoomMusicPlayerModel);
+        }
+
         public void GetCurrentMusic(IClientProxy client, string roomID, string connectionID)
         {
             IRoomObserverThread? roomObserver = roomObserversProvider.FindRoomObserverThread(roomID);
 
             if (roomObserver != null && roomObserver.RoomMusicPlayerModel != null)
                 roomMusicPlayerController.SetClientMusic(client, roomObserver.RoomMusicPlayerModel);
+        }
+
+        public void SetCurrentMusic(IClientProxy clients, string roomID, string connectionID, string musicID)
+        {
+            IRoomObserverThread? roomObserver = roomObserversProvider.FindRoomObserverThread(roomID);
+
+            if (roomObserver != null && roomObserver.RoomMusicPlayerModel != null)
+                roomMusicPlayerController.SetCurrentMusic(clients, int.Parse(roomID), roomObserver.RoomMusicPlayerModel, musicID);
         }
 
         public void SetPlayState(IClientProxy clients, string roomID, string connectionID)
@@ -74,6 +90,22 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads.ThreadsController
 
             if (roomObserver != null && roomObserver.RoomMusicPlayerModel != null)
                 roomMusicPlayerController.SetPreviousMusic(clients, int.Parse(roomID), roomObserver.RoomMusicPlayerModel);
+        }
+
+        public void SetAudioTime(IClientProxy clients, string roomID, string connectionID, double value)
+        {
+            IRoomObserverThread? roomObserver = roomObserversProvider.FindRoomObserverThread(roomID);
+
+            if (roomObserver != null && roomObserver.RoomMusicPlayerModel != null)
+                roomMusicPlayerController.SetAudioTime(clients, int.Parse(roomID), roomObserver.RoomMusicPlayerModel, value);
+        }
+
+        public async Task DeleteRoomMusic(IClientProxy clients, string roomID, string connectionID, string musicID)
+        {
+            IRoomObserverThread? roomObserver = roomObserversProvider.FindRoomObserverThread(roomID);
+
+            if (roomObserver != null && roomObserver.RoomMusicPlayerModel != null)
+                await roomMusicPlayerController.DeleteRoomMusic(clients, int.Parse(roomID), roomObserver.RoomMusicPlayerModel, musicID);
         }
     }
 }

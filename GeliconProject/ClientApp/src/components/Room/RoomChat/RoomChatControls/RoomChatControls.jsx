@@ -18,7 +18,9 @@ const RoomChatControls = (props) => {
         <div className="chat__controls controls">
             <TextArea className="controls__message-input" value={message} inputCallback={onInput}/>
             <div className="controls__buttons-wrapper">
-                <button className="controls__submit-button" onClick={sendMessage}> </button>
+                <button className="controls__submit-button" onClick={sendMessage}>
+                    <img src={"/source/images/send.png"}/>
+                </button>
             </div>
         </div>
     );

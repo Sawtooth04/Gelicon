@@ -5,24 +5,91 @@
 
 .room-music {
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
+  max-height: 94vh;
+
+  & .room-music__loading-screen {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 59vh;
+    background-color: $default_loading_screen_background_color;
+    opacity: 0.9;
+  }
 
   & .room-music__navbar {
     width: 100%;
-    height: 3%;
+    height: 2%;
   }
 
   & .room-music__routes {
     width: 100%;
-    height: 87.2%;
+    height: 88%;
+
+    & .room-music__music-search {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   & .room-music__music-player {
-    width: 91%;
-    height: 5%;
-    margin: 0 9%;
+    width: 100%;
+    height: 10%;
     background-color: $default_music_player_background_color;
-  ;
+  }
+}
+
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 35vh;
+
+  & .loading-screen__animation-logo {
+    width: 4.8vw;
+    height: 4.8vw;
+    margin-bottom: 1vw;
+  }
+}
+
+.animation-logo {
+  position: relative;
+
+  & .animation-logo__circle {
+    width: 4vw;
+    height: 4vw;
+    border-right: 0.4vw solid $default_loading_screen_logo_color;
+    border-top: 0.4vw solid $default_loading_screen_logo_color;
+    border-left: 0.4vw solid $default_loading_screen_logo_color;
+    border-bottom: 0.4vw solid $default_loading_screen_logo_color;
+    border-radius: 100%;
+
+    &:after {
+      content: "";
+      animation: animation-logo-spinner 1.5s ease;
+      animation-iteration-count: infinite;
+      transform-origin: left;
+      position: absolute;
+      right: 0;
+      top: 1.4vw;
+      width: 0;
+      height: 0;
+      border-top: 1vw solid transparent;
+      border-right: 2.45vw solid $default_loading_screen_background_color;
+      border-bottom: 1vw solid transparent;
+    }
+  }
+}
+
+@keyframes animation-logo-spinner {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

@@ -1,0 +1,41 @@
+.timeline {
+  width: 70%;
+
+  & .trackbar {
+    border: 0.6vw dashed rgba(0, 0, 0, 0);
+
+    & .noUi-target {
+      height: auto;
+    }
+
+    & .noUi-base {
+      height: 0.2vw;
+      border-radius: 10%;
+      background-color: $default_music_player_volume_trackbar_background_color;
+    }
+
+    & .noUi-connect {
+      background-color: $default_music_player_volume_trackbar_color;
+    }
+
+    & .noUi-handle {
+      width: 0.7vw;
+      height: 0.7vw;
+      top: -0.25vw;
+      right: -0.35vw;
+      border-radius: 100%;
+    }
+
+    & .noUi-touch-area {
+      position: absolute;
+      width: 1vw;
+      height: 1vw;
+      left: -0.25vw;
+      top: -0.25vw;
+    }
+
+    .noUi-handle::before, .noUi-handle::after {
+      display: none;
+    }
+  }
+}

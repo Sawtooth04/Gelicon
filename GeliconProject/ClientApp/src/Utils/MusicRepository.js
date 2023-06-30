@@ -62,6 +62,17 @@ class MusicRepository {
         return `${this.audioEndpoints[this._currentAudioEndpointIndex]}/v1/tracks/${args.get('id')}/stream?app_name=${this.appName}`
     }
 
+    async getTrendingTracks() {
+        try {
+            return await fetch(
+                `${this.audioEndpoints[this._currentAudioEndpointIndex]}/v1//tracks/trending?app_name=${this.appName}`
+            );
+        }
+        catch (e) {
+            return null;
+        }
+    }
+
     switchServer() {
         if (this._currentAudioEndpointIndex === this.audioEndpoints.length - 1)
             this._currentAudioEndpointIndex = 0;

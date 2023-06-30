@@ -8,10 +8,14 @@ namespace GeliconProject.Storage.Abstractions.Repositories.RoomMusic
 
         public List<Models.RoomMusic> GetRoomMusic(int roomID);
 
+        public Models.RoomMusic? GetRoomMusic(int roomID, string musicID);
+
         public Models.RoomMusic GetLatestAddedMusic(int roomID, bool isDescending = true);
 
         public Models.RoomMusic GetNextMusic(int roomID, Models.RoomMusic currentMusic, bool isDescending = true);
 
         public Models.RoomMusic GetPreviousMusic(int roomID, Models.RoomMusic currentMusic, bool isDescending = true);
+
+        public void DeleteRoomMusic(int roomID, string musicID);
     }
 }

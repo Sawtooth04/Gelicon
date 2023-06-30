@@ -6,18 +6,15 @@ import MusicPlayer from "./MusicPlayer/MusicPlayer";
 
 const RoomMusic = ({connector, ...props}) => {
     const [roomMusicList, setRoomMusicList] = useState([]);
+    const [currentAudioInfo, setCurrentAudioInfo] = useState(null);
 
     useEffect(() => {
         function addEventHandlers() {
-            connector.addEventHandler("SetRoomMusic", receiveRoomMusicList);
+            connector.addEventHandler("SetRoomMusicList", receiveRoomMusicList);
         }
 
         function removeEventHandlers() {
-            connector.removeEventHandler("SetRoomMusic", receiveRoomMusicList);
-        }
-
-        async function getRoomMusic() {
-            await connector.getRoomMusic();
+            connector.removeEventHandler("SetRoomMusicList", receiveRoomMusicList);
         }
 
         //Handlers
@@ -26,29 +23,57 @@ const RoomMusic = ({connector, ...props}) => {
             removeEventHandlers();
         }
 
-        if (connector.connected) {
+        if (connector.connected)
             addEventHandlers();
-            void getRoomMusic();
+    }, [connector, connector.connected, roomMusicList]);
+
+    useEffect(() => {
+        async function getRoomMusicList() {
+            await connector.getRoomMusicList();
         }
+
+        if (connector.connected)
+            void getRoomMusicList();
     }, [connector, connector.connected]);
 
     async function addMusic(musicID) {
         await connector.addMusicToRoom(musicID);
     }
 
+    async function setRoomMusic(music) {
+        await connector.setRoomMusic(music.id);
+    }
+
+    async function deleteRoomMusic(music) {
+        await connector.deleteRoomMusic(music.id);
+    }
+
     return (
         <div className={"room__room-music room-music"}>
+            {(currentAudioInfo != null) ? null :
+                <div className={"room-music__loading-screen loading-screen"}>
+                    <div className={"loading-screen__animation-logo animation-logo"}>
+                        <div className={"animation-logo__circle"}/>
+                    </div>
+                    <p className={"loading-screen__description"}>
+                        Looking for an available server
+                    </p>
+                </div>
+            }
             <div className="room-music__navbar">
                 <Link to="music-search"> Search </Link>
-                <Link to="music-list"> Search </Link>
+                <Link to="music-list"> List </Link>
             </div>
             <div className={"room-music__routes"}>
                 <Routes>
-                    <Route exact path="music-list" element={<MusicList musicList={roomMusicList}/>}/>
+                    <Route exact path="music-list" element={
+                        <MusicList musicList={roomMusicList} current={currentAudioInfo} setRoomMusic={setRoomMusic}
+                           onDelete={deleteRoomMusic}/>
+                    }/>
                     <Route path="*" element={<MusicSearch connector={connector} addMusicCallback={addMusic}/>}/>
                 </Routes>
             </div>
-            <MusicPlayer connector={connector}/>
+            <MusicPlayer connector={connector} setCurrentAudioInfoCallback={setCurrentAudioInfo}/>
         </div>
     );
 };

@@ -22,6 +22,18 @@ namespace GeliconProject.Storage.Gelicon.Repositories.RoomMusic
             return StorageContext.RoomMusics.Where(r => r.roomID == roomID).ToList();
         }
 
+        public Models.RoomMusic? GetRoomMusic(int roomID, string musicID)
+        {
+            try
+            {
+                return StorageContext.RoomMusics.Where(r => r.musicID == musicID && r.roomID == roomID).Single();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
         public Models.RoomMusic GetLatestAddedMusic(int roomID, bool isDescending = true)
         {
             try
@@ -76,6 +88,18 @@ namespace GeliconProject.Storage.Gelicon.Repositories.RoomMusic
             {
                 return (isDescending) ? StorageContext.RoomMusics.OrderByDescending(r => r.addedAt).Last() :
                     StorageContext.RoomMusics.OrderByDescending(r => r.addedAt).First();
+            }
+        }
+
+        public void DeleteRoomMusic(int roomID, string musicID)
+        {
+            try
+            {
+                StorageContext.RoomMusics.Remove(StorageContext.RoomMusics.Where(r => r.musicID == musicID && r.roomID == roomID).Single());
+                StorageContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
             }
         }
     }

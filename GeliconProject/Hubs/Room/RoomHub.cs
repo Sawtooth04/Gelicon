@@ -84,10 +84,15 @@ namespace GeliconProject.Hubs.Room
         }
 
         [Authorize]
-        public async Task GetRoomMusic(string roomID)
+        public void SetRoomMusic(string roomID, string musicID)
         {
-            List<RoomMusic>? roomMusics = storage.GetRepository<IRoomMusicRepository>()?.GetRoomMusic(int.Parse(roomID));
-            await Clients.Caller.SendAsync("SetRoomMusic", roomMusics);
+            roomsThreadsController.SetCurrentMusic(Clients.Group(roomID), roomID, Context.ConnectionId, musicID);
+        }
+
+        [Authorize]
+        public async Task GetRoomMusicList(string roomID)
+        {
+            roomsThreadsController.GetRoomMusicList(Clients.Caller, roomID, Context.ConnectionId);
         }
 
         [Authorize]
@@ -118,6 +123,18 @@ namespace GeliconProject.Hubs.Room
         public void SetPreviousMusic(string roomID)
         {
             roomsThreadsController.SetPreviousMusic(Clients.Group(roomID), roomID, Context.ConnectionId);
+        }
+
+        [Authorize]
+        public void SetAudioTime(string roomID, double value)
+        {
+            roomsThreadsController.SetAudioTime(Clients.Group(roomID), roomID, Context.ConnectionId, value);
+        }
+
+        [Authorize]
+        public async Task DeleteRoomMusic(string roomID, string musicID)
+        {
+            await roomsThreadsController.DeleteRoomMusic(Clients.Group(roomID), roomID, Context.ConnectionId, musicID);
         }
     }
 }

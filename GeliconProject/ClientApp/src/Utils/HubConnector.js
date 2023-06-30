@@ -74,13 +74,21 @@ class HubConnector {
         await this._connection.invoke("AddMusicToRoom", this.roomID, musicID);
     }
 
-    async getRoomMusic() {
-        await this._connection.invoke("GetRoomMusic", this.roomID);
+    async getRoomMusicList() {
+        await this._connection.invoke("GetRoomMusicList", this.roomID);
+    }
+
+    async deleteRoomMusic(musicID) {
+        await this._connection.invoke("DeleteRoomMusic", this.roomID, musicID);
     }
 
     //Music player
     async getCurrentMusic() {
         await this._connection.invoke("GetCurrentMusic", this.roomID);
+    }
+
+    async setRoomMusic(musicID) {
+        await this._connection.invoke("SetRoomMusic", this.roomID, musicID);
     }
 
     async setPlayState() {
@@ -97,6 +105,10 @@ class HubConnector {
 
     async setPreviousMusic() {
         await this._connection.invoke("SetPreviousMusic", this.roomID);
+    }
+
+    async setAudioTime(value) {
+        await this._connection.invoke("SetAudioTime", this.roomID, value);
     }
 }
 

@@ -5,8 +5,7 @@
   align-items: center;
   justify-content: right;
   background-color: $header_background_color;
-  max-height: 60px;
-  min-height: 6vh;
+  height: 6vh;
 
   & * {
     margin: 0.5%;
