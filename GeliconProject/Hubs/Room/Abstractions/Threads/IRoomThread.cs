@@ -1,11 +1,11 @@
-﻿using GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer;
+﻿using GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer.Models;
 using Microsoft.AspNetCore.SignalR;
 
 namespace GeliconProject.Hubs.Room.Abstractions.Threads
 {
-    public delegate void OnEmptyRoom(IRoomObserverThread thread);
+    public delegate void OnEmptyRoom(IRoomThread thread);
 
-    public interface IRoomObserverThread
+    public interface IRoomThread
     {
         public string? RoomID { get; set; }
 
@@ -15,7 +15,7 @@ namespace GeliconProject.Hubs.Room.Abstractions.Threads
 
         public void Start();
 
-        public Task HandlePingResponse(string connectionID, DateTime responseReceived);
+        public void HandlePingResponse(string connectionID, DateTime responseReceived);
 
         public void AddEmptyRoomHandler(OnEmptyRoom handler);
     }

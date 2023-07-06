@@ -1,11 +1,13 @@
 ﻿using GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer;
+using GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer.Controllers;
+using GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer.Models;
 using GeliconProject.Hubs.Room.Abstractions.Threads;
 using GeliconProject.Models;
 using GeliconProject.Storage.Abstractions;
 using GeliconProject.Storage.Abstractions.Repositories.RoomMusic;
 using Microsoft.AspNetCore.SignalR;
 
-namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer
+namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer.Controllers
 {
     public class RoomMusicPlayerController : IRoomMusicPlayerController
     {

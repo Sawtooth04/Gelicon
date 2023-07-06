@@ -7,7 +7,7 @@ const MusicPlayer = ({connector, setCurrentAudioInfoCallback}) => {
     const [currentAudioInfo, setCurrentAudioInfo] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [volume, setVolume] = useState(0.1);
-    const [currentTime, setCurrentTime] = useState(0);
+    const [currentTime, setCurrentTime] = useState(-1);
     const [timelineInterval, setTimelineInterval] = useState(null);
 
     useEffect(() => {
@@ -39,10 +39,12 @@ const MusicPlayer = ({connector, setCurrentAudioInfoCallback}) => {
     useEffect(() => {
         function addEventHandlers() {
             connector.addEventHandler("SetMusic", setMusic);
+            connector.addEventHandler("SetAudioTime", setAudioTime);
         }
 
         function removeEventHandlers() {
             connector.removeEventHandler("SetMusic", setMusic);
+            connector.removeEventHandler("SetAudioTime", setAudioTime);
         }
 
         //Handlers
@@ -55,7 +57,15 @@ const MusicPlayer = ({connector, setCurrentAudioInfoCallback}) => {
             await connector.getCurrentMusic();
         }
 
+        function setAudioTime(value) {
+            setCurrentTime(value);
+            audio.currentTime = value;
+        }
+
         if (connector.connected) {
+            audio.onloadedmetadata = function (event) {
+                setCurrentTime(0)
+            } ;
             addEventHandlers();
             void getCurrentMusic();
         }
@@ -67,6 +77,8 @@ const MusicPlayer = ({connector, setCurrentAudioInfoCallback}) => {
             connector.addEventHandler("SetPauseState", setPauseState);
             connector.addEventHandler("SetMusicAfterInit", setMusic);
             connector.addEventHandler("SetAudioTime", setAudioTime);
+            connector.addEventHandler("CurrentTimePingReceive", currentTimePingReceive);
+            connector.addEventHandler("SetSpeedRatio", setSpeedRatio);
         }
 
         function removeEventHandlers() {
@@ -74,17 +86,17 @@ const MusicPlayer = ({connector, setCurrentAudioInfoCallback}) => {
             connector.removeEventHandler("SetPauseState", setPauseState);
             connector.removeEventHandler("SetMusic", setMusic);
             connector.removeEventHandler("SetAudioTime", setAudioTime);
+            connector.removeEventHandler("CurrentTimePingReceive", currentTimePingReceive);
+            connector.removeEventHandler("SetSpeedRatio", setSpeedRatio);
         }
 
         //Handlers
         function setPlayState() {
             setIsPlaying(true);
-            removeEventHandlers();
         }
 
         function setPauseState() {
             setIsPlaying(false);
-            removeEventHandlers();
         }
 
         async function setMusic(music) {
@@ -101,17 +113,26 @@ const MusicPlayer = ({connector, setCurrentAudioInfoCallback}) => {
             audio.currentTime = value;
         }
 
+        async function currentTimePingReceive() {
+            await connector.currentTimePingResponse(currentTime);
+        }
+
+        function setSpeedRatio(value) {
+            audio.playbackRate = value;
+        }
+
         if (connector.connected)
             addEventHandlers();
-    }, [connector, connector.connected, audio, isPlaying, volume]);
+        return () => removeEventHandlers();
+    }, [connector, connector.connected, audio, isPlaying, volume, currentAudioInfo, timelineInterval, currentTime]);
 
     async function setMusicSources(music) {
         let response = await connector.musicRepository.executeQuery(
             connector.musicRepository.getMusicByID,
             new Map([['id', music.musicID]])
         );
-        setCurrentAudioInfo((await response.json()).data);
         audio.src = connector.musicRepository.getMusicStreamByID(new Map([['id', music.musicID]]));
+        setCurrentAudioInfo((await response.json()).data);
     }
 
     function play() {
@@ -161,7 +182,7 @@ const MusicPlayer = ({connector, setCurrentAudioInfoCallback}) => {
             <div className={"music-player__info"}>
                 {
                     (currentAudioInfo != null) ?
-                        <p> {currentAudioInfo.title} </p> : <p></p>
+                        <p> {currentAudioInfo.title} </p> : <p> </p>
                 }
             </div>
             <div className={"music-player__controls"}>

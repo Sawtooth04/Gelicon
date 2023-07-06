@@ -1,9 +1,10 @@
-﻿using GeliconProject.Hubs.Room.Abstractions.Threads;
+﻿using GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer.Models;
+using GeliconProject.Hubs.Room.Abstractions.Threads;
 using Microsoft.AspNetCore.SignalR;
 
-namespace GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer
+namespace GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer.Controllers
 {
-    public delegate void OnUserJoin(IClientObserverThread clientObserver);
+    public delegate void OnUserJoin(IClientThread clientObserver);
 
     public interface IRoomMusicPlayerController
     {

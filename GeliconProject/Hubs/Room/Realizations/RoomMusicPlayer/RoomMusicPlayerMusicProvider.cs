@@ -1,4 +1,5 @@
 ﻿using GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer;
+using GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer.Models;
 using GeliconProject.Models;
 using GeliconProject.Storage.Abstractions;
 using GeliconProject.Storage.Abstractions.Repositories.RoomMusic;

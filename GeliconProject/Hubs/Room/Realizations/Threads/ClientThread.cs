@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace GeliconProject.Hubs.Room.Realizations.Threads
 {
-    public class ClientObserverThread : IClientObserverThread
+    public class ClientThread : IClientThread
     {
         private event OnConnectionLost? connectionLostEvent;
         private Thread thread;
@@ -14,8 +14,9 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads
 
         public int Ping { get; set; }
         public string ConnectionID { get; }
+        public IClientProxy Client { get => client; }
 
-        public ClientObserverThread(string connectionID, IClientProxy client)
+        public ClientThread(string connectionID, IClientProxy client)
         {
             isInterrupted = true;
             thread = new Thread(ThreadDelegate);
@@ -31,8 +32,8 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads
             {
                 while (!isInterrupted)
                 {
-                    await PingSend();
-                    Thread.Sleep(3000);
+                    await SendPing();
+                    Thread.Sleep(2500);
                 }
             }
             catch (Exception)
@@ -41,7 +42,7 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads
             }
         }
 
-        private async Task PingSend()
+        private async Task SendPing()
         {
             if (pingAttempts == 0)
             {
@@ -76,6 +77,11 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads
         public void AddConnectionLostHandler(OnConnectionLost handler)
         {
             connectionLostEvent += handler;
+        }
+
+        public async Task SendCurrentTimePing()
+        {
+            await client.SendAsync("CurrentTimePingReceive");
         }
     }
 }

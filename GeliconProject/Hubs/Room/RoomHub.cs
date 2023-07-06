@@ -36,7 +36,7 @@ namespace GeliconProject.Hubs.Room
         public async Task UserConnect(string roomID)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, roomID);
-            roomsThreadsController.CreateRoomObserverThread(roomID, Clients).AddNewClient(Context.ConnectionId, Clients.Client(Context.ConnectionId));
+            roomsThreadsController.CreateRoomObserverThread(roomID).AddNewClient(Context.ConnectionId, Clients.Client(Context.ConnectionId));
         }
 
         [Authorize]
@@ -55,13 +55,13 @@ namespace GeliconProject.Hubs.Room
         }
 
         [Authorize]
-        public async Task PingResponse(string roomID)
+        public void PingResponse(string roomID)
         {
             DateTime responseReceived = DateTime.Now;
-            IRoomObserverThread? roomObserverThread = roomsThreadsController.FindRoomObserverThread(roomID);
+            IRoomThread? roomObserverThread = roomsThreadsController.FindRoomObserverThread(roomID);
 
             if (roomObserverThread != null)
-                await roomObserverThread.HandlePingResponse(Context.ConnectionId, responseReceived);
+                roomObserverThread.HandlePingResponse(Context.ConnectionId, responseReceived);
         }
 
         [Authorize]
@@ -135,6 +135,12 @@ namespace GeliconProject.Hubs.Room
         public async Task DeleteRoomMusic(string roomID, string musicID)
         {
             await roomsThreadsController.DeleteRoomMusic(Clients.Group(roomID), roomID, Context.ConnectionId, musicID);
+        }
+
+        [Authorize]
+        public void CurrentTimePingResponse(string roomID, double value)
+        {
+            roomsThreadsController.CurrentTimePingResponse(roomID, Context.ConnectionId, value);
         }
     }
 }
