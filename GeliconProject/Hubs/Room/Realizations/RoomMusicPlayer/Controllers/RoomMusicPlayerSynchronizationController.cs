@@ -13,6 +13,16 @@ namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer.Controllers
             this.synchronizationModel = synchronizationModel;
         }
 
+        public async void SendCurrentTimePing(IClientProxy client)
+        {
+            await client.SendAsync("CurrentTimePingReceive");
+        }
+
+        public async void SendPing(IClientProxy client)
+        {
+            await client.SendAsync("PingReceive");
+        }
+
         public void CurrentTimePingResponse(IRoomMusicPlayerModel roomMusicPlayerModel, string connectionID, double value)
         {
             roomMusicPlayerModel.SetClientCurrentTime(connectionID, value);
@@ -36,10 +46,18 @@ namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer.Controllers
             }
         }
 
+        public async void SendNextMusic(IClientProxy client)
+        {
+            await client.SendAsync("PingReceive");
+        }
+
         public void UseMediator(IRoomMusicPlayerSynchronizationMediator synchronizationMediator)
         {
             synchronizationMediator.SubscribeOnSynchronizationModelEvent(SynchronizeModels);
             synchronizationMediator.SubscribeOnSynchronizationClientEvent(SynchronizeClient);
+            synchronizationMediator.SubscribeOnSendCurrentTimePingEvent(SendCurrentTimePing);
+            synchronizationMediator.SubscribeOnSendPingEvent(SendPing);
+            synchronizationMediator.SubscribeOnNextMusicEvent(SendNextMusic);
         }
     }
 }

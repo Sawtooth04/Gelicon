@@ -1,11 +1,13 @@
-﻿using GeliconProject.Hubs.Room.Abstractions.Threads;
+﻿using GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer.Controllers;
+using GeliconProject.Hubs.Room.Abstractions.Threads.ClientThread;
 using Microsoft.AspNetCore.SignalR;
 
-namespace GeliconProject.Hubs.Room.Realizations.Threads
+namespace GeliconProject.Hubs.Room.Realizations.Threads.ClientThread
 {
     public class ClientThread : IClientThread
     {
         private event OnConnectionLost? connectionLostEvent;
+        private IRoomMusicPlayerSynchronizationMediator synchronizationMediator;
         private Thread thread;
         private bool isInterrupted;
         private IClientProxy client;
@@ -16,23 +18,24 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads
         public string ConnectionID { get; }
         public IClientProxy Client { get => client; }
 
-        public ClientThread(string connectionID, IClientProxy client)
+        public ClientThread(string connectionID, IClientProxy client, IRoomMusicPlayerSynchronizationMediator synchronizationMediator)
         {
             isInterrupted = true;
             thread = new Thread(ThreadDelegate);
-            this.ConnectionID = connectionID;
+            ConnectionID = connectionID;
             this.client = client;
+            this.synchronizationMediator = synchronizationMediator;
             Ping = 0;
             pingAttempts = -1;
         }
 
-        private async void ThreadDelegate()
+        private void ThreadDelegate()
         {
             try
             {
                 while (!isInterrupted)
                 {
-                    await SendPing();
+                    SendPing();
                     Thread.Sleep(2500);
                 }
             }
@@ -42,12 +45,12 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads
             }
         }
 
-        private async Task SendPing()
+        private void SendPing()
         {
             if (pingAttempts == 0)
             {
                 pingSended = DateTime.Now;
-                await client.SendAsync("PingReceive");
+                synchronizationMediator.InvokeSendPing(Client);
             }
             else if (pingAttempts >= 5)
             {
@@ -77,11 +80,6 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads
         public void AddConnectionLostHandler(OnConnectionLost handler)
         {
             connectionLostEvent += handler;
-        }
-
-        public async Task SendCurrentTimePing()
-        {
-            await client.SendAsync("CurrentTimePingReceive");
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 
-namespace GeliconProject.Hubs.Room.Abstractions.Threads
+namespace GeliconProject.Hubs.Room.Abstractions.Threads.ClientThread
 {
     public delegate void OnConnectionLost(IClientThread thread);
 
@@ -9,7 +9,7 @@ namespace GeliconProject.Hubs.Room.Abstractions.Threads
         public int Ping { get; set; }
         public string ConnectionID { get; }
         public IClientProxy Client { get; }
-        
+
         public void Start();
 
         public void Interrupt();
@@ -17,7 +17,5 @@ namespace GeliconProject.Hubs.Room.Abstractions.Threads
         public void SetPingResult(DateTime responseReceived);
 
         public void AddConnectionLostHandler(OnConnectionLost handler);
-
-        public Task SendCurrentTimePing();
     }
 }

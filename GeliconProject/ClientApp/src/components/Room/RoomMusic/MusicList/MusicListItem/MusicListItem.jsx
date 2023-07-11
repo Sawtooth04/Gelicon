@@ -16,7 +16,7 @@ const MusicListItem = ({item, current, onItemClick, onDelete}) => {
             </div>
             <div className={"music-list-item__controls"}>
                 <button className={"music-list-item__controls__button"} onClick={onDeleteClick}>
-                    <img src={"/source/images/previous.png"}/>
+                    <img src={"/source/images/delete-music.png"}/>
                 </button>
             </div>
         </div>

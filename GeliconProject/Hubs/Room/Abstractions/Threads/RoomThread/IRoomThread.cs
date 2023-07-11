@@ -1,7 +1,7 @@
 ﻿using GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer.Models;
 using Microsoft.AspNetCore.SignalR;
 
-namespace GeliconProject.Hubs.Room.Abstractions.Threads
+namespace GeliconProject.Hubs.Room.Abstractions.Threads.RoomThread
 {
     public delegate void OnEmptyRoom(IRoomThread thread);
 

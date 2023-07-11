@@ -4,10 +4,11 @@
   display: flex;
   min-height: 5vh;
   max-height: 20vh;
+  justify-content: center;
   align-items: end;
 
   & .controls__message-input {
-    width: 90%;
+    width: 96%;
     height: auto;
     resize: none;
     padding: 0.3em;
@@ -16,7 +17,7 @@
   & .controls__buttons-wrapper {
     display: flex;
     align-items: center;
-    width: 10%;
+    width: 6%;
     height: 100%;
     padding: 0 1%;
 

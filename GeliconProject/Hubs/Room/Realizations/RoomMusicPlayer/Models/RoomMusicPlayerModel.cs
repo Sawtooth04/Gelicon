@@ -10,6 +10,7 @@ namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer.Models
         public bool IsPlaying { get; set; }
         public bool IsDescending { get; set; }
         public RoomMusicPlayerSource Source { get; set; }
+        public bool PlayNext { get; set; }
 
         public RoomMusicPlayerModel()
         {
@@ -18,6 +19,7 @@ namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer.Models
             IsDescending = true;
             Source = RoomMusicPlayerSource.Music;
             clientsModels = new Dictionary<string, IClientRoomMusicPlayerModel>();
+            PlayNext = true;
         }
 
         public void AddClientModel(string connectionID)

@@ -7,18 +7,48 @@
   flex-direction: column;
   justify-content: center;
 
+  & .volume-trackbar {
+    width: 6%
+  }
+
+  & .timeline {
+    width: 57%;
+  }
+
   & .music-player__info {
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
-    height: 50%;
-    max-width: 70%;
+    height: 60%;
+    width: 100%;
+    max-width: 100%;
     overflow: hidden;
+
+    & * {
+      margin: 0 2% 0 2%;
+    }
+
+    & .music-player__info__logo {
+      position: relative;
+      width: 3vw;
+      height: 3vw;
+      background-color: rgba(0, 0, 0, 0);
+      margin: 0 1%;
+      border: none;
+
+      & img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: auto;
+      }
+    }
   }
 
   & .music-player__controls {
     width: 100%;
-    height: 50%;
+    height: 40%;
     display: flex;
     align-items: center;
     padding: 0 2%;

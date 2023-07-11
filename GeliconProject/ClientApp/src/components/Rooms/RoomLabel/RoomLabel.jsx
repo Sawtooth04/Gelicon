@@ -11,7 +11,7 @@ const RoomLabel = (props) => {
     }, []);
 
     function joinRoom() {
-        navigate("/room/" + props.room.roomID);
+        navigate(`/room/${props.room.roomID}/music-search`);
     }
 
     return (

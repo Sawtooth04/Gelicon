@@ -17,9 +17,9 @@ namespace GeliconProject.Storage.Gelicon.Repositories.RoomMusic
             await StorageContext.RoomMusics.AddAsync(new Models.RoomMusic() { roomID = roomID, musicID = musicID, addedAt = DateTime.UtcNow});
         }
 
-        public List<Models.RoomMusic> GetRoomMusic(int roomID)
+        public async Task<List<Models.RoomMusic>> GetRoomMusic(int roomID)
         {
-            return StorageContext.RoomMusics.Where(r => r.roomID == roomID).ToList();
+            return await Task.Run(() => StorageContext.RoomMusics.Where(r => r.roomID == roomID).ToList());
         }
 
         public Models.RoomMusic? GetRoomMusic(int roomID, string musicID)

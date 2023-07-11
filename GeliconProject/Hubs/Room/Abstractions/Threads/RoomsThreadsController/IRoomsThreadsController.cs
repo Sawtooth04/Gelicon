@@ -1,4 +1,5 @@
 ﻿
+using GeliconProject.Hubs.Room.Abstractions.Threads.RoomThread;
 using Microsoft.AspNetCore.SignalR;
 
 namespace GeliconProject.Hubs.Room.Abstractions.Threads.ThreadsController
@@ -9,24 +10,32 @@ namespace GeliconProject.Hubs.Room.Abstractions.Threads.ThreadsController
 
         public IRoomThread? FindRoomObserverThread(string roomID);
 
-        public void GetRoomMusicList(IClientProxy clients, string roomID, string connectionID);
+        public Task AddRoomMusic(IClientProxy clients, string roomID, string connectionID, string musicID);
 
-        public void GetCurrentMusic(IClientProxy client, string roomID, string connectionID);
+        public Task GetRoomMusicList(IClientProxy clients, string roomID, string connectionID);
 
-        public void SetCurrentMusic(IClientProxy client, string roomID, string connectionID, string musicID);
+        public Task GetCurrentMusic(IClientProxy client, string roomID, string connectionID);
 
-        public void SetPlayState(IClientProxy clients, string roomID, string connectionID);
+        public Task SetCurrentMusic(IClientProxy client, string roomID, string connectionID, string musicID);
 
-        public void SetPauseState(IClientProxy clients, string roomID, string connectionID);
+        public Task SetPlayState(IClientProxy clients, string roomID, string connectionID);
 
-        public void SetNextMusic(IClientProxy clients, string roomID, string connectionID);
+        public Task SetPauseState(IClientProxy clients, string roomID, string connectionID);
 
-        public void SetPreviousMusic(IClientProxy clients, string roomID, string connectionID);
+        public Task SetNextMusic(IClientProxy clients, string roomID, string connectionID);
 
-        public void SetAudioTime(IClientProxy clients, string roomID, string connectionID, double value);
+        public Task SetPreviousMusic(IClientProxy clients, string roomID, string connectionID);
+
+        public Task SetAudioTime(IClientProxy clients, string roomID, string connectionID, double value);
 
         public Task DeleteRoomMusic(IClientProxy clients, string roomID, string connectionID, string musicID);
 
         public void CurrentTimePingResponse(string roomID, string connectionID, double value);
+
+        public Task SetPlayNextState(IClientProxy clients, string roomID, string connectionID);
+
+        public Task SetPlayLoopState(IClientProxy clients, string roomID, string connectionID);
+
+        public Task SetAutoplayNextMusic(IClientProxy clients, string roomID, string musicID, string connectionID);
     }
 }

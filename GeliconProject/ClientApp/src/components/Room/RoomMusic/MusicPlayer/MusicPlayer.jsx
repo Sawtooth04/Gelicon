@@ -9,16 +9,29 @@ const MusicPlayer = ({connector, setCurrentAudioInfoCallback}) => {
     const [volume, setVolume] = useState(0.1);
     const [currentTime, setCurrentTime] = useState(-1);
     const [timelineInterval, setTimelineInterval] = useState(null);
+    const [isPlayNext, setIsPlayNext] = useState(true);
 
     useEffect(() => {
         setCurrentAudioInfoCallback(currentAudioInfo);
     }, [currentAudioInfo]);
 
     useEffect(() => {
+        audio.onloadedmetadata = function (event) { setCurrentTime(0) } ;
         audio.volume = volume;
         if (isPlaying && audio.readyState === 4)
-            audio.play();
+            play();
     }, [audio]);
+
+    useEffect(() => {
+        if (connector.connected)
+            connector.addEventHandler("CurrentTimePingReceive", currentTimePingReceive);
+
+        async function currentTimePingReceive() {
+            await connector.currentTimePingResponse(currentTime);
+        }
+
+        return () => connector.removeEventHandler("CurrentTimePingReceive", currentTimePingReceive);
+    }, [currentTime]);
 
     useEffect(() => {
         try {
@@ -50,7 +63,6 @@ const MusicPlayer = ({connector, setCurrentAudioInfoCallback}) => {
         //Handlers
         async function setMusic(music) {
             await setMusicSources(music);
-            removeEventHandlers();
         }
 
         async function getCurrentMusic() {
@@ -63,12 +75,11 @@ const MusicPlayer = ({connector, setCurrentAudioInfoCallback}) => {
         }
 
         if (connector.connected) {
-            audio.onloadedmetadata = function (event) {
-                setCurrentTime(0)
-            } ;
             addEventHandlers();
             void getCurrentMusic();
         }
+
+        return () => removeEventHandlers();
     }, [connector, connector.connected]);
 
     useEffect(() => {
@@ -77,17 +88,21 @@ const MusicPlayer = ({connector, setCurrentAudioInfoCallback}) => {
             connector.addEventHandler("SetPauseState", setPauseState);
             connector.addEventHandler("SetMusicAfterInit", setMusic);
             connector.addEventHandler("SetAudioTime", setAudioTime);
-            connector.addEventHandler("CurrentTimePingReceive", currentTimePingReceive);
             connector.addEventHandler("SetSpeedRatio", setSpeedRatio);
+            connector.addEventHandler("SetPlayNextState", setPlayNextState);
+            connector.addEventHandler("SetPlayLoopState", setPlayLoopState);
+            audio.addEventListener('ended', setAutoplayNextMusic);
         }
 
         function removeEventHandlers() {
             connector.removeEventHandler("SetPlayState", setPlayState);
             connector.removeEventHandler("SetPauseState", setPauseState);
-            connector.removeEventHandler("SetMusic", setMusic);
+            connector.removeEventHandler("SetMusicAfterInit", setMusic);
             connector.removeEventHandler("SetAudioTime", setAudioTime);
-            connector.removeEventHandler("CurrentTimePingReceive", currentTimePingReceive);
             connector.removeEventHandler("SetSpeedRatio", setSpeedRatio);
+            connector.removeEventHandler("SetPlayNextState", setPlayNextState);
+            connector.removeEventHandler("SetPlayLoopState", setPlayLoopState);
+            audio.removeEventListener('ended', setAutoplayNextMusic);
         }
 
         //Handlers
@@ -101,30 +116,36 @@ const MusicPlayer = ({connector, setCurrentAudioInfoCallback}) => {
 
         async function setMusic(music) {
             if (!audio.paused)
-                audio.pause();
+                pause();
             await setMusicSources(music);
             audio.load();
             if (isPlaying && audio.paused)
-                await audio.play();
+                await play();
         }
 
-        function setAudioTime(value) {
+        async function setAudioTime(value) {
             setCurrentTime(value);
             audio.currentTime = value;
-        }
-
-        async function currentTimePingReceive() {
-            await connector.currentTimePingResponse(currentTime);
+            if (isPlaying)
+                await play();
         }
 
         function setSpeedRatio(value) {
             audio.playbackRate = value;
         }
 
+        function setPlayNextState() {
+            setIsPlayNext(true);
+        }
+
+        function setPlayLoopState() {
+            setIsPlayNext(false);
+        }
+
         if (connector.connected)
             addEventHandlers();
         return () => removeEventHandlers();
-    }, [connector, connector.connected, audio, isPlaying, volume, currentAudioInfo, timelineInterval, currentTime]);
+    }, [connector, connector.connected, audio, isPlaying, isPlayNext, volume, timelineInterval]);
 
     async function setMusicSources(music) {
         let response = await connector.musicRepository.executeQuery(
@@ -135,9 +156,11 @@ const MusicPlayer = ({connector, setCurrentAudioInfoCallback}) => {
         setCurrentAudioInfo((await response.json()).data);
     }
 
-    function play() {
-        audio.play();
-        setTimelineInterval(setInterval(() => setCurrentTime(audio.currentTime), 1000));
+    async function play() {
+        await audio.play();
+        setTimelineInterval(setInterval(() => {
+            setCurrentTime(audio.currentTime)
+        }, 1000));
     }
 
     function pause() {
@@ -177,14 +200,30 @@ const MusicPlayer = ({connector, setCurrentAudioInfoCallback}) => {
         audio.currentTime = value;
     }
 
+    async function setAutoplayNextMusic() {
+        await connector.setAutoplayNextMusic(currentAudioInfo.id);
+    }
+
+    async function playLoopCallback() {
+        await connector.setPlayLoopState();
+    }
+
+    async function playNextCallback() {
+        await connector.setPlayNextState();
+    }
+
     return (
         <div className={"room-music__music-player music-player"}>
-            <div className={"music-player__info"}>
                 {
                     (currentAudioInfo != null) ?
-                        <p> {currentAudioInfo.title} </p> : <p> </p>
+                        <div className={"music-player__info"}>
+                            <div className={"music-player__info__logo"}>
+                                <img src={currentAudioInfo.artwork['150x150']}/>
+                            </div>
+                            <p> {currentAudioInfo.title} </p>
+                        </div>
+                        : null
                 }
-            </div>
             <div className={"music-player__controls"}>
                 <button className={"music-player__controls__button"} onClick={previousCallback}>
                     <img src={"/source/images/previous.png"}/>
@@ -207,6 +246,14 @@ const MusicPlayer = ({connector, setCurrentAudioInfoCallback}) => {
                 <VolumeTrackbar
                     min={0} max={1} step={0.01} value={volume} onChange={setVolume} onSlide={setAudioVolumeCallback}
                 />
+                {(isPlayNext) ?
+                    <button className={"music-player__controls__button"} onClick={playLoopCallback}>
+                        <img src={"/source/images/sequentially.png"}/>
+                    </button> :
+                    <button className={"music-player__controls__button"} onClick={playNextCallback}>
+                        <img src={"/source/images/loop.png"}/>
+                    </button>
+                }
             </div>
         </div>
     );

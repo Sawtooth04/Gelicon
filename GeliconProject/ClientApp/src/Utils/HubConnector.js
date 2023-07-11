@@ -37,7 +37,7 @@ class HubConnector {
     }
 
     async sendMessage(message, roomID) {
-        await this._connection.invoke("Send", message, roomID);
+        await this._connection.invoke("SendMessage", message, roomID);
     }
 
     async pingResponse() {
@@ -113,6 +113,18 @@ class HubConnector {
 
     async setAudioTime(value) {
         await this._connection.invoke("SetAudioTime", this.roomID, value);
+    }
+
+    async setAutoplayNextMusic(musicID) {
+        await this._connection.invoke("SetAutoplayNextMusic", this.roomID, musicID);
+    }
+
+    async setPlayNextState() {
+        await this._connection.invoke("SetPlayNextState", this.roomID);
+    }
+
+    async setPlayLoopState() {
+        await this._connection.invoke("SetPlayLoopState", this.roomID);
     }
 }
 

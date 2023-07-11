@@ -1,5 +1,6 @@
 ﻿using GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer.Controllers;
 using GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer.Models;
+using GeliconProject.Hubs.Room.Abstractions.Threads.RoomThread;
 using Microsoft.AspNetCore.SignalR;
 
 namespace GeliconProject.Hubs.Room.Abstractions.Threads.RoomThreadsProvider

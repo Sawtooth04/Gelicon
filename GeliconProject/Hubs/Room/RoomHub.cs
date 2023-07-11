@@ -1,5 +1,6 @@
-﻿using GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer;
-using GeliconProject.Hubs.Room.Abstractions.Threads;
+﻿using GeliconProject.Hubs.Room.Abstractions.Chat;
+using GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer;
+using GeliconProject.Hubs.Room.Abstractions.Threads.RoomThread;
 using GeliconProject.Hubs.Room.Abstractions.Threads.ThreadsController;
 using GeliconProject.Models;
 using GeliconProject.Storage.Abstractions;
@@ -17,13 +18,13 @@ namespace GeliconProject.Hubs.Room
 {
     public class RoomHub : Hub
     {
-        private IStorage storage;
         private IRoomsThreadsController roomsThreadsController;
+        private IRoomChatController roomChatController;
 
-        public RoomHub(IStorage storage, IRoomsThreadsController roomsThreadsController)
+        public RoomHub(IRoomsThreadsController roomsThreadsController, IRoomChatController roomChatController)
         {
-            this.storage = storage;
             this.roomsThreadsController = roomsThreadsController;
+            this.roomChatController = roomChatController;
         }
 
         public override async Task<Task> OnConnectedAsync()
@@ -40,18 +41,10 @@ namespace GeliconProject.Hubs.Room
         }
 
         [Authorize]
-        public async Task Send(string message, string roomID)
+        public async Task SendMessage(string message, string roomID)
         {
-            Random random = new Random();
             int userID = int.Parse(Context.User!.FindFirst(Claims.UserID)!.Value);
-            User? sender = storage.GetRepository<IUserRepository>()?.GetUserByIDWithoutJoins(userID);
-
-            await Clients.Group(roomID).SendAsync("AppendMessage", new
-            {
-                message,
-                sender,
-                key = DateTime.Now.Millisecond + random.Next(-10000, 10000),
-            });
+            await roomChatController.SendAsync(message, roomID, userID, Clients);
         }
 
         [Authorize]
@@ -62,6 +55,12 @@ namespace GeliconProject.Hubs.Room
 
             if (roomObserverThread != null)
                 roomObserverThread.HandlePingResponse(Context.ConnectionId, responseReceived);
+        }
+
+        [Authorize]
+        public void CurrentTimePingResponse(string roomID, double value)
+        {
+            roomsThreadsController.CurrentTimePingResponse(roomID, Context.ConnectionId, value);
         }
 
         [Authorize]
@@ -79,56 +78,55 @@ namespace GeliconProject.Hubs.Room
         [Authorize]
         public async Task AddMusicToRoom(string roomID, string musicID)
         {
-            await storage.GetRepository<IRoomMusicRepository>()?.Add(int.Parse(roomID), musicID)!;
-            storage.Save();
+            await roomsThreadsController.AddRoomMusic(Clients.Group(roomID), roomID, Context.ConnectionId, musicID);
         }
 
         [Authorize]
-        public void SetRoomMusic(string roomID, string musicID)
+        public async Task SetRoomMusic(string roomID, string musicID)
         {
-            roomsThreadsController.SetCurrentMusic(Clients.Group(roomID), roomID, Context.ConnectionId, musicID);
+            await roomsThreadsController.SetCurrentMusic(Clients.Group(roomID), roomID, Context.ConnectionId, musicID);
         }
 
         [Authorize]
         public async Task GetRoomMusicList(string roomID)
         {
-            roomsThreadsController.GetRoomMusicList(Clients.Caller, roomID, Context.ConnectionId);
+            await roomsThreadsController.GetRoomMusicList(Clients.Caller, roomID, Context.ConnectionId);
         }
 
         [Authorize]
-        public void GetCurrentMusic(string roomID)
+        public async Task GetCurrentMusic(string roomID)
         {
-            roomsThreadsController.GetCurrentMusic(Clients.Caller, roomID, Context.ConnectionId);
+            await roomsThreadsController.GetCurrentMusic(Clients.Caller, roomID, Context.ConnectionId);
         }
 
         [Authorize]
-        public void SetPlayState(string roomID)
+        public async Task SetPlayState(string roomID)
         {
-            roomsThreadsController.SetPlayState(Clients.Group(roomID), roomID, Context.ConnectionId);
+            await roomsThreadsController.SetPlayState(Clients.Group(roomID), roomID, Context.ConnectionId);
         }
 
         [Authorize]
-        public void SetPauseState(string roomID)
+        public async Task SetPauseState(string roomID)
         {
-            roomsThreadsController.SetPauseState(Clients.Group(roomID), roomID, Context.ConnectionId);
+            await roomsThreadsController.SetPauseState(Clients.Group(roomID), roomID, Context.ConnectionId);
         }
 
         [Authorize]
-        public void SetNextMusic(string roomID)
+        public async Task SetNextMusic(string roomID)
         {
-            roomsThreadsController.SetNextMusic(Clients.Group(roomID), roomID, Context.ConnectionId);
+            await roomsThreadsController.SetNextMusic(Clients.Group(roomID), roomID, Context.ConnectionId);
         }
 
         [Authorize]
-        public void SetPreviousMusic(string roomID)
+        public async Task SetPreviousMusic(string roomID)
         {
-            roomsThreadsController.SetPreviousMusic(Clients.Group(roomID), roomID, Context.ConnectionId);
+            await roomsThreadsController.SetPreviousMusic(Clients.Group(roomID), roomID, Context.ConnectionId);
         }
 
         [Authorize]
-        public void SetAudioTime(string roomID, double value)
+        public async Task SetAudioTime(string roomID, double value)
         {
-            roomsThreadsController.SetAudioTime(Clients.Group(roomID), roomID, Context.ConnectionId, value);
+            await roomsThreadsController.SetAudioTime(Clients.Group(roomID), roomID, Context.ConnectionId, value);
         }
 
         [Authorize]
@@ -138,9 +136,21 @@ namespace GeliconProject.Hubs.Room
         }
 
         [Authorize]
-        public void CurrentTimePingResponse(string roomID, double value)
+        public async Task SetPlayNextState(string roomID)
         {
-            roomsThreadsController.CurrentTimePingResponse(roomID, Context.ConnectionId, value);
+            await roomsThreadsController.SetPlayNextState(Clients.Group(roomID), roomID, Context.ConnectionId);
+        }
+
+        [Authorize]
+        public async Task SetPlayLoopState(string roomID)
+        {
+            await roomsThreadsController.SetPlayLoopState(Clients.Group(roomID), roomID, Context.ConnectionId);
+        }
+
+        [Authorize]
+        public async Task SetAutoplayNextMusic(string roomID, string musicID)
+        {
+            await roomsThreadsController.SetAutoplayNextMusic(Clients.Group(roomID), roomID, musicID, Context.ConnectionId);
         }
     }
 }

@@ -20,6 +20,8 @@ using GeliconProject.Hubs.Room.Abstractions.Threads.RoomThreadsProvider;
 using GeliconProject.Hubs.Room.Realizations.Threads.RoomThreadsProvider;
 using GeliconProject.Hubs.Room.Abstractions.Threads.RoomThreadsFactory;
 using GeliconProject.Hubs.Room.Realizations.Threads.RoomThreadsFactory;
+using GeliconProject.Hubs.Room.Abstractions.Chat;
+using GeliconProject.Hubs.Room.Realizations.Chat;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddJWTValidationParameters();
@@ -37,6 +39,7 @@ builder.Services.AddScoped<IStorage, DbStorage>();
 builder.Services.AddSingleton<IRoomThreadsProvider, RoomThreadsProvider>();
 builder.Services.AddScoped<IRoomsThreadsController, RoomsThreadsController>();
 builder.Services.AddScoped<IRoomMusicPlayerController, RoomMusicPlayerController>();
+builder.Services.AddScoped<IRoomChatController, RoomChatController>();
 builder.Services.AddSingleton<IRoomMusicPlayerSynchronizationController, RoomMusicPlayerSynchronizationController>();
 builder.Services.AddScoped<IRoomMusicPlayerMusicProvider, RoomMusicPlayerMusicProvider>();
 builder.Services.AddSingleton<IRoomMusicPlayerSynchronizationModel, RoomMusicPlayerSynchronizationModel>();

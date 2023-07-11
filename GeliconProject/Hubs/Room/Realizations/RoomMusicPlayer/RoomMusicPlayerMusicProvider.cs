@@ -12,6 +12,7 @@ namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer
         private Dictionary<RoomMusicPlayerSource, Func<IStorage, int, RoomMusic, bool, RoomMusic>> previousMusicActions;
         private Dictionary<RoomMusicPlayerSource, Func<IStorage, int, string, RoomMusic?>> getMusicActions;
         private Dictionary<RoomMusicPlayerSource, Action<IStorage, int, string>> deleteMusicActions;
+        private Dictionary<RoomMusicPlayerSource, Func<IStorage, int, string, Task>> addMusicActions;
 
         public RoomMusicPlayerMusicProvider()
         {
@@ -19,10 +20,12 @@ namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer
             previousMusicActions = new Dictionary<RoomMusicPlayerSource, Func<IStorage, int, RoomMusic, bool, RoomMusic>>();
             getMusicActions = new Dictionary<RoomMusicPlayerSource, Func<IStorage, int, string, RoomMusic?>>();
             deleteMusicActions = new Dictionary<RoomMusicPlayerSource, Action<IStorage, int, string>>();
+            addMusicActions = new Dictionary<RoomMusicPlayerSource, Func<IStorage, int, string, Task>>();
             ConfigureNextMusicActions();
             ConfigurePreviousMusicActions();
             ConfigureGetMusicActions();
             ConfigureDeleteMusicActions();
+            ConfigureAddMusicActions();
         }
 
         public Func<IStorage, int, RoomMusic, bool, RoomMusic> GetNextMusicAction(RoomMusicPlayerSource source)
@@ -61,6 +64,15 @@ namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer
             throw new Exception("Cannot find action for this source.");
         }
 
+        public Func<IStorage, int, string, Task> GetAddMusicAction(RoomMusicPlayerSource source)
+        {
+            Func<IStorage, int, string, Task>? result;
+
+            if (addMusicActions.TryGetValue(source, out result))
+                return result;
+            throw new Exception("Cannot find action for this source.");
+        }
+
         private void ConfigureNextMusicActions()
         {
             nextMusicActions.Add(RoomMusicPlayerSource.Music, GetNextMusicInMusicList);
@@ -81,6 +93,11 @@ namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer
             deleteMusicActions.Add(RoomMusicPlayerSource.Music, DeleteRoomMusicInMusicList);
         }
 
+        private void ConfigureAddMusicActions()
+        {
+            addMusicActions.Add(RoomMusicPlayerSource.Music, AddRoomMusicInMusicList);
+        }
+
         private RoomMusic GetNextMusicInMusicList(IStorage storage, int roomID, RoomMusic currentMusic, bool isDescending = true)
         {
             return storage.GetRepository<IRoomMusicRepository>().GetNextMusic(roomID, currentMusic, isDescending);
@@ -99,6 +116,12 @@ namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer
         private void DeleteRoomMusicInMusicList(IStorage storage, int roomID, string musicID)
         {
             storage.GetRepository<IRoomMusicRepository>().DeleteRoomMusic(roomID, musicID);
+        }
+
+        private async Task AddRoomMusicInMusicList(IStorage storage, int roomID, string musicID)
+        {
+            await storage.GetRepository<IRoomMusicRepository>()?.Add(roomID, musicID)!;
+            storage.Save();
         }
     }
 }

@@ -3,8 +3,8 @@
 .ui-textarea {
   background-color: $default_textarea_background_color;
   border-color: $default_textarea_border_color;
-  transition: border-color ease-out 0.5s;
-  border-width: 0;
+  transition: border-color ease-out 0.2s;
+  border-width: 0.1vw;
 }
 
 .ui-textarea::-webkit-scrollbar {

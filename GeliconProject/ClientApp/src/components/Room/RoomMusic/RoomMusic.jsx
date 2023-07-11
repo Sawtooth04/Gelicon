@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Route, Routes, Link} from "react-router-dom";
+import {Route, Routes, NavLink} from "react-router-dom";
 import MusicSearch from "./MusicSearch/MusicSearch";
 import MusicList from "./MusicList/MusicList";
 import MusicPlayer from "./MusicPlayer/MusicPlayer";
@@ -61,8 +61,8 @@ const RoomMusic = ({connector, ...props}) => {
                 </div>
             }
             <div className="room-music__navbar">
-                <Link to="music-search"> Search </Link>
-                <Link to="music-list"> List </Link>
+                <NavLink className="room-music__navbar__link" to="music-search"> Search </NavLink>
+                <NavLink className="room-music__navbar__link" to="music-list"> List </NavLink>
             </div>
             <div className={"room-music__routes"}>
                 <Routes>

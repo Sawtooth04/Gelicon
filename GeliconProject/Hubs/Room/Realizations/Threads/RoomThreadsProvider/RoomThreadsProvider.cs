@@ -1,6 +1,6 @@
 ﻿using GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer.Controllers;
 using GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer.Models;
-using GeliconProject.Hubs.Room.Abstractions.Threads;
+using GeliconProject.Hubs.Room.Abstractions.Threads.RoomThread;
 using GeliconProject.Hubs.Room.Abstractions.Threads.RoomThreadsFactory;
 using GeliconProject.Hubs.Room.Abstractions.Threads.RoomThreadsProvider;
 using GeliconProject.Storage.Abstractions;

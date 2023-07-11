@@ -6,7 +6,7 @@ namespace GeliconProject.Storage.Abstractions.Repositories.RoomMusic
     {
         public Task Add(int roomID, string musicID);
 
-        public List<Models.RoomMusic> GetRoomMusic(int roomID);
+        public Task<List<Models.RoomMusic>> GetRoomMusic(int roomID);
 
         public Models.RoomMusic? GetRoomMusic(int roomID, string musicID);
 
