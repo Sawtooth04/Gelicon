@@ -10,13 +10,24 @@ const Room = () => {
     const {roomID} = useParams();
     const [users, setUsers] = useState([]);
     const [roomUsersColors, setRoomUsersColors] = useState([]);
-    const [colors, setColors] = useState([]);
+    const [onlineCheckInterval, setOnlineCheckInterval] = useState(null);
+    const [onlineUsers, setOnlineUsers] = useState([]);
 
     useEffect(() => {
         return () => connector.disconnect();
     }, []);
 
     useEffect(() => {
+        function addEventHandlers() {
+            connector.addEventHandler("SetOnlineUsers", setOnlineUsers);
+        }
+
+        function onUpdate() {
+            if (onlineCheckInterval !== null && typeof(onlineCheckInterval) !== 'undefined')
+                clearInterval(onlineCheckInterval);
+            connector.removeEventHandler("SetOnlineUsers", setOnlineUsers);
+        }
+
         async function getRoom() {
             return await fetch("/room/join", {
                 method: "POST",
@@ -24,17 +35,7 @@ const Room = () => {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(roomID)
-            });
-        }
-
-        async function getColors() {
-            return await fetch("/color/get-colors", {
-                method: "GET",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
+                body: JSON.stringify([Number(roomID)])
             });
         }
 
@@ -44,18 +45,21 @@ const Room = () => {
         }
 
         const init = async () => {
-            setColors(await (await getColors()).json());
+            addEventHandlers();
+            await connector.getOnlineUsersList();
             setStates(await (await getRoom()).json());
+            setOnlineCheckInterval(setInterval(() => connector.getOnlineUsersList(), 15000));
         };
 
         connector.setConnectionToHub(roomID).then(() => void init());
+        return onUpdate;
     }, [connector]);
 
     return (
         <div className="room">
             <RoomMusic connector={connector}/>
             <RoomChat connector={connector} roomID={roomID} roomUsersColors={roomUsersColors}/>
-            <RoomUsersList users={users} roomUsersColors={roomUsersColors} className="room__users users"/>
+            <RoomUsersList users={users} roomUsersColors={roomUsersColors} onlineUsers={onlineUsers} className="room__users users"/>
         </div>
     );
 };

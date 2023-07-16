@@ -9,6 +9,7 @@ namespace GeliconProject.Hubs.Room.Abstractions.Threads.ClientThread
         public int Ping { get; set; }
         public string ConnectionID { get; }
         public IClientProxy Client { get; }
+        public int UserID { get; }
 
         public void Start();
 

@@ -7,6 +7,12 @@ import MusicPlayer from "./MusicPlayer/MusicPlayer";
 const RoomMusic = ({connector, ...props}) => {
     const [roomMusicList, setRoomMusicList] = useState([]);
     const [currentAudioInfo, setCurrentAudioInfo] = useState(null);
+    const [needToDisplayMusicPlayer, setNeedToDisplayMusicPlayer] = useState(false);
+    const [needToDisplayLoadingScreen, setNeedToDisplayLoadingScreen] = useState(true);
+
+    useEffect(() => {
+        setNeedToDisplayMusicPlayer(roomMusicList.length > 0);
+    }, [roomMusicList]);
 
     useEffect(() => {
         function addEventHandlers() {
@@ -50,7 +56,7 @@ const RoomMusic = ({connector, ...props}) => {
 
     return (
         <div className={"room__room-music room-music"}>
-            {(currentAudioInfo != null) ? null :
+            {!needToDisplayLoadingScreen ? null :
                 <div className={"room-music__loading-screen loading-screen"}>
                     <div className={"loading-screen__animation-logo animation-logo"}>
                         <div className={"animation-logo__circle"}/>
@@ -64,16 +70,22 @@ const RoomMusic = ({connector, ...props}) => {
                 <NavLink className="room-music__navbar__link" to="music-search"> Search </NavLink>
                 <NavLink className="room-music__navbar__link" to="music-list"> List </NavLink>
             </div>
-            <div className={"room-music__routes"}>
+            <div className={`room-music__routes${!needToDisplayMusicPlayer ? ' room-music__routes_max-size' : ''}`}>
                 <Routes>
                     <Route exact path="music-list" element={
                         <MusicList musicList={roomMusicList} current={currentAudioInfo} setRoomMusic={setRoomMusic}
                            onDelete={deleteRoomMusic}/>
                     }/>
-                    <Route path="*" element={<MusicSearch connector={connector} addMusicCallback={addMusic}/>}/>
+                    <Route path="*" element={
+                        <MusicSearch connector={connector} addMusicCallback={addMusic}
+                             setNeedToDisplayLoadingScreen={setNeedToDisplayLoadingScreen}/>
+                    }/>
                 </Routes>
             </div>
-            <MusicPlayer connector={connector} setCurrentAudioInfoCallback={setCurrentAudioInfo}/>
+            {
+                needToDisplayMusicPlayer ?
+                    <MusicPlayer connector={connector} setCurrentAudioInfoCallback={setCurrentAudioInfo}/> : null
+            }
         </div>
     );
 };

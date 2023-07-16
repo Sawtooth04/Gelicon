@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from "../../../../../UI/Button/Button";
 
 const MusicSearchListItem = ({item, addMusicCallback}) => {
     async function onAddMusicClick() {
@@ -11,9 +12,7 @@ const MusicSearchListItem = ({item, addMusicCallback}) => {
                 <p> {item.title} </p>
             </div>
             <div className={"music-search-list-item__controls"}>
-                <button className={"music-search-list-item__controls__add-music-button add-music-button"} onClick={onAddMusicClick}>
-                    <img src={"/source/images/add-music.png"}/>
-                </button>
+                <Button onClick={onAddMusicClick} src={"/source/images/add-music.png"}/>
             </div>
         </div>
     );

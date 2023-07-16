@@ -1,0 +1,12 @@
+.add-room-label {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+.add-room-label img {
+  width: 5vw;
+  height: auto;
+}
+
+/*# sourceMappingURL=add-room-label.css.map */

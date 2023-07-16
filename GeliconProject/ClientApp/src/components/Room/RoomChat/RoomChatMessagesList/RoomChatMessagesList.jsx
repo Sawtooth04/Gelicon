@@ -1,7 +1,7 @@
 import React from 'react';
 import RoomChatMessage from "../RoomChatMessage/RoomChatMessage";
 
-const RoomChatMessagesList = ({messages, roomUsersColors}) => {
+const RoomChatMessagesList = ({messages, roomUsersColors, deleteMessage}) => {
     function findUserColor(user) {
         return roomUsersColors.find(item => item.userID === user.userID).color;
     }
@@ -10,7 +10,8 @@ const RoomChatMessagesList = ({messages, roomUsersColors}) => {
         <div className="chat__messages messages">
             {
                 messages.map((message) =>
-                    <RoomChatMessage message={message} key={message.key} color={findUserColor(message.sender)}/>
+                    <RoomChatMessage message={message} key={message.key} color={findUserColor(message.sender)}
+                         deleteMessage={deleteMessage}/>
                 )
             }
         </div>

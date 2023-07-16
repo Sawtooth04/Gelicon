@@ -1,11 +1,12 @@
 @import "../../../variables";
 @import "message-colors";
+@import "../../../UI/Button/icon-button";
 
 .message {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
-  color: $default_font_color;
 
   & .message__meta {
     display: flex;
@@ -27,5 +28,14 @@
   & .message__text {
     word-break: break-all;
     padding: 0 1%;
+  }
+
+  & .message__controls {
+    position: absolute;
+    right: 0;
+    top: -5%;
+    padding: 0.5%;
+    background-color: $room_messages_controls_background_color;
+    border-radius: 15%;
   }
 }

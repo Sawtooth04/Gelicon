@@ -20,9 +20,5 @@ namespace GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer.Controllers
         public void SubscribeOnSendPingEvent(Action<IClientProxy> action);
 
         public void InvokeSendPing(IClientProxy client);
-
-        public void SubscribeOnNextMusicEvent(Action<IClientProxy> action);
-
-        public void InvokeNextMusic(IClientProxy client);
     }
 }

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import VolumeTrackbar from "./VolumeTrackbar/VolumeTrackbar";
 import Timeline from "./Timeline/Timeline";
+import Button from "../../../UI/Button/Button";
 
 const MusicPlayer = ({connector, setCurrentAudioInfoCallback}) => {
     const [audio, setAudio] = useState(new Audio());
@@ -78,7 +79,6 @@ const MusicPlayer = ({connector, setCurrentAudioInfoCallback}) => {
             addEventHandlers();
             void getCurrentMusic();
         }
-
         return () => removeEventHandlers();
     }, [connector, connector.connected]);
 
@@ -148,12 +148,14 @@ const MusicPlayer = ({connector, setCurrentAudioInfoCallback}) => {
     }, [connector, connector.connected, audio, isPlaying, isPlayNext, volume, timelineInterval]);
 
     async function setMusicSources(music) {
-        let response = await connector.musicRepository.executeQuery(
-            connector.musicRepository.getMusicByID,
-            new Map([['id', music.musicID]])
-        );
-        audio.src = connector.musicRepository.getMusicStreamByID(new Map([['id', music.musicID]]));
-        setCurrentAudioInfo((await response.json()).data);
+        if (music != null) {
+            let response = await connector.musicRepository.executeQuery(
+                connector.musicRepository.getMusicByID,
+                new Map([['id', music.musicID]])
+            );
+            audio.src = connector.musicRepository.getMusicStreamByID(new Map([['id', music.musicID]]));
+            setCurrentAudioInfo((await response.json()).data);
+        }
     }
 
     async function play() {
@@ -214,31 +216,21 @@ const MusicPlayer = ({connector, setCurrentAudioInfoCallback}) => {
 
     return (
         <div className={"room-music__music-player music-player"}>
-                {
-                    (currentAudioInfo != null) ?
-                        <div className={"music-player__info"}>
-                            <div className={"music-player__info__logo"}>
-                                <img src={currentAudioInfo.artwork['150x150']}/>
-                            </div>
-                            <p> {currentAudioInfo.title} </p>
-                        </div>
-                        : null
-                }
+            {(currentAudioInfo != null) ?
+                <div className={"music-player__info"}>
+                    <div className={"music-player__info__logo"}>
+                        <img src={currentAudioInfo.artwork['150x150']}/>
+                    </div>
+                    <p> {currentAudioInfo.title} </p>
+                </div> : null
+            }
             <div className={"music-player__controls"}>
-                <button className={"music-player__controls__button"} onClick={previousCallback}>
-                    <img src={"/source/images/previous.png"}/>
-                </button>
+                <Button onClick={previousCallback} src={"/source/images/previous.png"}/>
                 {(!isPlaying) ?
-                    <button className={"music-player__controls__button button_bordered"} onClick={playCallback}>
-                        <img src={"/source/images/play.png"}/>
-                    </button> :
-                    <button className={"music-player__controls__button button_bordered"} onClick={pauseCallback}>
-                        <img src={"/source/images/pause.png"}/>
-                    </button>
+                    <Button className={"button_bordered"} onClick={playCallback} src={"/source/images/play.png"}/> :
+                    <Button className={"button_bordered"} onClick={pauseCallback} src={"/source/images/pause.png"}/>
                 }
-                <button className={"music-player__controls__button"} onClick={nextCallback}>
-                    <img src={"/source/images/next.png"}/>
-                </button>
+                <Button onClick={nextCallback} src={"/source/images/next.png"}/>
                 <Timeline
                     min={0} max={(!isNaN(audio.duration)) ? audio.duration : 0} step={1} value={currentTime}
                     onChange={setCurrentTimeCallback} onSlide={setAudioTimeCallback}
@@ -247,12 +239,8 @@ const MusicPlayer = ({connector, setCurrentAudioInfoCallback}) => {
                     min={0} max={1} step={0.01} value={volume} onChange={setVolume} onSlide={setAudioVolumeCallback}
                 />
                 {(isPlayNext) ?
-                    <button className={"music-player__controls__button"} onClick={playLoopCallback}>
-                        <img src={"/source/images/sequentially.png"}/>
-                    </button> :
-                    <button className={"music-player__controls__button"} onClick={playNextCallback}>
-                        <img src={"/source/images/loop.png"}/>
-                    </button>
+                    <Button onClick={playLoopCallback} src={"/source/images/sequentially.png"}/> :
+                    <Button onClick={playNextCallback} src={"/source/images/loop.png"}/>
                 }
             </div>
         </div>

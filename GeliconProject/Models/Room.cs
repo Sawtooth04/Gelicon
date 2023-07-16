@@ -11,7 +11,7 @@ namespace GeliconProject.Models
         public int roomID { get; set; }
         public string? name { get; set; }
         public int ownerID { get; set; }
-        public string? password { get; set; }
+        public string? defaultColor { get; set; }
         public User? owner { get; set; }
         public List<User>? users { get; set; }
         public List<RoomUserColor>? roomUsersColors { get; set; }

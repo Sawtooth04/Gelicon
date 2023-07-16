@@ -17,9 +17,18 @@ namespace GeliconProject.Storage.Gelicon.Repositories.Room
         {
             return StorageContext.Rooms.Where(r => r.roomID == id)
                 .Include(r => r.roomUsersColors!)
-                .ThenInclude(r => r.color)
                 .Include(r => r.users)
                 .Single();
+        }
+
+        public void AddRoom(Models.Room room)
+        {
+            StorageContext.Rooms.Add(room);
+        }
+
+        public bool IsUnique(string name)
+        {
+            return StorageContext.Rooms.Where(r => r.name == name).Count() == 0;
         }
     }
 }

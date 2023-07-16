@@ -40,6 +40,10 @@ class HubConnector {
         await this._connection.invoke("SendMessage", message, roomID);
     }
 
+    async deleteMessage(key, roomID) {
+        await this._connection.invoke("DeleteMessage", key, roomID);
+    }
+
     async pingResponse() {
         await this._connection.invoke("PingResponse", this.roomID);
     }
@@ -76,6 +80,10 @@ class HubConnector {
 
     async getRoomMusicList() {
         await this._connection.invoke("GetRoomMusicList", this.roomID);
+    }
+
+    async getOnlineUsersList() {
+        await this._connection.invoke("GetOnlineUsersList", this.roomID);
     }
 
     async deleteRoomMusic(musicID) {

@@ -10,7 +10,6 @@ namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer.Controllers
         private event Action<string, IClientProxy, IRoomMusicPlayerModel, int>? synchronizationClientEvent;
         private event Action<IClientProxy>? sendCurrentTimePingEvent;
         private event Action<IClientProxy>? sendPingEvent;
-        private event Action<IClientProxy>? nextMusicEvent;
 
         public void SubscribeOnSynchronizationModelEvent(Action<IRoomMusicPlayerModel> action)
         {
@@ -50,16 +49,6 @@ namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer.Controllers
         public void InvokeSendPing(IClientProxy client) 
         { 
             sendPingEvent?.Invoke(client);
-        }
-
-        public void SubscribeOnNextMusicEvent(Action<IClientProxy> action)
-        {
-            nextMusicEvent += action;
-        }
-
-        public void InvokeNextMusic(IClientProxy client)
-        {
-            nextMusicEvent?.Invoke(client);
         }
     }
 }

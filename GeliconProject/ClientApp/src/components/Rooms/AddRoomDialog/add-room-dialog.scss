@@ -1,0 +1,115 @@
+@import "../../variables";
+
+.add-room-dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: $rooms_auth_dialog_background_color;
+  animation: display-animation ease-out 200ms forwards;
+
+  & .add-room-dialog__content {
+    opacity: 1;
+    z-index: 1;
+    width: 25%;
+    background-color: $rooms_auth_dialog_content_background_color;
+    border: 0.1vw solid $rooms_auth_dialog_content_border_color;
+    border-radius: 0.5vw;
+
+    & .add-room-dialog__content__header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1%;
+      overflow: hidden;
+
+      & .add-room-dialog__content__header__title {
+        font-size: $rooms_auth_dialog_header_font_size;
+        max-width: 100%;
+        white-space: nowrap;
+      }
+    }
+
+    & .add-room-dialog__content__body {
+      display: flex;
+      flex-direction: column;
+      justify-items: center;
+      align-items: center;
+      padding: 0 2%;
+
+      & .add-room-dialog__content__body__title {
+        width: 90%;
+        margin: 1% 0;
+      }
+
+      & .add-room-dialog__content__body__input {
+        width: 90%;
+        padding: 0.5%;
+        background-color: inherit;
+        border: 0.1vw solid $rooms_auth_dialog_input_border_color;
+        box-shadow: none;
+        outline: none;
+        transition: border-color 200ms ease-out;
+        font-size: $rooms_auth_dialog_body_font_size;
+
+        &:focus {
+          border-color: $rooms_auth_dialog_input_focus_border_color;
+        }
+      }
+
+      & .clr-field {
+        width: 40%;
+        height: 4vh;
+        margin-top: 1%;
+
+        button {
+          width: 100%;
+          height: 100%;
+        }
+
+        .input-coloris {
+          width: 100%;
+          height: 100%;
+          background-color: inherit;
+          border: none;
+          outline: none;
+        }
+      }
+    }
+
+    & .add-room-dialog__content__footer {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      padding: 1%;
+
+      & .add-room-dialog__content__footer__button {
+        margin: 2%;
+        padding: 1% 2%;
+        font-size: $rooms_auth_dialog_footer_font_size;
+        border: none;
+        border-radius: 0.3em;
+        background-color: inherit;
+        outline: none;
+      }
+
+      & .add-room-dialog__content__footer__button.main-button {
+        background-color: $rooms_auth_dialog_main_button_background_color;
+        color: $rooms_auth_dialog_content_background_color;
+      }
+    }
+  }
+}
+
+@keyframes display-animation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.9;
+  }
+}

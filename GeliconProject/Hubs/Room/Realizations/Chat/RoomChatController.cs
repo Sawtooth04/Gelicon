@@ -15,17 +15,22 @@ namespace GeliconProject.Hubs.Room.Realizations.Chat
             this.storage = storage;
         }
 
-        public async Task SendAsync(string message, string roomID, int userID, IHubCallerClients clients)
+        public async Task SendMessage(string message, string roomID, int userID, IClientProxy clients)
         {
             Random random = new Random();
             User? sender = storage.GetRepository<IUserRepository>()?.GetUserByIDWithoutJoins(userID);
 
-            await clients.Group(roomID).SendAsync("AppendMessage", new
+            await clients.SendAsync("AppendMessage", new
             {
                 message,
                 sender,
                 key = DateTime.Now.Millisecond + random.Next(-10000, 10000),
             });
+        }
+
+        public async Task DeleteMessage(int key, IClientProxy clients)
+        {
+            await clients.SendAsync("DeleteMessage", key);
         }
     }
 }

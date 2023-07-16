@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import TextArea from "../../../UI/TextArea/TextArea";
 import MusicSearchList from "./MusicSearchList/MusicSearchList";
+import Button from "../../../UI/Button/Button";
 
-const MusicSearch = ({connector, addMusicCallback}) => {
+const MusicSearch = ({connector, addMusicCallback, setNeedToDisplayLoadingScreen}) => {
     const [query, setQuery] = useState("");
     const [searchResults, setSearchResults] = useState([]);
 
@@ -13,6 +14,7 @@ const MusicSearch = ({connector, addMusicCallback}) => {
                 new Map([])
             );
             setSearchResults((await response.json()).data);
+            setNeedToDisplayLoadingScreen(false);
         }
 
         if (connector.connected)
@@ -36,9 +38,7 @@ const MusicSearch = ({connector, addMusicCallback}) => {
             <div className={"music-search__controls music-search-controls"}>
                 <TextArea className="music-search-controls__query-input" value={query} inputCallback={onInput}
                     maxHeightProp={document.documentElement.offsetHeight * 0.05}/>
-                <button className={"music-search-controls__button"} onClick={search}>
-                    <img src={"/source/images/search.png"}/>
-                </button>
+                <Button onClick={search} src={"/source/images/search.png"}/>
             </div>
             <MusicSearchList searchResults={searchResults} addMusicCallback={addMusicCallback}/>
         </div>

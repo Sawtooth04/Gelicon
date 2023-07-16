@@ -151,5 +151,13 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads.ThreadsController
             if (roomObserver != null && roomObserver.RoomMusicPlayerModel != null)
                 await roomMusicPlayerController.SetAutoplayNextMusic(clients, int.Parse(roomID), musicID, roomObserver.RoomMusicPlayerModel);
         }
+
+        public async Task GetOnlineUsersList(IClientProxy client, string roomID)
+        {
+            IRoomThread? roomObserver = roomObserversProvider.FindRoomObserverThread(roomID);
+
+            if (roomObserver != null)
+                await client.SendAsync("SetOnlineUsers", roomObserver.GetOnlineUsersID());
+        }
     }
 }

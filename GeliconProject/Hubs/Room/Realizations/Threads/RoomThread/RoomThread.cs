@@ -41,7 +41,7 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads.RoomThread
                     SendCurrentTimePing();
                     Synchronize();
                 }
-                Thread.Sleep(2500);
+                Thread.Sleep(3500);
             }
         }
 
@@ -60,9 +60,9 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads.RoomThread
             }
         }
 
-        public void AddNewClient(string connectionID, IClientProxy client)
+        public void AddNewClient(string connectionID, int userID, IClientProxy client)
         {
-            IClientThread clientThread = new ClientThread.ClientThread(connectionID, client, synchronizationMediator);
+            IClientThread clientThread = new ClientThread.ClientThread(connectionID, userID, client, synchronizationMediator);
             clientThread.AddConnectionLostHandler(ClientDisconnectHandler);
             clientThreads.Add(clientThread);
             clientThread.Start();
@@ -100,6 +100,11 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads.RoomThread
         {
             foreach (IClientThread client in clientThreads)
                 synchronizationMediator.InvokeSendCurrentTimePing(client.Client);
+        }
+
+        public List<int> GetOnlineUsersID()
+        {
+            return clientThreads.ConvertAll(c => c.UserID);
         }
     }
 }

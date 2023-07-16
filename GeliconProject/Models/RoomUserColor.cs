@@ -10,10 +10,9 @@ namespace GeliconProject.Models
     {
         public int roomUserColorID { get; set; }
         public int userID { get; set; }
-        public int colorID { get; set; }
+        public string? color { get; set; }
         public int roomID { get; set; }
         public User? user { get; set; }
         public Room? room { get; set; }
-        public Color? color { get; set; }
     }
 }

@@ -25,14 +25,31 @@ namespace GeliconProject.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Join()
+        [ActionName("add-room")]
+        public async Task<ActionResult> AddRoom([FromBody] Room room)
         {
-            int roomID = await Request.ReadFromJsonAsync<int>();
-            Room? room = storage.GetRepository<IRoomRepository>()?.GetRoomByID(roomID);
+            room.owner = storage.GetRepository<IUserRepository>()?.GetUserByID(int.Parse(Request.HttpContext.User.FindFirst(Claims.UserID)!.Value));
+            room.users = new List<User>();
+            room.users.Add(room.owner!);
+            room.roomUsersColors = new List<RoomUserColor>();
+            room.roomUsersColors.Add(new RoomUserColor()
+            {
+                user = room.owner,
+                color = room.defaultColor
+            });
+            storage.GetRepository<IRoomRepository>()?.AddRoom(room);
+            storage.Save();
+            return Json(room, serializerOptions);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Join([FromBody]JsonElement[] args)
+        {
+            Room? room = storage.GetRepository<IRoomRepository>()?.GetRoomByID(args[0].GetInt32()!);
             Claim? userIDClaim = Request.HttpContext.User.FindFirst(Claims.UserID);
             User? user;
 
-            if (userIDClaim == null)
+            if (userIDClaim == null || room == null)
                 return NotFound();
             user = storage.GetRepository<IUserRepository>()?.GetUserByID(int.Parse(userIDClaim.Value));
             if (user != null && user.rooms != null && room != null && user.rooms.Find(r => r.roomID == room.roomID) != null)

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@melloware/coloris": "^0.21.0",
     "@microsoft/signalr": "^6.0.9",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",

@@ -12,10 +12,17 @@ const MusicList = ({musicList, current, setRoomMusic, onDelete}) => {
 
     return (
         <div className={"room-music__music-list music-list"}>
-            {musicList.map((music) =>
-                <MusicListItem item={music.data} key={music.data.id} current={music.data.id === current.id}
-                   onItemClick={onItemClick} onDelete={onDeleteClick}/>
-            )}
+            {
+                (current != null) ?
+                musicList.map((music) =>
+                    <MusicListItem item={music.data} key={music.data.id} current={music.data.id === current.id}
+                        onItemClick={onItemClick} onDelete={onDeleteClick}/>
+                ) :
+                musicList.map((music) =>
+                    <MusicListItem item={music.data} key={music.data.id} current={false}
+                        onItemClick={onItemClick} onDelete={onDeleteClick}/>
+                )
+            }
         </div>
     );
 };

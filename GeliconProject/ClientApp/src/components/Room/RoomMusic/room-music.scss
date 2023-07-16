@@ -38,8 +38,7 @@
       font-size: $room_music_navbar_font_size;
       margin: 0 2%;
       padding: 1% 2% 1% 2%;
-      border-top-left-radius: 0.3em;
-      border-top-right-radius: 0.3em;
+      border-radius: 0.3em
     }
 
     & .room-music__navbar__link:after {
@@ -59,12 +58,17 @@
 
   & .room-music__routes {
     width: 100%;
-    height: 83%;
+    flex-grow: 1;
+    max-height: 83%;
 
     & .room-music__music-search {
       width: 100%;
       height: 100%;
     }
+  }
+
+  & .room-music__routes.room-music__routes_max-size {
+    max-height: 91%;
   }
 
   & .room-music__music-player {

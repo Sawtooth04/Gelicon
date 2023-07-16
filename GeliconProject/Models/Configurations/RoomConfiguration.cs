@@ -10,7 +10,6 @@ namespace GeliconProject.Models.Configurations
             builder.ToTable("Room").HasKey(r => r.roomID);
             builder.ToTable("Room").Property("name").IsRequired();
             builder.ToTable("Room").Property("ownerID").IsRequired();
-            builder.ToTable("Room").Property("password").IsRequired();
             builder.ToTable("Room").HasMany(r => r.users).WithMany(u => u.rooms);
             builder.ToTable("Room").HasOne(r => r.owner).WithMany(u => u.ownRooms).HasForeignKey(r => r.ownerID);
             builder.ToTable("Room").HasMany(r => r.roomUsersColors).WithOne(r => r.room);

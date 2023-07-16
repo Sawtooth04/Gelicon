@@ -13,12 +13,14 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads.ClientThread
         private IClientProxy client;
         private DateTime pingSended;
         private sbyte pingAttempts;
+        private int userID;
 
         public int Ping { get; set; }
         public string ConnectionID { get; }
         public IClientProxy Client { get => client; }
+        public int UserID { get => userID; }
 
-        public ClientThread(string connectionID, IClientProxy client, IRoomMusicPlayerSynchronizationMediator synchronizationMediator)
+        public ClientThread(string connectionID, int userID, IClientProxy client, IRoomMusicPlayerSynchronizationMediator synchronizationMediator)
         {
             isInterrupted = true;
             thread = new Thread(ThreadDelegate);
@@ -26,6 +28,7 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads.ClientThread
             this.client = client;
             this.synchronizationMediator = synchronizationMediator;
             Ping = 0;
+            this.userID = userID;
             pingAttempts = -1;
         }
 

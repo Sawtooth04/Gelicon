@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from "../../../../UI/Button/Button";
 
 const MusicListItem = ({item, current, onItemClick, onDelete}) => {
     function onClick() {
@@ -15,9 +16,7 @@ const MusicListItem = ({item, current, onItemClick, onDelete}) => {
                 <p> {item.title} </p>
             </div>
             <div className={"music-list-item__controls"}>
-                <button className={"music-list-item__controls__button"} onClick={onDeleteClick}>
-                    <img src={"/source/images/delete-music.png"}/>
-                </button>
+                <Button onClick={onDeleteClick} src={"/source/images/delete-music.png"}/>
             </div>
         </div>
     );

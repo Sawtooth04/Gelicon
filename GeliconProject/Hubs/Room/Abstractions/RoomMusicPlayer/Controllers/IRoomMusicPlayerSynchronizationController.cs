@@ -11,8 +11,6 @@ namespace GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer.Controllers
 
         public void SynchronizeClient(string connectionID, IClientProxy client, IRoomMusicPlayerModel roomMusicPlayerModel, int ping);
 
-        public void SendNextMusic(IClientProxy client);
-
         public void UseMediator(IRoomMusicPlayerSynchronizationMediator synchronizationMediator);
     }
 }

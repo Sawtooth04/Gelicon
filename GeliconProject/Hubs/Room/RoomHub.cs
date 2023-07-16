@@ -37,14 +37,15 @@ namespace GeliconProject.Hubs.Room
         public async Task UserConnect(string roomID)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, roomID);
-            roomsThreadsController.CreateRoomObserverThread(roomID).AddNewClient(Context.ConnectionId, Clients.Client(Context.ConnectionId));
+            roomsThreadsController.CreateRoomObserverThread(roomID).AddNewClient(Context.ConnectionId,
+                int.Parse(Context.User!.FindFirst(Claims.UserID)!.Value), Clients.Client(Context.ConnectionId));
         }
 
         [Authorize]
         public async Task SendMessage(string message, string roomID)
         {
             int userID = int.Parse(Context.User!.FindFirst(Claims.UserID)!.Value);
-            await roomChatController.SendAsync(message, roomID, userID, Clients);
+            await roomChatController.SendMessage(message, roomID, userID, Clients.Group(roomID));
         }
 
         [Authorize]
@@ -151,6 +152,19 @@ namespace GeliconProject.Hubs.Room
         public async Task SetAutoplayNextMusic(string roomID, string musicID)
         {
             await roomsThreadsController.SetAutoplayNextMusic(Clients.Group(roomID), roomID, musicID, Context.ConnectionId);
+        }
+
+        [Authorize]
+        public async Task DeleteMessage(int key, string roomID)
+        {
+            int userID = int.Parse(Context.User!.FindFirst(Claims.UserID)!.Value);
+            await roomChatController.DeleteMessage(key, Clients.Group(roomID));
+        }
+
+        [Authorize]
+        public async Task GetOnlineUsersList(string roomID)
+        {
+            await roomsThreadsController.GetOnlineUsersList(Clients.Caller, roomID);
         }
     }
 }

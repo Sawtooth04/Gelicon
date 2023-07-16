@@ -12,4 +12,9 @@
   border-width: 0.1em;
   border-radius: 0.1em;
   background-color: $users_labels_background_color;
+  opacity: 0.5;
+}
+
+.user-label.user-label_online {
+  opacity: 1;
 }

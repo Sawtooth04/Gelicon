@@ -1,4 +1,5 @@
 @import "MusicSearchList/music-search-list";
+@import "../../../UI/Button/icon-button";
 
 .music-search {
   display: flex;
@@ -18,23 +19,9 @@
       resize: none;
     }
 
-    & .music-search-controls__button {
-      display: flex;
-      align-items: center;
-      position: relative;
+    & .icon-button {
       width: 1.5vw;
       height: 1.5vw;
-      background-color: rgba(0, 0, 0, 0);
-      margin: 0 1%;
-      border: none;
-
-      & img {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: auto;
-      }
     }
   }
 }

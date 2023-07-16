@@ -46,18 +46,12 @@ namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer.Controllers
             }
         }
 
-        public async void SendNextMusic(IClientProxy client)
-        {
-            await client.SendAsync("PingReceive");
-        }
-
         public void UseMediator(IRoomMusicPlayerSynchronizationMediator synchronizationMediator)
         {
             synchronizationMediator.SubscribeOnSynchronizationModelEvent(SynchronizeModels);
             synchronizationMediator.SubscribeOnSynchronizationClientEvent(SynchronizeClient);
             synchronizationMediator.SubscribeOnSendCurrentTimePingEvent(SendCurrentTimePing);
             synchronizationMediator.SubscribeOnSendPingEvent(SendPing);
-            synchronizationMediator.SubscribeOnNextMusicEvent(SendNextMusic);
         }
     }
 }

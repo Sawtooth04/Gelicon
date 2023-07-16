@@ -1,5 +1,7 @@
 @import "RoomLabel/rooms-label";
 @import "../variables";
+@import "AddRoomLabel/add-room-label";
+@import "AddRoomDialog/add-room-dialog";
 
 .rooms {
   display: flex;
