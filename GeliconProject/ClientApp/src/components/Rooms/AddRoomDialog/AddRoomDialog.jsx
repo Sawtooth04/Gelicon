@@ -25,7 +25,8 @@ const AddRoomDialog = ({cancelCallback}) => {
                 '#8A2BE2',
                 '#20B2AA',
                 '#1E90FF',
-            ]
+            ],
+            onChange: (color) => setDefaultColor(color)
         });
     }, []);
 
@@ -57,10 +58,9 @@ const AddRoomDialog = ({cancelCallback}) => {
                 <div className={"add-room-dialog__content__body"}>
                     <p className="add-room-dialog__content__body__title"> Enter room name: </p>
                     <input type="text" className="add-room-dialog__content__body__input" value={name}
-                           onChange={onNameChange}/>
+                       onChange={onNameChange}/>
                     <p className="add-room-dialog__content__body__title"> Choose default user color: </p>
-                    <input className={"input-coloris"} type={"text"} value={defaultColor}
-                           onChange={(color) => setDefaultColor(color)}/>
+                    <input className={"input-coloris"} type={"text"} value={defaultColor} onChange={() => {}}/>
                 </div>
                 <div className={"add-room-dialog__content__footer"}>
                     <button className={"add-room-dialog__content__footer__button"} onClick={cancelCallback}>

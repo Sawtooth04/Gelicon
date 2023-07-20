@@ -94,6 +94,10 @@ class HubConnector {
         await this._connection.invoke("CurrentTimePingResponse", this.roomID, parseInt(value, 10));
     }
 
+    async setRoomUserChanges(user, color) {
+        await this._connection.invoke("SetRoomUserChanges", this.roomID, user.userID, color);
+    }
+
     //Music player
     async getCurrentMusic() {
         await this._connection.invoke("GetCurrentMusic", this.roomID);

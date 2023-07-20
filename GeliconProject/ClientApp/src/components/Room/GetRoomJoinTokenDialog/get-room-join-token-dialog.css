@@ -1,0 +1,73 @@
+.get-room-join-token-dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: #0f0f0f;
+  animation: display-animation ease-out 200ms forwards;
+}
+.get-room-join-token-dialog .get-room-join-token-dialog__content {
+  opacity: 1;
+  z-index: 1;
+  width: 25%;
+  background-color: #1e1e1e;
+  border: 0.1vw solid #4f4f4f;
+  border-radius: 0.5vw;
+}
+.get-room-join-token-dialog .get-room-join-token-dialog__content .get-room-join-token-dialog__content__header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1%;
+  overflow: hidden;
+}
+.get-room-join-token-dialog .get-room-join-token-dialog__content .get-room-join-token-dialog__content__header .get-room-join-token-dialog__content__header__title {
+  font-size: 22px;
+  max-width: 100%;
+  white-space: nowrap;
+}
+.get-room-join-token-dialog .get-room-join-token-dialog__content .get-room-join-token-dialog__content__body {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  padding: 0 2%;
+}
+.get-room-join-token-dialog .get-room-join-token-dialog__content .get-room-join-token-dialog__content__body .get-room-join-token-dialog__content__body__title {
+  width: 90%;
+  margin: 1% 0;
+}
+.get-room-join-token-dialog .get-room-join-token-dialog__content .get-room-join-token-dialog__content__footer {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 1%;
+}
+.get-room-join-token-dialog .get-room-join-token-dialog__content .get-room-join-token-dialog__content__footer .get-room-join-token-dialog__content__footer__button {
+  margin: 2%;
+  padding: 1% 2%;
+  font-size: 22px;
+  border: none;
+  border-radius: 0.3em;
+  background-color: inherit;
+  outline: none;
+}
+.get-room-join-token-dialog .get-room-join-token-dialog__content .get-room-join-token-dialog__content__footer .get-room-join-token-dialog__content__footer__button.main-button {
+  background-color: #7a7a7a;
+  color: #1e1e1e;
+}
+
+@keyframes display-animation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.9;
+  }
+}
+
+/*# sourceMappingURL=get-room-join-token-dialog.css.map */

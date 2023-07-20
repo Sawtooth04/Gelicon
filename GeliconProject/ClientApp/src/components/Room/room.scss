@@ -2,6 +2,8 @@
 @import "RoomChat/room-chat";
 @import "RoomUsersList/UserLabel/user-label";
 @import "RoomMusic/room-music";
+@import "RoomUsersList/RoomUserEditDialog/room-user-edit-dialog";
+@import "GetRoomJoinTokenDialog/get-room-join-token-dialog";
 
 .room {
   display: flex;

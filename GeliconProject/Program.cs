@@ -22,6 +22,7 @@ using GeliconProject.Hubs.Room.Abstractions.Threads.RoomThreadsFactory;
 using GeliconProject.Hubs.Room.Realizations.Threads.RoomThreadsFactory;
 using GeliconProject.Hubs.Room.Abstractions.Chat;
 using GeliconProject.Hubs.Room.Realizations.Chat;
+using GeliconProject.Utils.RoomJoinURLBuilder;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddJWTValidationParameters();

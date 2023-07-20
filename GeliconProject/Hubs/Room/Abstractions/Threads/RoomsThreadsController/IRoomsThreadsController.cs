@@ -39,5 +39,7 @@ namespace GeliconProject.Hubs.Room.Abstractions.Threads.ThreadsController
         public Task SetAutoplayNextMusic(IClientProxy clients, string roomID, string musicID, string connectionID);
 
         public Task GetOnlineUsersList(IClientProxy client, string roomID);
+
+        public Task SetRoomUserChanges(IClientProxy clients, string roomID, int userID, string color);
     }
 }

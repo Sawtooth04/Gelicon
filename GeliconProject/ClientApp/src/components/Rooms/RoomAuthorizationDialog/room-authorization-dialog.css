@@ -5,6 +5,104 @@
   position: absolute;
   width: 100%;
   height: 100%;
+  left: 0;
+  top: 0;
+  background-color: #0f0f0f;
+  animation: display-animation ease-out 200ms forwards;
+}
+.room-authorization-dialog .room-authorization-dialog__content {
+  opacity: 1;
+  z-index: 1;
+  width: 25%;
+  background-color: #1e1e1e;
+  border: 0.1vw solid #4f4f4f;
+  border-radius: 0.5vw;
+}
+.room-authorization-dialog .room-authorization-dialog__content .room-authorization-dialog__content__header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1%;
+  overflow: hidden;
+}
+.room-authorization-dialog .room-authorization-dialog__content .room-authorization-dialog__content__header .room-authorization-dialog__content__header__title {
+  font-size: 22px;
+  max-width: 100%;
+  white-space: nowrap;
+}
+.room-authorization-dialog .room-authorization-dialog__content .room-authorization-dialog__content__body {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  padding: 0 2%;
+}
+.room-authorization-dialog .room-authorization-dialog__content .room-authorization-dialog__content__body .room-authorization-dialog__content__body__title {
+  width: 90%;
+  margin: 1% 0;
+}
+.room-authorization-dialog .room-authorization-dialog__content .room-authorization-dialog__content__body .room-authorization-dialog__content__body__input {
+  width: 90%;
+  padding: 0.5%;
+  background-color: inherit;
+  border: 0.1vw solid #4f4f4f;
+  box-shadow: none;
+  outline: none;
+  transition: border-color 200ms ease-out;
+  font-size: 18px;
+}
+.room-authorization-dialog .room-authorization-dialog__content .room-authorization-dialog__content__body .room-authorization-dialog__content__body__input:focus {
+  border-color: #7a7a7a;
+}
+.room-authorization-dialog .room-authorization-dialog__content .room-authorization-dialog__content__footer {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 1%;
+}
+.room-authorization-dialog .room-authorization-dialog__content .room-authorization-dialog__content__footer .room-authorization-dialog__content__footer__button {
+  margin: 2%;
+  padding: 1% 2%;
+  font-size: 22px;
+  border: none;
+  border-radius: 0.3em;
+  background-color: inherit;
+  outline: none;
+}
+.room-authorization-dialog .room-authorization-dialog__content .room-authorization-dialog__content__footer .room-authorization-dialog__content__footer__button.main-button {
+  background-color: #7a7a7a;
+  color: #1e1e1e;
+}
+
+.room-authorization-dialog.room-authorization-dialog_incorrect .room-authorization-dialog__content {
+  animation: incorrect-animation 800ms ease-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes display-animation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.9;
+  }
+}
+@keyframes incorrect-animation {
+  0% {
+    border-color: #4f4f4f;
+  }
+  20% {
+    border-color: #ca0100;
+  }
+  50% {
+    border-color: #4f4f4f;
+  }
+  70% {
+    border-color: #ca0100;
+  }
+  100% {
+    border-color: #4f4f4f;
+  }
 }
 
 /*# sourceMappingURL=room-authorization-dialog.css.map */

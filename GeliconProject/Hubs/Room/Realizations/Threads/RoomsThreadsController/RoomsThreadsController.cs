@@ -3,7 +3,11 @@ using GeliconProject.Hubs.Room.Abstractions.Threads.RoomThread;
 using GeliconProject.Hubs.Room.Abstractions.Threads.RoomThreadsProvider;
 using GeliconProject.Hubs.Room.Abstractions.Threads.ThreadsController;
 using GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer.Controllers;
+using GeliconProject.Storage.Abstractions;
+using GeliconProject.Storage.Abstractions.Repositories.RoomUserColor;
 using Microsoft.AspNetCore.SignalR;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace GeliconProject.Hubs.Room.Realizations.Threads.ThreadsController
 {
@@ -12,12 +16,15 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads.ThreadsController
         private IRoomThreadsProvider roomObserversProvider;
         private IRoomMusicPlayerController roomMusicPlayerController;
         private IRoomMusicPlayerSynchronizationController synchronizationController;
+        private IStorage storage;
 
-        public RoomsThreadsController(IRoomThreadsProvider roomObserversProvider, IRoomMusicPlayerController roomMusicPlayerController, IRoomMusicPlayerSynchronizationController synchronizationController)
+        public RoomsThreadsController(IRoomThreadsProvider roomObserversProvider, IRoomMusicPlayerController roomMusicPlayerController,
+            IRoomMusicPlayerSynchronizationController synchronizationController, IStorage storage)
         {
             this.roomObserversProvider = roomObserversProvider;
             this.roomMusicPlayerController = roomMusicPlayerController;
             this.synchronizationController = synchronizationController;
+            this.storage = storage;
         }
 
         public IRoomThread CreateRoomObserverThread(string roomID)
@@ -158,6 +165,22 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads.ThreadsController
 
             if (roomObserver != null)
                 await client.SendAsync("SetOnlineUsers", roomObserver.GetOnlineUsersID());
+        }
+
+        public async Task SetRoomUserChanges(IClientProxy clients, string roomID, int userID, string color)
+        {
+            IRoomUserColorRepository repository = storage.GetRepository<IRoomUserColorRepository>()!;
+            List<Models.RoomUserColor> userColors;
+
+            repository.ChangeRoomUserColor(int.Parse(roomID), userID, color);
+            userColors = await repository.GetRoomUsersColor(int.Parse(roomID));
+            userColors = userColors.ConvertAll(u =>
+            {
+                u.room = null;
+                u.user = null;
+                return u;
+            });
+            await clients.SendAsync("SetUsersColors", userColors);
         }
     }
 }

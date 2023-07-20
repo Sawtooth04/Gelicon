@@ -1,4 +1,3 @@
-@import "user-label-colors";
 @import "../../../variables";
 
 .user-label {
@@ -13,6 +12,10 @@
   border-radius: 0.1em;
   background-color: $users_labels_background_color;
   opacity: 0.5;
+
+  & p {
+    color: inherit;
+  }
 }
 
 .user-label.user-label_online {

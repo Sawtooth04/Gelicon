@@ -4,31 +4,44 @@ import RoomChat from "./RoomChat/RoomChat";
 import HubConnector from "../../Utils/HubConnector";
 import RoomUsersList from "./RoomUsersList/RoomUsersList";
 import RoomMusic from "./RoomMusic/RoomMusic";
+import GetRoomJoinTokenDialog from "./GetRoomJoinTokenDialog/GetRoomJoinTokenDialog";
 
-const Room = () => {
+const Room = ({onMount, showRoomJoinToken, closeRoomJoinTokenDialog}) => {
     const [connector, setConnector] = useState(new HubConnector());
     const {roomID} = useParams();
     const [users, setUsers] = useState([]);
     const [roomUsersColors, setRoomUsersColors] = useState([]);
-    const [onlineCheckInterval, setOnlineCheckInterval] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState([]);
+    const [editableUsersID, setEditableUsersID] = useState([]);
 
     useEffect(() => {
-        return () => connector.disconnect();
+        onMount();
+        return () => {
+            connector.disconnect();
+        }
     }, []);
+
+    useEffect(() => {
+        const onlineCheckInterval = setInterval(async () => await connector.getOnlineUsersList(), 15000);
+
+        function onUpdate() {
+            if (onlineCheckInterval !== null && typeof(onlineCheckInterval) !== 'undefined')
+                clearInterval(onlineCheckInterval);
+        }
+
+        return onUpdate;
+    });
 
     useEffect(() => {
         function addEventHandlers() {
             connector.addEventHandler("SetOnlineUsers", setOnlineUsers);
         }
 
-        function onUpdate() {
-            if (onlineCheckInterval !== null && typeof(onlineCheckInterval) !== 'undefined')
-                clearInterval(onlineCheckInterval);
+        function removeEventHandlers() {
             connector.removeEventHandler("SetOnlineUsers", setOnlineUsers);
         }
 
-        async function getRoom() {
+        async function getRoomInfo() {
             return await fetch("/room/join", {
                 method: "POST",
                 headers: {
@@ -39,27 +52,48 @@ const Room = () => {
             });
         }
 
-        function setStates(room) {
-            setUsers(room.users);
-            setRoomUsersColors(room.roomUsersColors);
+        function setStates(roomInfo) {
+            setUsers(roomInfo.room.users);
+            setRoomUsersColors(roomInfo.room.roomUsersColors);
+            setEditableUsersID(roomInfo.editableUsers);
         }
 
         const init = async () => {
             addEventHandlers();
             await connector.getOnlineUsersList();
-            setStates(await (await getRoom()).json());
-            setOnlineCheckInterval(setInterval(() => connector.getOnlineUsersList(), 15000));
+            setStates(await (await getRoomInfo()).json());
         };
 
-        connector.setConnectionToHub(roomID).then(() => void init());
-        return onUpdate;
-    }, [connector]);
+        if (!connector.connected)
+            connector.setConnectionToHub(roomID).then(() => void init());
+        return removeEventHandlers;
+    }, [connector, connector.connected]);
+
+    useEffect(() => {
+        function addEventHandlers() {
+            connector.addEventHandler("SetUsersColors", setUsersColors);
+        }
+
+        function removeEventHandlers() {
+            connector.removeEventHandler("SetUsersColors", setUsersColors);
+        }
+
+        function setUsersColors(usersColors) {
+            setRoomUsersColors(usersColors);
+        }
+
+        if (connector.connected)
+            addEventHandlers();
+        return removeEventHandlers;
+    }, [roomUsersColors]);
 
     return (
         <div className="room">
+            {showRoomJoinToken ? <GetRoomJoinTokenDialog roomID={roomID} closeRoomJoinTokenDialog={closeRoomJoinTokenDialog}/> : null}
             <RoomMusic connector={connector}/>
             <RoomChat connector={connector} roomID={roomID} roomUsersColors={roomUsersColors}/>
-            <RoomUsersList users={users} roomUsersColors={roomUsersColors} onlineUsers={onlineUsers} className="room__users users"/>
+            <RoomUsersList users={users} roomUsersColors={roomUsersColors} onlineUsers={onlineUsers}
+               className="room__users users" editableUsersID={editableUsersID} connector={connector}/>
         </div>
     );
 };

@@ -1,6 +1,7 @@
 ﻿using GeliconProject.Models;
 using GeliconProject.Storage.Abstractions;
 using GeliconProject.Storage.Abstractions.Repositories.Room;
+using GeliconProject.Storage.Abstractions.Repositories.RoomUser;
 using GeliconProject.Storage.Repositories.User;
 using GeliconProject.Utils.Claims;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,14 @@ namespace GeliconProject.Controllers
             serializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         }
 
+        private List<int> GetEditableUsers(Room room, int userID)
+        {
+            if (room.ownerID == userID)
+                return storage.GetRepository<IRoomUserRepository>().GetRoomUsers(room.roomID)!.ConvertAll(u => u.userID);
+            else
+                return new List<int> { userID };
+        }
+
         [HttpPost]
         [ActionName("add-room")]
         public async Task<ActionResult> AddRoom([FromBody] Room room)
@@ -45,15 +54,15 @@ namespace GeliconProject.Controllers
         [HttpPost]
         public async Task<ActionResult> Join([FromBody]JsonElement[] args)
         {
-            Room? room = storage.GetRepository<IRoomRepository>()?.GetRoomByID(args[0].GetInt32()!);
-            Claim? userIDClaim = Request.HttpContext.User.FindFirst(Claims.UserID);
+            Room? room = storage.GetRepository<IRoomRepository>().GetRoomByID(args[0].GetInt32()!);
+            int userID = int.Parse(Request.HttpContext.User.FindFirst(Claims.UserID)!.Value);
             User? user;
 
-            if (userIDClaim == null || room == null)
+            if (room == null)
                 return NotFound();
-            user = storage.GetRepository<IUserRepository>()?.GetUserByID(int.Parse(userIDClaim.Value));
+            user = storage.GetRepository<IUserRepository>().GetUserByID(userID);
             if (user != null && user.rooms != null && room != null && user.rooms.Find(r => r.roomID == room.roomID) != null)
-                return Json(room, serializerOptions);
+                return Json(new { room = room, editableUsers = GetEditableUsers(room, userID) }, serializerOptions);
             return NotFound();
         }
     }

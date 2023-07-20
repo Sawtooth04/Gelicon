@@ -1,0 +1,12 @@
+.join-room-label {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+.join-room-label img {
+  width: 2vw;
+  height: auto;
+}
+
+/*# sourceMappingURL=join-room-label.css.map */

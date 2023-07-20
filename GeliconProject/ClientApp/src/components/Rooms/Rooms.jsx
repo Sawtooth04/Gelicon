@@ -3,17 +3,23 @@ import RoomLabel from "./RoomLabel/RoomLabel";
 import AddRoomLabel from "./AddRoomLabel/AddRoomLabel";
 import AddRoomDialog from "./AddRoomDialog/AddRoomDialog";
 import {useNavigate} from "react-router-dom";
+import JoinRoomLabel from "./JoinRoomLabel/JoinRoomLabel";
+import JoinRoomDialog from "./JoinRoomDialog/JoinRoomDialog";
 
-const Rooms = () => {
+const Rooms = ({onMount}) => {
     const [rooms, setRooms] = useState([]);
     const [addRoomDialogOpened, setAddRoomDialogOpened] = useState(false);
+    const [joinRoomDialogOpened, setJoinRoomDialogOpened] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
+
         const roomsInit = async () => {
             let data = await getRooms();
             setRooms(data);
         };
+
+        onMount();
         void roomsInit();
     }, []);
 
@@ -34,9 +40,18 @@ const Rooms = () => {
         setAddRoomDialogOpened(false);
     }
 
+    function joinRoomLabelClickCallback() {
+        setJoinRoomDialogOpened(true);
+    }
+
+    function cancelJoinRoomCallback() {
+        setJoinRoomDialogOpened(false);
+    }
+
     return (
         <div className="rooms">
             <AddRoomLabel onClick={addRoomLabelClickCallback}/>
+            <JoinRoomLabel onClick={joinRoomLabelClickCallback}/>
             {
                 rooms.map((room) =>
                     <RoomLabel room={room} key={room.roomID} onClick={roomLabelClickCallback}/>
@@ -44,6 +59,10 @@ const Rooms = () => {
             }
             {(addRoomDialogOpened) ?
                 <AddRoomDialog cancelCallback={cancelAddRoomCallback}/> :
+                null
+            }
+            {(joinRoomDialogOpened) ?
+                <JoinRoomDialog cancelCallback={cancelJoinRoomCallback}/> :
                 null
             }
         </div>

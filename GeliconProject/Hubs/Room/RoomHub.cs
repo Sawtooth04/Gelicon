@@ -166,5 +166,11 @@ namespace GeliconProject.Hubs.Room
         {
             await roomsThreadsController.GetOnlineUsersList(Clients.Caller, roomID);
         }
+
+        [Authorize]
+        public async Task SetRoomUserChanges(string roomID, int userID, string color)
+        {
+            await roomsThreadsController.SetRoomUserChanges(Clients.Caller, roomID, userID, color);
+        }
     }
 }

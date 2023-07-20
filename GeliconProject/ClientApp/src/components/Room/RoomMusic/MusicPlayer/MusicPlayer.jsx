@@ -13,6 +13,10 @@ const MusicPlayer = ({connector, setCurrentAudioInfoCallback}) => {
     const [isPlayNext, setIsPlayNext] = useState(true);
 
     useEffect(() => {
+        return () => pause();
+    }, []);
+
+    useEffect(() => {
         setCurrentAudioInfoCallback(currentAudioInfo);
     }, [currentAudioInfo]);
 
@@ -161,7 +165,7 @@ const MusicPlayer = ({connector, setCurrentAudioInfoCallback}) => {
     async function play() {
         await audio.play();
         setTimelineInterval(setInterval(() => {
-            setCurrentTime(audio.currentTime)
+            setCurrentTime(audio.currentTime);
         }, 1000));
     }
 

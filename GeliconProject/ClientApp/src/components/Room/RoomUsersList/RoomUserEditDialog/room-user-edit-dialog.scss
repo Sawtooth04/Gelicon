@@ -1,6 +1,6 @@
-@import "../../variables";
+@import "../../../variables";
 
-.add-room-dialog {
+.edit-user-dialog {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,8 +11,9 @@
   top: 0;
   background-color: $dialog_background_color;
   animation: display-animation ease-out 200ms forwards;
+  z-index: 2;
 
-  & .add-room-dialog__content {
+  & .edit-user-dialog__content {
     opacity: 1;
     z-index: 1;
     width: 25%;
@@ -20,33 +21,33 @@
     border: 0.1vw solid $dialog_content_border_color;
     border-radius: 0.5vw;
 
-    & .add-room-dialog__content__header {
+    & .edit-user-dialog__content__header {
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 1%;
       overflow: hidden;
 
-      & .add-room-dialog__content__header__title {
+      & .edit-user-dialog__content__header__title {
         font-size: $dialog_header_font_size;
         max-width: 100%;
         white-space: nowrap;
       }
     }
 
-    & .add-room-dialog__content__body {
+    & .edit-user-dialog__content__body {
       display: flex;
       flex-direction: column;
       justify-items: center;
       align-items: center;
       padding: 0 2%;
 
-      & .add-room-dialog__content__body__title {
+      & .edit-user-dialog__content__body__title {
         width: 90%;
         margin: 1% 0;
       }
 
-      & .add-room-dialog__content__body__input {
+      & .edit-user-dialog__content__body__input {
         width: 90%;
         padding: 0.5%;
         background-color: inherit;
@@ -81,13 +82,13 @@
       }
     }
 
-    & .add-room-dialog__content__footer {
+    & .edit-user-dialog__content__footer {
       display: flex;
       justify-content: end;
       align-items: center;
       padding: 1%;
 
-      & .add-room-dialog__content__footer__button {
+      & .edit-user-dialog__content__footer__button {
         margin: 2%;
         padding: 1% 2%;
         font-size: $dialog_footer_font_size;
@@ -97,7 +98,7 @@
         outline: none;
       }
 
-      & .add-room-dialog__content__footer__button.main-button {
+      & .edit-user-dialog__content__footer__button.main-button {
         background-color: $dialog_main_button_background_color;
         color: $dialog_content_background_color;
       }

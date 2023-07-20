@@ -1,6 +1,6 @@
 @import "../../variables";
 
-.add-room-dialog {
+.get-room-join-token-dialog {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,7 +12,7 @@
   background-color: $dialog_background_color;
   animation: display-animation ease-out 200ms forwards;
 
-  & .add-room-dialog__content {
+  & .get-room-join-token-dialog__content {
     opacity: 1;
     z-index: 1;
     width: 25%;
@@ -20,74 +20,52 @@
     border: 0.1vw solid $dialog_content_border_color;
     border-radius: 0.5vw;
 
-    & .add-room-dialog__content__header {
+    & .get-room-join-token-dialog__content__header {
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 1%;
       overflow: hidden;
 
-      & .add-room-dialog__content__header__title {
+      & .get-room-join-token-dialog__content__header__title {
         font-size: $dialog_header_font_size;
         max-width: 100%;
         white-space: nowrap;
       }
     }
 
-    & .add-room-dialog__content__body {
+    & .get-room-join-token-dialog__content__body {
       display: flex;
       flex-direction: column;
       justify-items: center;
       align-items: center;
       padding: 0 2%;
 
-      & .add-room-dialog__content__body__title {
+      & .get-room-join-token-dialog__content__body__title {
         width: 90%;
+        max-width: 90%;
         margin: 1% 0;
+        word-wrap: break-word;
+        text-indent: 5%;
       }
 
-      & .add-room-dialog__content__body__input {
-        width: 90%;
-        padding: 0.5%;
-        background-color: inherit;
-        border: 0.1vw solid $dialog_input_border_color;
-        box-shadow: none;
-        outline: none;
-        transition: border-color 200ms ease-out;
-        font-size: $dialog_body_font_size;
-
-        &:focus {
-          border-color: $dialog_input_focus_border_color;
-        }
-      }
-
-      & .clr-field {
-        width: 40%;
-        height: 4vh;
-        margin-top: 1%;
-
-        button {
-          width: 100%;
-          height: 100%;
-        }
-
-        .input-coloris {
-          width: 100%;
-          height: 100%;
-          background-color: inherit;
-          border: none;
-          outline: none;
-        }
+      & .get-room-join-token-dialog__content__body__title_small {
+        width: 100%;
+        max-width: 90%;
+        margin: 2% 0 1% 0;
+        word-wrap: break-word;
+        text-align: center;
+        font-size: $dialog_body_small_font_size;
       }
     }
 
-    & .add-room-dialog__content__footer {
+    & .get-room-join-token-dialog__content__footer {
       display: flex;
       justify-content: end;
       align-items: center;
       padding: 1%;
 
-      & .add-room-dialog__content__footer__button {
+      & .get-room-join-token-dialog__content__footer__button {
         margin: 2%;
         padding: 1% 2%;
         font-size: $dialog_footer_font_size;
@@ -97,7 +75,7 @@
         outline: none;
       }
 
-      & .add-room-dialog__content__footer__button.main-button {
+      & .get-room-join-token-dialog__content__footer__button.main-button {
         background-color: $dialog_main_button_background_color;
         color: $dialog_content_background_color;
       }
