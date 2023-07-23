@@ -1,12 +1,19 @@
 @import "../variables";
 
 .wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100vw;
+  max-width: 100vw;
   min-height: 100vh;
   position: relative;
 
   & .main {
-    min-height: 100vh;
+    display: flex;
+    min-height: 94vh;
     background-color: $main_background_color;
+    width: 100%;
 
     & .content {
       display: flex;

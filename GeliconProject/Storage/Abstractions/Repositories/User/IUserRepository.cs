@@ -4,7 +4,7 @@
     {
         public void Add(Models.User user);
 
-        public Models.User GetUserByEmail(string email);
+        public Models.User? GetUserByEmail(string email);
 
         public Models.User GetUserByID(int id);
 

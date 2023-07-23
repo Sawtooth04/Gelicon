@@ -9,6 +9,7 @@ using System.Security.Claims;
 using GeliconProject.Utils.Claims;
 using GeliconProject.Storage.Abstractions;
 using GeliconProject.Storage.Repositories.User;
+using GeliconProject.Models.Validation;
 
 namespace GeliconProject.Controllers
 {
@@ -23,17 +24,21 @@ namespace GeliconProject.Controllers
             this.storage = storage;
         }
 
-        private bool isPasswordValid(User user, string password)
+        private bool IsPasswordValid(User user, string password)
         {
             PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
             PasswordVerificationResult result = passwordHasher.VerifyHashedPassword(user, user.passwordHash, password);
             return result == PasswordVerificationResult.Success;
         }
 
-        private bool isUserValid(string email, string password)
+        private LoginValidation UserValidation(string email, string password)
         {
-            User? user;
-            return ((user = storage.GetRepository<IUserRepository>()?.GetUserByEmail(email)) == null) ? false : isPasswordValid(user, password);
+            User? user = storage.GetRepository<IUserRepository>()?.GetUserByEmail(email);
+            return new LoginValidation()
+            {
+                EmailValid = user != null,
+                PasswordValid = (user == null) ? true : IsPasswordValid(user, password)
+            };
         }
 
         private List<Claim> getLoginClaims(User user)
@@ -48,7 +53,9 @@ namespace GeliconProject.Controllers
         [HttpPost]
         public IActionResult Login(string email, string password)
         {
-            if (isUserValid(email, password))
+            LoginValidation userValidation = UserValidation(email, password);
+
+            if (userValidation.EmailValid && userValidation.PasswordValid)
             {
                 User? user = storage.GetRepository<IUserRepository>()?.GetUserByEmail(email);
                 JwtSecurityToken jwt = new JwtSecurityToken
@@ -61,9 +68,9 @@ namespace GeliconProject.Controllers
                 );
                 ControllerContext.HttpContext.Response.Cookies.Append("Authorization", new JwtSecurityTokenHandler().WriteToken(jwt),
                     new CookieOptions { MaxAge = TimeSpan.FromMinutes(IJWTValidationParameters.expires) });
-                return Ok();
+                return Ok(new {});
             }
-            return NotFound();
+            return Ok(userValidation);
         }
     }
 }

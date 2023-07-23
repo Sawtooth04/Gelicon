@@ -13,7 +13,7 @@ const Sidebar = ({showRoomButtons, setShowRoomJoinToken}) => {
         <div className="sidebar">
             {showRoomButtons ?
                 <div className={'sidebar__room-buttons'}>
-                    <Button className={'sidebar__button'} onClick={setShowRoomJoinToken} src={'/source/images/home.png'}/>
+                    <Button className={'sidebar__button'} onClick={setShowRoomJoinToken} src={'/source/images/connect.png'}/>
                 </div> : null
             }
             <Button className={'sidebar__button'} onClick={onHomeClick} src={'/source/images/home.png'}/>

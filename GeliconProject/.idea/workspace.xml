@@ -5,38 +5,30 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/public/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/public/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/public/style.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/public/style.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/Utils/HubConnector.js" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/Utils/HubConnector.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/public/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/public/style.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Login/Login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/Registration.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/src/components/ContentRoutes/ContentRoutes.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/ContentRoutes/ContentRoutes.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Room/Room.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Room/Room.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Room/RoomChat/RoomChatMessage/RoomChatMessage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Room/RoomChat/RoomChatMessage/RoomChatMessage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Room/RoomChat/RoomChatMessage/message-colors.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Room/RoomChat/RoomChatMessage/message-colors.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Room/RoomChat/RoomChatMessage/message-colors.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Room/RoomMusic/MusicPlayer/MusicPlayer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Room/RoomMusic/MusicPlayer/MusicPlayer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Room/RoomUsersList/RoomUsersList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Room/RoomUsersList/RoomUsersList.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Room/RoomUsersList/UserLabel/UserLabel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Room/RoomUsersList/UserLabel/UserLabel.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Room/RoomUsersList/UserLabel/user-label-colors.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Room/RoomUsersList/UserLabel/user-label-colors.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Room/RoomUsersList/UserLabel/user-label-colors.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Room/RoomUsersList/UserLabel/user-label.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Room/RoomUsersList/UserLabel/user-label.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Room/room.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Room/room.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Rooms/AddRoomDialog/AddRoomDialog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Rooms/AddRoomDialog/AddRoomDialog.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Rooms/AddRoomDialog/add-room-dialog.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Rooms/AddRoomDialog/add-room-dialog.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Rooms/RoomAuthorizationDialog/room-authorization-dialog.css" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Rooms/RoomAuthorizationDialog/room-authorization-dialog.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/ContentRoutes/content-routes.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/ContentRoutes/content-routes.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Header/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Header/Header.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Header/header.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Header/header.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Rooms/RoomAuthorizationDialog/room-authorization-dialog.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Rooms/RoomAuthorizationDialog/room-authorization-dialog.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Rooms/RoomAuthorizationDialog/room-authorization-dialog.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Rooms/RoomAuthorizationDialog/room-authorization-dialog.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Rooms/RoomLabel/rooms-label.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Rooms/RoomLabel/rooms-label.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Rooms/Rooms.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Rooms/Rooms.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Rooms/rooms.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Rooms/rooms.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Sidebar/Sidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Sidebar/Sidebar.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Sidebar/sidebar.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Sidebar/sidebar.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/src/components/variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/variables.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/RoomController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/RoomController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/RoomsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/RoomsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hubs/Room/Abstractions/Threads/RoomsThreadsController/IRoomsThreadsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Hubs/Room/Abstractions/Threads/RoomsThreadsController/IRoomsThreadsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hubs/Room/Realizations/Threads/RoomsThreadsController/RoomsThreadsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Hubs/Room/Realizations/Threads/RoomsThreadsController/RoomsThreadsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hubs/Room/RoomHub.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Hubs/Room/RoomHub.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Storage/Gelicon/Repositories/RoomMusic/RoomMusicRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Storage/Gelicon/Repositories/RoomMusic/RoomMusicRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/fonts/verdana/Verdana-Bold.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/public/source/fonts/verdana/Verdana-Bold.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/fonts/verdana/Verdana.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/public/source/fonts/verdana/Verdana.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/LoginController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/LoginController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/RegistrationController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/RegistrationController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/TestController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GeliconProject.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/GeliconProject.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Storage/Abstractions/Repositories/User/IUserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Storage/Abstractions/Repositories/User/IUserRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Storage/Gelicon/Repositories/User/UserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Storage/Gelicon/Repositories/User/UserRepository.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -79,11 +71,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Sawtooth\Desktop\Gelicon\Gelicon\GeliconProject\ClientApp\src\components\Login" />
+      <recent name="C:\Users\Sawtooth\Desktop\Gelicon\Gelicon\GeliconProject\ClientApp\public\source\fonts\azonix" />
+      <recent name="C:\Users\Sawtooth\Desktop\Gelicon\Gelicon\GeliconProject\ClientApp\public\source" />
       <recent name="C:\Users\Sawtooth\Desktop\Gelicon\Gelicon\GeliconProject\ClientApp\src\components\Room\RoomMusic" />
       <recent name="C:\Users\Sawtooth\Desktop\Gelicon\GeliconProject\ClientApp\src\components\Room\RoomUsersList" />
-      <recent name="C:\Users\Sawtooth\Desktop\Gelicon\GeliconProject\ClientApp\src\components\Room" />
-      <recent name="C:\Users\Sawtooth\Desktop\Gelicon\GeliconProject\ClientApp\src\components\Rooms" />
-      <recent name="C:\Users\Sawtooth\Desktop\Gelicon\GeliconProject\ClientApp\src\components" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Sawtooth\Desktop\Gelicon\GeliconProject\ClientApp\src\components\Room\RoomChat\RoomChatMessage" />
@@ -281,6 +273,13 @@
       <workItem from="1689753196499" duration="5971000" />
       <workItem from="1689780580803" duration="6324000" />
       <workItem from="1689849978108" duration="1499000" />
+      <workItem from="1689864301989" duration="2333000" />
+      <workItem from="1689872152868" duration="3712000" />
+      <workItem from="1689878779264" duration="46000" />
+      <workItem from="1689927531660" duration="7367000" />
+      <workItem from="1689949867536" duration="4758000" />
+      <workItem from="1690013710620" duration="14308000" />
+      <workItem from="1690107697497" duration="9204000" />
     </task>
     <servers />
   </component>

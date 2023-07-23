@@ -1,0 +1,124 @@
+@import "../variables";
+
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+
+  & .login__credentials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & .login__credentials__logo {
+      display: flex;
+      justify-items: center;
+      align-items: center;
+      width: 7vw;
+
+      & img {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    & .login__credentials__article {
+      font-family: Aquire, sans-serif;
+      font-size: $login_credentials_article_font_size;
+      color: $login_color;
+    }
+  }
+
+  & .login__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    & .login__form__input {
+      width: 20vw;
+      padding: 0 4%;
+      height: 3.7vh;
+      margin: 5% 0 2.5% 0;
+      outline: none;
+      font-size: $login_input_font_size;
+      border: 0.07vw solid $login_input_border_color;
+      transition: border-color 200ms ease-out;
+      color: $login_color;
+
+      &::placeholder {
+        line-height: 3.63vh;
+        font-size: $login_input_placeholder_font_size;
+      }
+    }
+
+    & .login__form__input:hover {
+      border-color: $login_hover_input_border_color;
+
+      &::placeholder {
+        opacity: 0.9;
+      }
+    }
+
+    & .login__form__button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 5% 0 0 0;
+      padding: 3% 6%;
+      font-size: $login_button_font_size;
+      font-weight: bold;
+      border: none;
+      border-radius: 5vw;
+      outline: none;
+      background-color: $login_button_background_color;
+      color: $login_color;
+      transition: background-color 200ms ease-out, color 200ms ease-out;
+    }
+
+    & .login__form__button:hover {
+      background-color: $login_color;
+      color: $login_button_background_color;
+    }
+  }
+
+  & .login__validation-errors {
+    & .login__validation-errors__message {
+      font-size: $login_input_placeholder_font_size;
+      animation: error-animation 1s ease-out;
+    }
+  }
+
+  & .login__registration-invitation {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 12%;
+    margin-top: 3%;
+
+    & .login__registration-invitation__link {
+      margin-left: 0.5%;
+      transition: color 200ms ease-out;
+    }
+
+    & .login__registration-invitation__link:hover {
+      color: $login_color;
+    }
+  }
+
+  @keyframes error-animation {
+    0% {
+      color: $login_incorrect_color;
+    }
+    60% {
+      color: $login_incorrect_color;
+    }
+    100% {
+      color: inherit;
+    }
+  }
+}

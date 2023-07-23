@@ -13,7 +13,6 @@ const Rooms = ({onMount}) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-
         const roomsInit = async () => {
             let data = await getRooms();
             setRooms(data);

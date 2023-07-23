@@ -22,8 +22,12 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\fonts\**" />
+    <Content Remove="ClientApp\src\fonts\**" />
     <ContentRoutes Remove="$(SpaRoot)**" />
+    <EmbeddedResource Remove="ClientApp\src\fonts\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="ClientApp\src\fonts\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
@@ -37,11 +41,6 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </ContentRoutes>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ClientApp\src\components\" />
-    <Folder Include="ClientApp\src\fonts\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

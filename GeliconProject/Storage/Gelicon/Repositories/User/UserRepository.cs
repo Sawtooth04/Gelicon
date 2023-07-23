@@ -18,9 +18,16 @@ namespace GeliconProject.Storage.Gelicon.Repositories.User
             StorageContext.Users.AddAsync(user);
         }
 
-        public Models.User GetUserByEmail(string email)
+        public Models.User? GetUserByEmail(string email)
         {
-            return StorageContext.Users.Where(u => u.email == email).Single();
+            try
+            {
+                return StorageContext.Users.Where(u => u.email == email).Single();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public Models.User GetUserByID(int id)

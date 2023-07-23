@@ -5,13 +5,22 @@
 @import "../src/components/ContentRoutes/content-routes";
 @import "../src/components/Room/room";
 @import "../src/components/Room/RoomChat/room-chat";
+@import "../src/components/Login/login";
+@import "../src/components/Registration/registration";
 
 @font-face {
   font-family: "Verdana";
   font-style: normal;
   font-weight: 400;
   src: local("Verdana"),
-  url("../src/fonts/Verdana.ttf") format("ttf")
+  url("/source/fonts/verdana/Verdana.ttf") format("ttf")
+}
+
+@font-face {
+  font-family: "Aquire";
+  src: local("Aquire"),
+    url('/source/fonts/aquire/Aquire.woff') format('woff'),
+    url('/source/fonts/aquire/Aquire.ttf') format('ttf')
 }
 
 * {
@@ -20,16 +29,3 @@
   font-family: Verdana, sans-serif;
   color: $default_font_color;
 }
-
-.wrapper {
-  display: flex;
-  align-items: flex-start;
-}
-
-.main {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-}
-

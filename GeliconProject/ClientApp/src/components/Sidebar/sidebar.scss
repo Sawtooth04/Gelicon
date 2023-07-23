@@ -5,9 +5,12 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background-color: $sidebar_background_color;
-  min-width: 5%;
-  min-height: 100vh;
+  background: $sidebar_background_color linear-gradient(to top, $header_background_color, $header_background_color 1%, rgba(17, 17, 17, 0.1));
+  min-width: 4vw;
+  max-width: 4vw;
+  min-height: 90vh;
+  max-height: 90vh;
+  padding-bottom: 4vh;
 
   & * {
     margin: 0.5%;
@@ -17,5 +20,29 @@
     cursor: pointer;
     width: 2.3vw;
     height: 2.3vw;
+    margin: 2vh 0;
+
+  }
+
+  & .sidebar__room-buttons {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0.5vh 0;
+    background-color: $sidebar_room_buttons_background_color;
+    border-bottom-left-radius: 25%;
+    border-bottom-right-radius: 25%;
+    animation: room-buttons-animation 2000ms ease-out;
+    animation-fill-mode: forwards;
+    overflow: hidden;
+  }
+}
+
+@keyframes room-buttons-animation {
+  from {
+    max-height: 0;
+  }
+  to {
+    max-height: 50vh;
   }
 }

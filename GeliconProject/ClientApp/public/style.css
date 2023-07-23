@@ -1,16 +1,47 @@
 .header {
   display: flex;
   align-items: center;
-  justify-content: right;
-  background-color: #111111;
+  background-image: url("/source/images/header-background.jpg");
   height: 6vh;
+  width: 100%;
 }
-.header * {
-  margin: 0.5%;
+.header .header__content {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #111111, #111111 25%, rgba(17, 17, 17, 0.3)), linear-gradient(to left, #111111, #111111 25%, rgba(17, 17, 17, 0.3));
 }
-.header a {
+.header .header__content .header__content__logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 3vw;
+  height: 3vw;
+  margin: 0 0.1vw 0 5vw;
+}
+.header .header__content .header__content__logo img {
+  width: 85%;
+  height: auto;
+}
+.header .header__content .header__content__article {
+  font-family: Aquire, sans-serif;
+  font-size: 28px;
+}
+.header .header__content .header__links {
+  display: flex;
+  margin-left: auto;
+  justify-content: end;
+  align-items: center;
+}
+.header .header__content .header__links .header__links__link {
+  padding: 0 0.8vw;
+}
+.header .header__content .header__links .header__links__link a {
   text-decoration: none;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .sidebar {
@@ -18,9 +49,12 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background-color: #000000;
-  min-width: 5%;
-  min-height: 100vh;
+  background: #1d1d1d linear-gradient(to top, #111111, #111111 1%, rgba(17, 17, 17, 0.1));
+  min-width: 4vw;
+  max-width: 4vw;
+  min-height: 90vh;
+  max-height: 90vh;
+  padding-bottom: 4vh;
 }
 .sidebar * {
   margin: 0.5%;
@@ -29,8 +63,29 @@
   cursor: pointer;
   width: 2.3vw;
   height: 2.3vw;
+  margin: 2vh 0;
+}
+.sidebar .sidebar__room-buttons {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0.5vh 0;
+  background-color: #141414;
+  border-bottom-left-radius: 25%;
+  border-bottom-right-radius: 25%;
+  animation: room-buttons-animation 2000ms ease-out;
+  animation-fill-mode: forwards;
+  overflow: hidden;
 }
 
+@keyframes room-buttons-animation {
+  from {
+    max-height: 0;
+  }
+  to {
+    max-height: 50vh;
+  }
+}
 .rooms-label_crimson {
   border-color: crimson;
 }
@@ -73,9 +128,9 @@
   align-items: center;
   width: 10%;
   height: 6%;
-  margin: 1%;
   padding: 3%;
-  background-color: #3c3c3c;
+  background-image: url("/source/images/room-label-background.jpg");
+  box-shadow: inset 0 0 4vw 5vw rgba(6, 6, 6, 0.8);
   color: #b2b3b3;
   border-style: solid;
   border-width: 0.3em;
@@ -207,17 +262,29 @@
 .rooms {
   display: flex;
   justify-content: start;
+  align-content: start;
   flex-wrap: wrap;
   width: 100%;
+  background: linear-gradient(to top, #111111, #111111 1%, rgba(17, 17, 17, 0.1));
+}
+.rooms > * {
+  margin: 1%;
 }
 
 .wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100vw;
+  max-width: 100vw;
   min-height: 100vh;
   position: relative;
 }
 .wrapper .main {
-  min-height: 100vh;
-  background-color: #1e1e1e;
+  display: flex;
+  min-height: 94vh;
+  background-color: #282828;
+  width: 100%;
 }
 .wrapper .main .content {
   display: flex;
@@ -1293,29 +1360,234 @@
   max-height: 5vh;
 }
 
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+.login .login__credentials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login .login__credentials .login__credentials__logo {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  width: 7vw;
+}
+.login .login__credentials .login__credentials__logo img {
+  width: 100%;
+  height: auto;
+}
+.login .login__credentials .login__credentials__article {
+  font-family: Aquire, sans-serif;
+  font-size: 46px;
+  color: #141414;
+}
+.login .login__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.login .login__form .login__form__input {
+  width: 20vw;
+  padding: 0 4%;
+  height: 3.7vh;
+  margin: 5% 0 2.5% 0;
+  outline: none;
+  font-size: 22px;
+  border: 0.07vw solid #2f2f2f;
+  transition: border-color 200ms ease-out;
+  color: #141414;
+}
+.login .login__form .login__form__input::placeholder {
+  line-height: 3.63vh;
+  font-size: 16px;
+}
+.login .login__form .login__form__input:hover {
+  border-color: #ababab;
+}
+.login .login__form .login__form__input:hover::placeholder {
+  opacity: 0.9;
+}
+.login .login__form .login__form__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5% 0 0 0;
+  padding: 3% 6%;
+  font-size: 28px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5vw;
+  outline: none;
+  background-color: #eeeeee;
+  color: #141414;
+  transition: background-color 200ms ease-out, color 200ms ease-out;
+}
+.login .login__form .login__form__button:hover {
+  background-color: #141414;
+  color: #eeeeee;
+}
+.login .login__validation-errors .login__validation-errors__message {
+  font-size: 16px;
+  animation: error-animation 1s ease-out;
+}
+.login .login__registration-invitation {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 12%;
+  margin-top: 3%;
+}
+.login .login__registration-invitation .login__registration-invitation__link {
+  margin-left: 0.5%;
+  transition: color 200ms ease-out;
+}
+.login .login__registration-invitation .login__registration-invitation__link:hover {
+  color: #141414;
+}
+@keyframes error-animation {
+  0% {
+    color: #ca0100;
+  }
+  60% {
+    color: #ca0100;
+  }
+  100% {
+    color: inherit;
+  }
+}
+
+.registration {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
+  width: 100vw;
+  height: 90vh;
+  padding-top: 10vh;
+}
+.registration .registration__credentials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.registration .registration__credentials .registration__credentials__logo {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  width: 7vw;
+}
+.registration .registration__credentials .registration__credentials__logo img {
+  width: 100%;
+  height: auto;
+}
+.registration .registration__credentials .registration__credentials__article {
+  font-family: Aquire, sans-serif;
+  font-size: 46px;
+  color: #141414;
+}
+.registration .registration__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.registration .registration__form .registration__form__input {
+  width: 20vw;
+  padding: 0 4%;
+  height: 3.7vh;
+  margin: 5% 0 2.5% 0;
+  outline: none;
+  font-size: 22px;
+  border: 0.07vw solid #2f2f2f;
+  transition: border-color 200ms ease-out;
+  color: #141414;
+}
+.registration .registration__form .registration__form__input::placeholder {
+  line-height: 3.63vh;
+  font-size: 16px;
+}
+.registration .registration__form .registration__form__input:hover {
+  border-color: #ababab;
+}
+.registration .registration__form .registration__form__input:hover::placeholder {
+  opacity: 0.9;
+}
+.registration .registration__form .registration__form__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5% 0 0 0;
+  padding: 3% 6%;
+  font-size: 28px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5vw;
+  outline: none;
+  background-color: #eeeeee;
+  color: #141414;
+  transition: background-color 200ms ease-out, color 200ms ease-out;
+}
+.registration .registration__form .registration__form__button:hover {
+  background-color: #141414;
+  color: #eeeeee;
+}
+.registration .registration__validation-errors {
+  padding-top: 5%;
+}
+.registration .registration__validation-errors .registration__validation-errors__message {
+  font-size: 16px;
+  animation: error-animation 1s ease-out;
+}
+.registration .registration__login-invitation {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3%;
+}
+.registration .registration__login-invitation .registration__login-invitation__link {
+  margin-left: 0.5%;
+  transition: color 200ms ease-out;
+}
+.registration .registration__login-invitation .registration__login-invitation__link:hover {
+  color: #141414;
+}
+@keyframes error-animation {
+  0% {
+    color: #ca0100;
+  }
+  60% {
+    color: #ca0100;
+  }
+  100% {
+    color: inherit;
+  }
+}
+
 @font-face {
   font-family: "Verdana";
   font-style: normal;
   font-weight: 400;
-  src: local("Verdana"), url("../src/fonts/Verdana.ttf") format("ttf");
+  src: local("Verdana"), url("/source/fonts/verdana/Verdana.ttf") format("ttf");
+}
+@font-face {
+  font-family: "Aquire";
+  src: local("Aquire"), url("/source/fonts/aquire/Aquire.woff") format("woff"), url("/source/fonts/aquire/Aquire.ttf") format("ttf");
 }
 * {
   margin: 0;
   text-decoration: none;
   font-family: Verdana, sans-serif;
   color: #b2b3b3;
-}
-
-.wrapper {
-  display: flex;
-  align-items: flex-start;
-}
-
-.main {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */

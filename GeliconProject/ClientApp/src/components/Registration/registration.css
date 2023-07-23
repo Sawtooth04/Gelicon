@@ -1,0 +1,106 @@
+.registration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+.registration .registration__credentials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.registration .registration__credentials .registration__credentials__logo {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  width: 7vw;
+}
+.registration .registration__credentials .registration__credentials__logo img {
+  width: 100%;
+  height: auto;
+}
+.registration .registration__credentials .registration__credentials__article {
+  font-family: Aquire, sans-serif;
+  font-size: 46px;
+  color: #141414;
+}
+.registration .registration__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.registration .registration__form .registration__form__input {
+  width: 20vw;
+  padding: 0 4%;
+  height: 3.7vh;
+  margin: 5% 0 2.5% 0;
+  outline: none;
+  font-size: 22px;
+  border: 0.07vw solid #2f2f2f;
+  transition: border-color 200ms ease-out;
+  color: #141414;
+}
+.registration .registration__form .registration__form__input::placeholder {
+  line-height: 3.63vh;
+  font-size: 16px;
+}
+.registration .registration__form .registration__form__input:hover {
+  border-color: #ababab;
+}
+.registration .registration__form .registration__form__input:hover::placeholder {
+  opacity: 0.9;
+}
+.registration .registration__form .registration__form__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5% 0 0 0;
+  padding: 3% 6%;
+  font-size: 28px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5vw;
+  outline: none;
+  background-color: #eeeeee;
+  color: #141414;
+  transition: background-color 200ms ease-out, color 200ms ease-out;
+}
+.registration .registration__form .registration__form__button:hover {
+  background-color: #141414;
+  color: #eeeeee;
+}
+.registration .registration__validation-errors .registration__validation-errors__message {
+  font-size: 16px;
+  animation: error-animation 1s ease-out;
+}
+.registration .registration__login-invitation {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 12%;
+  margin-top: 3%;
+}
+.registration .registration__login-invitation .registration__login-invitation__link {
+  margin-left: 0.5%;
+  transition: color 200ms ease-out;
+}
+.registration .registration__login-invitation .registration__login-invitation__link:hover {
+  color: #141414;
+}
+@keyframes error-animation {
+  0% {
+    color: #ca0100;
+  }
+  60% {
+    color: #ca0100;
+  }
+  100% {
+    color: inherit;
+  }
+}
+
+/*# sourceMappingURL=registration.css.map */

@@ -1,0 +1,126 @@
+@import "../variables";
+
+.registration {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
+  width: 100vw;
+  height: 90vh;
+  padding-top: 10vh;
+
+  & .registration__credentials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & .registration__credentials__logo {
+      display: flex;
+      justify-items: center;
+      align-items: center;
+      width: 7vw;
+
+      & img {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    & .registration__credentials__article {
+      font-family: Aquire, sans-serif;
+      font-size: $registration_credentials_article_font_size;
+      color: $registration_color;
+    }
+  }
+
+  & .registration__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    & .registration__form__input {
+      width: 20vw;
+      padding: 0 4%;
+      height: 3.7vh;
+      margin: 5% 0 2.5% 0;
+      outline: none;
+      font-size: $registration_input_font_size;
+      border: 0.07vw solid $registration_input_border_color;
+      transition: border-color 200ms ease-out;
+      color: $registration_color;
+
+      &::placeholder {
+        line-height: 3.63vh;
+        font-size: $registration_input_placeholder_font_size;
+      }
+    }
+
+    & .registration__form__input:hover {
+      border-color: $registration_hover_input_border_color;
+
+      &::placeholder {
+        opacity: 0.9;
+      }
+    }
+
+    & .registration__form__button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 5% 0 0 0;
+      padding: 3% 6%;
+      font-size: $registration_button_font_size;
+      font-weight: bold;
+      border: none;
+      border-radius: 5vw;
+      outline: none;
+      background-color: $registration_button_background_color;
+      color: $registration_color;
+      transition: background-color 200ms ease-out, color 200ms ease-out;
+    }
+
+    & .registration__form__button:hover {
+      background-color: $registration_color;
+      color: $registration_button_background_color;
+    }
+  }
+
+  & .registration__validation-errors {
+    padding-top: 5%;
+
+    & .registration__validation-errors__message {
+      font-size: $registration_input_placeholder_font_size;
+      animation: error-animation 1s ease-out;
+    }
+  }
+
+  & .registration__login-invitation {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3%;
+
+    & .registration__login-invitation__link {
+      margin-left: 0.5%;
+      transition: color 200ms ease-out;
+    }
+
+    & .registration__login-invitation__link:hover {
+      color: $registration_color;
+    }
+  }
+
+  @keyframes error-animation {
+    0% {
+      color: $registration_incorrect_color;
+    }
+    60% {
+      color: $registration_incorrect_color;
+    }
+    100% {
+      color: inherit;
+    }
+  }
+}

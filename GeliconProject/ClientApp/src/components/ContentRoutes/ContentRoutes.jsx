@@ -1,19 +1,32 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Sidebar from "../Sidebar/Sidebar";
 import Header from "../Header/Header";
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import Rooms from "../Rooms/Rooms";
 import Room from "../Room/Room";
 
 const ContentRoutes = () => {
     const [isInRoom, setIsInRoom] = useState(false);
     const [showRoomJoinToken, setShowRoomJoinToken] = useState(false);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        async function authorizationCheck() {
+            let response = await fetch('/authorization/authorization-check', {
+                method: 'get'
+            });
+            if (!response.ok)
+                navigate('/login');
+        }
+
+        void authorizationCheck();
+    });
 
     return (
         <div className="wrapper">
-            <Sidebar showRoomButtons={isInRoom} setShowRoomJoinToken={() => setShowRoomJoinToken(true)}/>
+            <Header/>
             <div className="main">
-                <Header/>
+                <Sidebar showRoomButtons={isInRoom} setShowRoomJoinToken={() => setShowRoomJoinToken(true)}/>
                 <div className="content">
                     <Routes>
                         <Route exact path="/room/:roomID/*" element={

@@ -7,6 +7,12 @@
 .rooms {
   display: flex;
   justify-content: start;
+  align-content: start;
   flex-wrap: wrap;
   width: 100%;
+  background: linear-gradient(to top, $header_background_color, $header_background_color 1%, rgba(17, 17, 17, 0.1));
+
+  & > * {
+    margin: 1%;
+  }
 }
