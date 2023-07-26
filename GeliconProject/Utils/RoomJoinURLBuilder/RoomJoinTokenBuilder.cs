@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using GeliconProject.Utils.JwtValidationParameters;
+using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -23,7 +24,7 @@ namespace GeliconProject.Utils.RoomJoinURLBuilder
 
         private static string GetSign(string header, string payload)
         {
-            using (HMACSHA256 hmac = new HMACSHA256(Encoding.UTF8.GetBytes(JWTValidationParameters.IJWTValidationParameters.key)))
+            using (HMACSHA256 hmac = new HMACSHA256(Encoding.UTF8.GetBytes(IJwtValidationParameters.key)))
             {
                 return Convert.ToBase64String(hmac.ComputeHash(Encoding.UTF8.GetBytes($"{header}.{payload}")));
             }

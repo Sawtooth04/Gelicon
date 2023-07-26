@@ -2,26 +2,26 @@
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace GeliconProject.Utils.JWTValidationParameters
+namespace GeliconProject.Utils.JwtValidationParameters
 {
-    public class JWTValidationParameters : IJWTValidationParameters
+    public class JwtValidationParameters : IJwtValidationParameters
     {
         public SymmetricSecurityKey GetSymmetricSecurityKey()
         {
-            return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(IJWTValidationParameters.key));
+            return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(IJwtValidationParameters.key));
         }
 
-        public void SetJWTOptionsToken(JwtBearerOptions options)
+        public void SetJwtOptionsToken(JwtBearerOptions options)
         {
             options.TokenValidationParameters = new TokenValidationParameters
             {
-                ValidateIssuer = IJWTValidationParameters.validateIssuer,
-                ValidIssuer = IJWTValidationParameters.issuer,
-                ValidateAudience = IJWTValidationParameters.validateAudience,
-                ValidAudience = IJWTValidationParameters.audience,
-                ValidateLifetime = IJWTValidationParameters.validateLifetime,
+                ValidateIssuer = IJwtValidationParameters.validateIssuer,
+                ValidIssuer = IJwtValidationParameters.issuer,
+                ValidateAudience = IJwtValidationParameters.validateAudience,
+                ValidAudience = IJwtValidationParameters.audience,
+                ValidateLifetime = IJwtValidationParameters.validateLifetime,
                 IssuerSigningKey = GetSymmetricSecurityKey(),
-                ValidateIssuerSigningKey = IJWTValidationParameters.validateIssuerSigningKey,
+                ValidateIssuerSigningKey = IJwtValidationParameters.validateIssuerSigningKey,
             };
         }
     }

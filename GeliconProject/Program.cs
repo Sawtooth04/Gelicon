@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.EntityFrameworkCore;
 using GeliconProject.Middlewares;
-using GeliconProject.Utils.JWTValidationParameters;
+using GeliconProject.Utils.JwtValidationParameters;
 using GeliconProject.Hubs.Room;
 using GeliconProject.Storage.Abstractions.Context;
 using GeliconProject.Storage.Gelicon.Context;
@@ -23,9 +23,10 @@ using GeliconProject.Hubs.Room.Realizations.Threads.RoomThreadsFactory;
 using GeliconProject.Hubs.Room.Abstractions.Chat;
 using GeliconProject.Hubs.Room.Realizations.Chat;
 using GeliconProject.Utils.RoomJoinURLBuilder;
+using GeliconProject.Utils.JwtTokensBuilder;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-builder.Services.AddJWTValidationParameters();
+builder.Services.AddJwtValidationParameters();
 builder.Services.AddSignalR(hubOptions =>
 {
     hubOptions.ClientTimeoutInterval = TimeSpan.FromSeconds(30);
@@ -34,7 +35,7 @@ builder.Services.AddSignalR(hubOptions =>
 builder.Services.AddCors();
 builder.Services.AddControllersWithViews();
 builder.Services.AddAuthorization();
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(new JWTValidationParameters().SetJWTOptionsToken);
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(new JwtValidationParameters().SetJwtOptionsToken);
 builder.Services.AddDbContext<IStorageContext, ApplicationContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Transient);
 builder.Services.AddScoped<IStorage, DbStorage>();
 builder.Services.AddSingleton<IRoomThreadsProvider, RoomThreadsProvider>();
@@ -45,6 +46,7 @@ builder.Services.AddSingleton<IRoomMusicPlayerSynchronizationController, RoomMus
 builder.Services.AddScoped<IRoomMusicPlayerMusicProvider, RoomMusicPlayerMusicProvider>();
 builder.Services.AddSingleton<IRoomMusicPlayerSynchronizationModel, RoomMusicPlayerSynchronizationModel>();
 builder.Services.AddSingleton<IRoomThreadsFactory, RoomThreadsFactory>();
+builder.Services.AddScoped<IJwtTokenBuilder, JwtTokenBuilder>();
 
 WebApplication app = builder.Build();
 
@@ -55,12 +57,13 @@ app.UseCors(builder => builder
     .AllowCredentials()
 );
 app.UseMiddleware<JwtHeaderMiddleware>();
+app.UseMiddleware<JwtRefreshTokenMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseCookiePolicy(new CookiePolicyOptions
 {
     MinimumSameSitePolicy = SameSiteMode.Strict,
-    HttpOnly = HttpOnlyPolicy.Always,
+    HttpOnly = HttpOnlyPolicy.None,
     //Secure = CookieSecurePolicy.Always
 });
 app.MapHub<RoomHub>("/hubs/room");

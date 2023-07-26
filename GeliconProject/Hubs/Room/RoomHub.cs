@@ -36,9 +36,11 @@ namespace GeliconProject.Hubs.Room
 
         public async Task UserConnect(string roomID)
         {
+            IClientProxy client = Clients.Client(Context.ConnectionId);
+            int userID = int.Parse(Context.User!.FindFirst(Claims.UserID)!.Value);
+
             await Groups.AddToGroupAsync(Context.ConnectionId, roomID);
-            roomsThreadsController.CreateRoomObserverThread(roomID).AddNewClient(Context.ConnectionId,
-                int.Parse(Context.User!.FindFirst(Claims.UserID)!.Value), Clients.Client(Context.ConnectionId));
+            roomsThreadsController.CreateRoomObserverThread(roomID).AddNewClient(Context.ConnectionId, userID, client);
         }
 
         [Authorize]

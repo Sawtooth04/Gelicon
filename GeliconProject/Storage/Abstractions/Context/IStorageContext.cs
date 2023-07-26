@@ -8,6 +8,7 @@ namespace GeliconProject.Storage.Abstractions.Context
         public DbSet<User> Users { get; }
         public DbSet<Room> Rooms { get; }
         public DbSet<RoomMusic> RoomMusics { get; }
+        public DbSet<RefreshToken> RefreshTokens { get; }
 
         public int SaveChanges();
 

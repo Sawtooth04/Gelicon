@@ -1,10 +1,10 @@
-﻿namespace GeliconProject.Utils.JWTValidationParameters
+﻿namespace GeliconProject.Utils.JwtValidationParameters
 {
-    public static class JWTValidationParametersExtensions
+    public static class JwtValidationParametersExtensions
     {
-        public static void AddJWTValidationParameters(this IServiceCollection collection)
+        public static void AddJwtValidationParameters(this IServiceCollection collection)
         {
-            collection.AddSingleton<IJWTValidationParameters, JWTValidationParameters>();
+            collection.AddSingleton<IJwtValidationParameters, JwtValidationParameters>();
         }
     }
 }

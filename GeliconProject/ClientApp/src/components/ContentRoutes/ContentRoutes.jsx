@@ -1,26 +1,23 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import Sidebar from "../Sidebar/Sidebar";
 import Header from "../Header/Header";
-import {Route, Routes, useNavigate} from "react-router-dom";
+import {Route, Routes, Navigate} from "react-router-dom";
 import Rooms from "../Rooms/Rooms";
 import Room from "../Room/Room";
 
-const ContentRoutes = () => {
+const ContentRoutes = ({onNavigate}) => {
     const [isInRoom, setIsInRoom] = useState(false);
     const [showRoomJoinToken, setShowRoomJoinToken] = useState(false);
-    const navigate = useNavigate();
 
-    useEffect(() => {
-        async function authorizationCheck() {
-            let response = await fetch('/authorization/authorization-check', {
-                method: 'get'
-            });
-            if (!response.ok)
-                navigate('/login');
-        }
+    function onRoomMount() {
+        setIsInRoom(true);
+        onNavigate();
+    }
 
-        void authorizationCheck();
-    });
+    function onRoomsMount() {
+        setIsInRoom(false);
+        onNavigate();
+    }
 
     return (
         <div className="wrapper">
@@ -30,10 +27,10 @@ const ContentRoutes = () => {
                 <div className="content">
                     <Routes>
                         <Route exact path="/room/:roomID/*" element={
-                            <Room onMount={() => setIsInRoom(true)} showRoomJoinToken={showRoomJoinToken}
-                                closeRoomJoinTokenDialog={() => setShowRoomJoinToken(false)}/>
+                            <Room onMount={onRoomMount} showRoomJoinToken={showRoomJoinToken}
+                                  closeRoomJoinTokenDialog={() => setShowRoomJoinToken(false)}/>
                         }/>
-                        <Route path="*" element={<Rooms onMount={() => setIsInRoom(false)}/>}/>
+                        <Route path="*" element={<Rooms onMount={onRoomsMount}/>}/>
                     </Routes>
                 </div>
             </div>

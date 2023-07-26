@@ -3,32 +3,20 @@
   <component name="ChangeListManager">
     <list default="true" id="beea6af8-eaf2-4370-922f-111c44de418b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/public/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/public/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/public/style.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/public/style.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/public/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/public/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Login/Login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/Registration.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/src/components/ContentRoutes/ContentRoutes.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/ContentRoutes/ContentRoutes.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/ContentRoutes/content-routes.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/ContentRoutes/content-routes.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Header/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Header/Header.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Header/header.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Header/header.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Rooms/RoomAuthorizationDialog/room-authorization-dialog.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Rooms/RoomAuthorizationDialog/room-authorization-dialog.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Rooms/RoomLabel/rooms-label.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Rooms/RoomLabel/rooms-label.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Rooms/Rooms.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Rooms/Rooms.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Rooms/rooms.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Rooms/rooms.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Sidebar/Sidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Sidebar/Sidebar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Sidebar/sidebar.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Sidebar/sidebar.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/variables.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/fonts/verdana/Verdana-Bold.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/public/source/fonts/verdana/Verdana-Bold.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/fonts/verdana/Verdana.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/public/source/fonts/verdana/Verdana.ttf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/AuthorizationController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/AuthorizationController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controllers/LoginController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/LoginController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/RegistrationController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/RegistrationController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/TestController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GeliconProject.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/GeliconProject.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Storage/Abstractions/Repositories/User/IUserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Storage/Abstractions/Repositories/User/IUserRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Storage/Gelicon/Repositories/User/UserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Storage/Gelicon/Repositories/User/UserRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/RoomsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/RoomsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hubs/Room/RoomHub.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Hubs/Room/RoomHub.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middlewares/JwtHeaderMiddleware.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Middlewares/JwtHeaderMiddleware.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Storage/Abstractions/Context/IStorageContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Storage/Abstractions/Context/IStorageContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Storage/Gelicon/Context/ApplicationContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Storage/Gelicon/Context/ApplicationContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utils/JWTValidationParameters/IJWTValidationParameters.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Utils/JWTValidationParameters/IJWTValidationParameters.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utils/JWTValidationParameters/JWTValidationParameters.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Utils/JWTValidationParameters/JWTValidationParameters.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utils/JWTValidationParameters/JWTValidationParametersExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Utils/JWTValidationParameters/JWTValidationParametersExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utils/RoomJoinURLBuilder/RoomJoinTokenBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Utils/RoomJoinURLBuilder/RoomJoinTokenBuilder.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,9 +32,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="Sass File" />
         <option value="SCSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -280,6 +268,12 @@
       <workItem from="1689949867536" duration="4758000" />
       <workItem from="1690013710620" duration="14308000" />
       <workItem from="1690107697497" duration="9204000" />
+      <workItem from="1690210942878" duration="1307000" />
+      <workItem from="1690272450097" duration="4613000" />
+      <workItem from="1690306636818" duration="149000" />
+      <workItem from="1690307914562" duration="1587000" />
+      <workItem from="1690359139907" duration="2733000" />
+      <workItem from="1690383583103" duration="7621000" />
     </task>
     <servers />
   </component>

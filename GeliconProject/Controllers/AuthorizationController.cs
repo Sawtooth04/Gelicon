@@ -10,10 +10,10 @@ namespace GeliconProject.Controllers
         [ActionName("authorization-check")]
         public ActionResult AuthorizationCheck()
         {
-            if (Request.HttpContext.User.FindFirst(Claims.UserID) != null)
+            if (Request.HttpContext.User.FindFirst(Claims.UserID) != null || Request.Headers.ContainsKey("Authorization"))
                 return Ok();
             else
-                return Forbid();
+                return Unauthorized();
         }
     }
 }

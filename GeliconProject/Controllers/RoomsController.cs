@@ -47,7 +47,7 @@ namespace GeliconProject.Controllers
         {
             Claim? userIDClaim = Request.HttpContext.User.FindFirst(Claims.UserID);
             if (userIDClaim == null)
-                return NotFound();
+                return Unauthorized();
             int userID = int.Parse(userIDClaim.Value);
             User? user = storage.GetRepository<IUserRepository>()?.GetUserByID(userID);
             return Json(user?.rooms, serializerOptions);
