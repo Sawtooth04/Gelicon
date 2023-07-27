@@ -182,5 +182,26 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads.ThreadsController
             });
             await clients.SendAsync("SetUsersColors", userColors);
         }
+
+        public async Task GetPlaylists(IClientProxy clients, string roomID)
+        {
+            IRoomThread? roomObserver = roomObserversProvider.FindRoomObserverThread(roomID);
+
+            if (roomObserver != null && roomObserver.RoomMusicPlayerModel != null)
+                await roomMusicPlayerController.SetClientsPlaylists(clients, int.Parse(roomID));
+        }
+
+        public async Task AddPlaylist(IClientProxy clients, string roomID, string name)
+        {
+            IRoomThread? roomObserver = roomObserversProvider.FindRoomObserverThread(roomID);
+
+            if (roomObserver != null && roomObserver.RoomMusicPlayerModel != null)
+                await roomMusicPlayerController.AddPlaylist(clients, int.Parse(roomID), name);
+        }
+
+        public async Task DeletePlaylist(IClientProxy clients, string roomID, int roomPlaylistID)
+        {
+            await roomMusicPlayerController.DeletePlaylist(clients, int.Parse(roomID), roomPlaylistID);
+        }
     }
 }

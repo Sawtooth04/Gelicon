@@ -3,9 +3,11 @@ import {Route, Routes, NavLink} from "react-router-dom";
 import MusicSearch from "./MusicSearch/MusicSearch";
 import MusicList from "./MusicList/MusicList";
 import MusicPlayer from "./MusicPlayer/MusicPlayer";
+import PlaylistList from "./PlaylistList/PlaylistList";
 
 const RoomMusic = ({connector, ...props}) => {
     const [roomMusicList, setRoomMusicList] = useState([]);
+    const [playlists, setPlaylists] = useState([]);
     const [currentAudioInfo, setCurrentAudioInfo] = useState(null);
     const [needToDisplayMusicPlayer, setNeedToDisplayMusicPlayer] = useState(false);
     const [needToDisplayLoadingScreen, setNeedToDisplayLoadingScreen] = useState(true);
@@ -17,29 +19,41 @@ const RoomMusic = ({connector, ...props}) => {
     useEffect(() => {
         function addEventHandlers() {
             connector.addEventHandler("SetRoomMusicList", receiveRoomMusicList);
+            connector.addEventHandler("SetRoomPlaylists", receiveRoomPlaylists);
         }
 
         function removeEventHandlers() {
             connector.removeEventHandler("SetRoomMusicList", receiveRoomMusicList);
+            connector.removeEventHandler("SetRoomPlaylists", receiveRoomPlaylists);
         }
 
         //Handlers
         async function receiveRoomMusicList(data) {
             setRoomMusicList(await connector.musicRepository.getMusicArrayFromApi(data));
-            removeEventHandlers();
+        }
+
+        async function receiveRoomPlaylists(data) {
+            setPlaylists(data);
         }
 
         if (connector.connected)
             addEventHandlers();
-    }, [connector, connector.connected, roomMusicList]);
+        return () => removeEventHandlers();
+    }, [connector, connector.connected, roomMusicList, playlists]);
 
     useEffect(() => {
         async function getRoomMusicList() {
             await connector.getRoomMusicList();
         }
 
-        if (connector.connected)
+        async function getRoomPlaylists() {
+            await connector.getPlaylists();
+        }
+
+        if (connector.connected) {
             void getRoomMusicList();
+            void getRoomPlaylists();
+        }
     }, [connector, connector.connected]);
 
     async function addMusic(musicID) {
@@ -52,6 +66,14 @@ const RoomMusic = ({connector, ...props}) => {
 
     async function deleteRoomMusic(music) {
         await connector.deleteRoomMusic(music.id);
+    }
+
+    async function addPlaylist(playlist) {
+        await connector.addPlaylistToRoom(playlist);
+    }
+
+    async function deletePlaylist(playlist) {
+        await connector.deletePlaylist(playlist);
     }
 
     return (
@@ -69,6 +91,7 @@ const RoomMusic = ({connector, ...props}) => {
             <div className="room-music__navbar">
                 <NavLink className="room-music__navbar__link" to="music-search"> Search </NavLink>
                 <NavLink className="room-music__navbar__link" to="music-list"> List </NavLink>
+                <NavLink className="room-music__navbar__link" to="music-playlist-list"> Playlists </NavLink>
             </div>
             <div className={`room-music__routes${!needToDisplayMusicPlayer ? ' room-music__routes_max-size' : ''}`}>
                 <Routes>
@@ -76,9 +99,13 @@ const RoomMusic = ({connector, ...props}) => {
                         <MusicList musicList={roomMusicList} current={currentAudioInfo} setRoomMusic={setRoomMusic}
                            onDelete={deleteRoomMusic}/>
                     }/>
+                    <Route exact path="music-playlist-list" element={
+                        <PlaylistList playlists={playlists} current={currentAudioInfo} addCallback={addPlaylist}
+                            deleteCallback={deletePlaylist}/>
+                    }/>
                     <Route path="*" element={
                         <MusicSearch connector={connector} addMusicCallback={addMusic}
-                             setNeedToDisplayLoadingScreen={setNeedToDisplayLoadingScreen}/>
+                            setNeedToDisplayLoadingScreen={setNeedToDisplayLoadingScreen}/>
                     }/>
                 </Routes>
             </div>

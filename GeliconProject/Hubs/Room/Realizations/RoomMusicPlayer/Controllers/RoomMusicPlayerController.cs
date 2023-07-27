@@ -5,6 +5,7 @@ using GeliconProject.Hubs.Room.Abstractions.Threads;
 using GeliconProject.Models;
 using GeliconProject.Storage.Abstractions;
 using GeliconProject.Storage.Abstractions.Repositories.RoomMusic;
+using GeliconProject.Storage.Abstractions.Repositories.RoomPlaylist;
 using Microsoft.AspNetCore.SignalR;
 
 namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer.Controllers
@@ -132,6 +133,26 @@ namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer.Controllers
                     await clients.SendAsync("SetMusicAfterInit", roomMusicPlayerModel.CurrentMusic);
                 }
             }
+        }
+
+        public async Task SetClientsPlaylists(IClientProxy clients, int roomID)
+        {
+            List<RoomPlaylist> roomPlaylists = storage.GetRepository<IRoomPlaylistRepository>().GetRoomPlaylists(roomID);
+            await clients.SendAsync("SetRoomPlaylists", roomPlaylists);
+        }
+
+        public async Task AddPlaylist(IClientProxy clients, int roomID, string name)
+        {
+            await storage.GetRepository<IRoomPlaylistRepository>().AddRoomPlaylist(roomID, name);
+            storage.Save();
+            await SetClientsPlaylists(clients, roomID);
+        }
+
+        public async Task DeletePlaylist(IClientProxy clients, int roomID, int roomPlaylistID)
+        {
+            storage.GetRepository<IRoomPlaylistRepository>().DeleteRoomPlaylist(roomPlaylistID);
+            storage.Save();
+            await SetClientsPlaylists(clients, roomID);
         }
     }
 }

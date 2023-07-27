@@ -1,0 +1,65 @@
+@import "AddPlaylistLabel/add-playlist-label";
+@import "AddPlaylistDialog/add-playlist-dialog";
+@import "PlaylistListItem/playlist-list-item";
+
+.playlists {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+
+  & .playlists__playlists-item {
+    width: 90%;
+    position: relative;
+    margin: 1% 0 1% 0;
+    transition: margin 200ms ease-out;
+  }
+
+  & .playlists__playlists-item:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0.5%;
+    top: 0;
+    background-color: $default_music_item_borders_color;
+    transition: width 200ms ease-out;
+  }
+
+  & .playlists__playlists-item:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0.5%;
+    bottom: 0;
+    background-color: $default_music_item_borders_color;
+    transition: width 200ms ease-out;
+  }
+
+  & .playlists__playlists-item:hover {
+    margin: 2% 0 2% 0;
+  }
+
+  & .playlists__playlists-item:hover:before {
+    width: 100%;
+  }
+
+  & .playlists__playlists-item:hover:after {
+    width: 100%;
+  }
+
+  &::-webkit-scrollbar {
+    width: 0.5vw;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $default_scroll_bar_color;
+    border-radius: 0.5vw;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $default_scroll_button_color;
+    border-radius: 0.5vw;
+  }
+}

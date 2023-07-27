@@ -8,7 +8,7 @@ namespace GeliconProject.Utils.JwtValidationParameters
         public static readonly bool validateIssuer = true, validateAudience = true,
             validateLifetime = true, validateIssuerSigningKey = true;
         public static readonly string issuer = "Gelicon", audience = "GeliconClient", key = "eaRxVXZvjf5tPScaxRAcofre2a1SOhER";
-        public static readonly int expires = 1, refreshTokenExpires = 28;
+        public static readonly int expires = 5, refreshTokenExpires = 28;
 
         public SymmetricSecurityKey GetSymmetricSecurityKey();
 

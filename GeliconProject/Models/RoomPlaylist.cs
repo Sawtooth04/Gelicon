@@ -4,15 +4,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GeliconProject.Models
 {
-    [Table("RoomMusic")]
-    [EntityTypeConfiguration(typeof(RoomMusicConfiguration))]
-    public class RoomMusic
+    [Table("RoomPlaylist")]
+    [EntityTypeConfiguration(typeof(RoomPlaylistConfiguration))]
+    public class RoomPlaylist
     {
-        public int roomMusicID { get; set; }
+        public int roomPlaylistID { get; set; }
         public int roomID { get; set; }
-        public string? musicID { get; set; }
+        public string? name { get; set; }
         public DateTime addedAt { get; set; }
         public Room? room { get; set; }
-        public List<RoomPlaylistMusic>? roomPlaylistsMusic { get; set; }
+        public List<RoomPlaylistMusic>? roomPlaylistMusics { get; set; }
     }
 }

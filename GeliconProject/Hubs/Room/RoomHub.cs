@@ -174,5 +174,23 @@ namespace GeliconProject.Hubs.Room
         {
             await roomsThreadsController.SetRoomUserChanges(Clients.Caller, roomID, userID, color);
         }
+
+        [Authorize]
+        public async Task GetPlaylists(string roomID)
+        {
+            await roomsThreadsController.GetPlaylists(Clients.Caller, roomID);
+        }
+
+        [Authorize]
+        public async Task AddPlaylist(string roomID, string name)
+        {
+            await roomsThreadsController.AddPlaylist(Clients.Caller, roomID, name);
+        }
+
+        [Authorize]
+        public async Task DeletePlaylist(string roomID, int roomPlaylistID)
+        {
+            await roomsThreadsController.DeletePlaylist(Clients.Caller, roomID, roomPlaylistID);
+        }
     }
 }

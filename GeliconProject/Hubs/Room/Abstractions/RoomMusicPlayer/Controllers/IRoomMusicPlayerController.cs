@@ -35,5 +35,11 @@ namespace GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer.Controllers
         public Task SetPlayLoopState(IClientProxy clients, IRoomMusicPlayerModel roomMusicPlayerModel);
 
         public Task SetAutoplayNextMusic(IClientProxy clients, int roomID, string musicID, IRoomMusicPlayerModel roomMusicPlayerModel);
+
+        public Task SetClientsPlaylists(IClientProxy clients, int roomID);
+
+        public Task AddPlaylist(IClientProxy clients, int roomID, string name);
+
+        public Task DeletePlaylist(IClientProxy clients, int roomID, int roomPlaylistID);
     }
 }

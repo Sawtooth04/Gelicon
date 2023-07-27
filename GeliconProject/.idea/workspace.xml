@@ -3,20 +3,24 @@
   <component name="ChangeListManager">
     <list default="true" id="beea6af8-eaf2-4370-922f-111c44de418b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/ContentRoutes/ContentRoutes.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/ContentRoutes/ContentRoutes.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/AuthorizationController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/AuthorizationController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/LoginController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/LoginController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/RoomsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/RoomsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/public/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/public/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/public/style.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/public/style.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/Utils/HubConnector.js" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/Utils/HubConnector.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Room/RoomMusic/RoomMusic.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Room/RoomMusic/RoomMusic.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Room/RoomMusic/room-music.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Room/RoomMusic/room-music.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/Rooms/AddRoomLabel/add-room-label.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/Rooms/AddRoomLabel/add-room-label.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/components/variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/components/variables.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hubs/Room/Abstractions/RoomMusicPlayer/Controllers/IRoomMusicPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Hubs/Room/Abstractions/RoomMusicPlayer/Controllers/IRoomMusicPlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hubs/Room/Abstractions/Threads/RoomsThreadsController/IRoomsThreadsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Hubs/Room/Abstractions/Threads/RoomsThreadsController/IRoomsThreadsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hubs/Room/Realizations/RoomMusicPlayer/Controllers/RoomMusicPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Hubs/Room/Realizations/RoomMusicPlayer/Controllers/RoomMusicPlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hubs/Room/Realizations/Threads/RoomsThreadsController/RoomsThreadsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Hubs/Room/Realizations/Threads/RoomsThreadsController/RoomsThreadsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Hubs/Room/RoomHub.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Hubs/Room/RoomHub.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Middlewares/JwtHeaderMiddleware.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Middlewares/JwtHeaderMiddleware.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/Room.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Room.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/RoomMusic.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/RoomMusic.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Storage/Abstractions/Context/IStorageContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Storage/Abstractions/Context/IStorageContext.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Storage/Gelicon/Context/ApplicationContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Storage/Gelicon/Context/ApplicationContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Storage/Gelicon/Repositories/RoomMusic/RoomMusicRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Storage/Gelicon/Repositories/RoomMusic/RoomMusicRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Utils/JWTValidationParameters/IJWTValidationParameters.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Utils/JWTValidationParameters/IJWTValidationParameters.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utils/JWTValidationParameters/JWTValidationParameters.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Utils/JWTValidationParameters/JWTValidationParameters.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utils/JWTValidationParameters/JWTValidationParametersExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Utils/JWTValidationParameters/JWTValidationParametersExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utils/RoomJoinURLBuilder/RoomJoinTokenBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Utils/RoomJoinURLBuilder/RoomJoinTokenBuilder.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,8 +37,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Sass File" />
-        <option value="SCSS File" />
         <option value="JavaScript File" />
+        <option value="SCSS File" />
       </list>
     </option>
   </component>
@@ -274,6 +278,7 @@
       <workItem from="1690307914562" duration="1587000" />
       <workItem from="1690359139907" duration="2733000" />
       <workItem from="1690383583103" duration="7621000" />
+      <workItem from="1690445139029" duration="14838000" />
     </task>
     <servers />
   </component>

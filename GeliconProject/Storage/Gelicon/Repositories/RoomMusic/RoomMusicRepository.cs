@@ -36,12 +36,12 @@ namespace GeliconProject.Storage.Gelicon.Repositories.RoomMusic
 
         public Models.RoomMusic GetLatestAddedMusic(int roomID, bool isDescending = true)
         {
-            DateTime latestAddedMusicTime = ((isDescending) ?
-                StorageContext.RoomMusics.Where(r => r.roomID == roomID).Max(r => r.addedAt) :
-                StorageContext.RoomMusics.Where(r => r.roomID == roomID).Min(r => r.addedAt));
-
             try
             {
+                DateTime latestAddedMusicTime = ((isDescending) ?
+                    StorageContext.RoomMusics.Where(r => r.roomID == roomID).Max(r => r.addedAt) :
+                    StorageContext.RoomMusics.Where(r => r.roomID == roomID).Min(r => r.addedAt));
+            
                 return StorageContext.RoomMusics.Where(r => r.roomID == roomID && r.addedAt == latestAddedMusicTime).Single();
             }
             catch (Exception e)

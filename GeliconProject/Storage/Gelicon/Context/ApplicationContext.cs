@@ -10,6 +10,7 @@ namespace GeliconProject.Storage.Gelicon.Context
         public DbSet<Room> Rooms => Set<Room>();
         public DbSet<RoomMusic> RoomMusics => Set<RoomMusic>();
         public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
+        public DbSet<RoomPlaylist> RoomPlaylists => Set<RoomPlaylist>();
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {

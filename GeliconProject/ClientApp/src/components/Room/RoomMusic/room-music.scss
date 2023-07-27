@@ -1,6 +1,7 @@
 @import "MusicSearch/music-search";
 @import "MusicList/music-list";
 @import "MusicPlayer/music-player";
+@import "PlaylistList/playlist-list";
 @import "../../variables";
 
 .room-music {
@@ -60,6 +61,7 @@
     width: 100%;
     flex-grow: 1;
     max-height: 83%;
+    font-size: $room_music_font_size;
 
     & .room-music__music-search {
       width: 100%;

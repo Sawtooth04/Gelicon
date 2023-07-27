@@ -1,0 +1,31 @@
+.playlists-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5%;
+  width: 90%;
+  height: 1.5em;
+  padding: 2%;
+}
+.playlists-item .playlists-item__description {
+  width: 80%;
+  overflow: hidden;
+}
+.playlists-item .playlists-item__description * {
+  white-space: nowrap;
+  overflow: hidden;
+}
+.playlists-item .playlists-item__controls {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  position: relative;
+  width: 20%;
+}
+.playlists-item .playlists-item__controls .icon-button {
+  width: 1.5vw;
+  height: 1.5vw;
+  margin: 0 1%;
+}
+
+/*# sourceMappingURL=playlist-list-item.css.map */

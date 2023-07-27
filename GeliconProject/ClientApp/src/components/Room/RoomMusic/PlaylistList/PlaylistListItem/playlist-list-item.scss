@@ -1,0 +1,35 @@
+@import "../../../../variables";
+
+.playlists-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5%;
+  width: 90%;
+  height: 1.5em;
+  padding: 2%;
+
+  & .playlists-item__description {
+    width: 80%;
+    overflow: hidden;
+
+    & * {
+      white-space: nowrap;
+      overflow: hidden;
+    }
+  }
+
+  & .playlists-item__controls {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    position: relative;
+    width: 20%;
+
+    & .icon-button {
+      width: 1.5vw;
+      height: 1.5vw;
+      margin: 0 1%;
+    }
+  }
+}
