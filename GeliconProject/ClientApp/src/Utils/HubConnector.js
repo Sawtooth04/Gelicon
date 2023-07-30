@@ -82,8 +82,8 @@ class HubConnector {
         await this._connection.invoke("AddPlaylist", this.roomID, playlist.name);
     }
 
-    async getRoomMusicList() {
-        await this._connection.invoke("GetRoomMusicList", this.roomID);
+    async getRoomMusicList(start, count, append) {
+        await this._connection.invoke("GetRoomMusicList", this.roomID, start, count, append);
     }
 
     async getPlaylists() {

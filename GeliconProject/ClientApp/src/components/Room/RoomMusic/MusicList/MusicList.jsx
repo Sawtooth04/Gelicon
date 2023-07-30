@@ -1,7 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import MusicListItem from "./MusicListItem/MusicListItem";
+import ScrollView from "../../../UI/ScrollView/ScrollView";
+import LoadingSpinner from "../../../UI/LoadingSpinner/LoadingSpinner";
 
-const MusicList = ({musicList, current, setRoomMusic, onDelete}) => {
+const MusicList = ({musicList, current, setRoomMusic, onDelete, onNextCallback, onPrevCallback, loadingState}) => {
     function onItemClick(item) {
         setRoomMusic(item);
     }
@@ -10,19 +12,30 @@ const MusicList = ({musicList, current, setRoomMusic, onDelete}) => {
         onDelete(item);
     }
 
+    function onNext() {
+        onNextCallback();
+    }
+
+    function onPrev() {
+        onPrevCallback();
+    }
+
     return (
         <div className={"room-music__music-list music-list"}>
-            {
-                (current != null) ?
-                musicList.map((music) =>
-                    <MusicListItem item={music.data} key={music.data.id} current={music.data.id === current.id}
-                        onItemClick={onItemClick} onDelete={onDeleteClick}/>
-                ) :
-                musicList.map((music) =>
-                    <MusicListItem item={music.data} key={music.data.id} current={false}
-                        onItemClick={onItemClick} onDelete={onDeleteClick}/>
-                )
-            }
+            {(loadingState) ? <LoadingSpinner/> : null}
+            <ScrollView threshold={0.85} nextCallback={onNext} prevCallback={onPrev} loadingState={loadingState} elements=
+                {
+                    (current != null) ?
+                    musicList.map((music) =>
+                        <MusicListItem item={music.data} key={music.data.id} current={music.data.id === current.id}
+                            onItemClick={onItemClick} onDelete={onDeleteClick}/>
+                    ) :
+                    musicList.map((music) =>
+                        <MusicListItem item={music.data} key={music.data.id} current={false}
+                            onItemClick={onItemClick} onDelete={onDeleteClick}/>
+                    )
+                }
+            />
         </div>
     );
 };

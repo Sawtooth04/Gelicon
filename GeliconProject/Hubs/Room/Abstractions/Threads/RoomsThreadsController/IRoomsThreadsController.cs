@@ -12,7 +12,7 @@ namespace GeliconProject.Hubs.Room.Abstractions.Threads.ThreadsController
 
         public Task AddRoomMusic(IClientProxy clients, string roomID, string connectionID, string musicID);
 
-        public Task GetRoomMusicList(IClientProxy clients, string roomID, string connectionID);
+        public Task GetRoomMusicList(IClientProxy clients, string roomID, int start, int count, bool append);
 
         public Task GetCurrentMusic(IClientProxy client, string roomID, string connectionID);
 

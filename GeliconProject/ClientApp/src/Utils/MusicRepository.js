@@ -53,7 +53,7 @@ class MusicRepository {
         let response = [];
         let executeFunction = this.executeQuery.bind(this);
 
-        for (let i = arr.length - 1; i >= 0; i--)
+        for (let i = 0; i < arr.length; i++)
             response.push(await(await executeFunction(this.getMusicByID, new Map([['id', arr[i].musicID]]))).json());
         return response;
     }

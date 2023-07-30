@@ -26,16 +26,20 @@ namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer.Controllers
             roomMusicPlayerModel.CurrentMusic = storage.GetRepository<IRoomMusicRepository>().GetLatestAddedMusic(int.Parse(roomID));
         }
 
+        //TODO
         public async Task AddRoomMusic(IClientProxy clients, int roomID, IRoomMusicPlayerModel roomMusicPlayerModel, string musicID)
         {
             await roomMusicPlayerMusicProvider.GetAddMusicAction(roomMusicPlayerModel.Source).Invoke(storage, roomID, musicID);
-            await SetClientsRoomMusicList(clients, roomID, roomMusicPlayerModel);
+            //await SetClientsRoomMusicList(clients, roomID, roomMusicPlayerModel);
         }
 
-        public async Task SetClientsRoomMusicList(IClientProxy clients, int roomID, IRoomMusicPlayerModel roomMusicPlayerModel)
+        public async Task SetClientsRoomMusicList(IClientProxy clients, int roomID, int start, int count, bool append)
         {
-            List<RoomMusic> roomMusic = await storage.GetRepository<IRoomMusicRepository>().GetRoomMusic(roomID);
-            await clients.SendAsync("SetRoomMusicList", roomMusic);
+            List<RoomMusic> roomMusic = await storage.GetRepository<IRoomMusicRepository>().GetRoomMusic(roomID, start, count);
+            if (append)
+                await clients.SendAsync("AppendRoomMusicList", roomMusic);
+            else
+                await clients.SendAsync("AppendBeforeRoomMusicList", roomMusic);
         }
 
         public async Task SetClientMusic(IClientProxy client, IRoomMusicPlayerModel roomMusicPlayerModel)
@@ -88,10 +92,11 @@ namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer.Controllers
             }
         }
 
+        //TODO
         public async Task DeleteRoomMusic(IClientProxy clients, int roomID, IRoomMusicPlayerModel roomMusicPlayerModel, string musicID)
         {
             roomMusicPlayerMusicProvider.GetDeleteMusicAction(roomMusicPlayerModel.Source).Invoke(storage, roomID, musicID);
-            await SetClientsRoomMusicList(clients, roomID, roomMusicPlayerModel);
+            //await SetClientsRoomMusicList(clients, roomID, roomMusicPlayerModel);
         }
 
         public async Task SetPlayNextState(IClientProxy clients, IRoomMusicPlayerModel roomMusicPlayerModel)

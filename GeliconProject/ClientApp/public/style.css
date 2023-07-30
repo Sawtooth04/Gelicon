@@ -515,10 +515,10 @@
 }
 
 .music-search-list {
-  display: flex;
   width: 100%;
   height: 100%;
   max-height: 100%;
+  display: flex;
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
@@ -644,11 +644,36 @@
 
 .music-list {
   display: flex;
+  position: relative;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+.music-list .loading-spinner {
+  position: absolute;
+  animation: show-loading-animation 200ms ease-out;
+  animation-fill-mode: forwards;
+}
+.music-list .scroll-view {
+  display: flex;
   width: 100%;
   height: 100%;
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
+  overflow-x: hidden;
+}
+.music-list .scroll-view::-webkit-scrollbar {
+  width: 0.5vw;
+}
+.music-list .scroll-view::-webkit-scrollbar-track {
+  background-color: #323232;
+  border-radius: 0.5vw;
+}
+.music-list .scroll-view::-webkit-scrollbar-thumb {
+  background-color: #0f0f0f;
+  border-radius: 0.5vw;
 }
 .music-list .music-list__music-list-item {
   width: 90%;
@@ -683,18 +708,15 @@
 .music-list .music-list__music-list-item:hover:after {
   width: 100%;
 }
-.music-list::-webkit-scrollbar {
-  width: 0.5vw;
-}
-.music-list::-webkit-scrollbar-track {
-  background-color: #323232;
-  border-radius: 0.5vw;
-}
-.music-list::-webkit-scrollbar-thumb {
-  background-color: #0f0f0f;
-  border-radius: 0.5vw;
-}
 
+@keyframes show-loading-animation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .volume-trackbar {
   padding: 0 1% 0 1%;
   display: flex;
@@ -1769,6 +1791,35 @@
   }
 }
 
+.loading-spinner {
+  position: relative;
+  width: 2vw;
+  height: 2vw;
+  border-radius: 100%;
+  border: 0.24vw solid #4f4f4f;
+}
+.loading-spinner .loading-spinner__triangle {
+  z-index: 1;
+  position: absolute;
+  right: -0.24vw;
+  top: 0;
+  transform-origin: left;
+  border-left: 0 solid transparent;
+  border-right: 1.25vw solid #151515;
+  border-bottom: 1vw solid transparent;
+  border-top: 1vw solid transparent;
+  animation: animation-logo-spinner 1.2s ease;
+  animation-iteration-count: infinite;
+}
+
+@keyframes animation-spinner {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 @font-face {
   font-family: "Verdana";
   font-style: normal;

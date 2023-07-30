@@ -91,9 +91,9 @@ namespace GeliconProject.Hubs.Room
         }
 
         [Authorize]
-        public async Task GetRoomMusicList(string roomID)
+        public async Task GetRoomMusicList(string roomID, int start, int count, bool append)
         {
-            await roomsThreadsController.GetRoomMusicList(Clients.Caller, roomID, Context.ConnectionId);
+            await roomsThreadsController.GetRoomMusicList(Clients.Caller, roomID, start, count, append);
         }
 
         [Authorize]

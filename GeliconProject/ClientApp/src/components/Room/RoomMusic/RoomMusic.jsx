@@ -6,11 +6,15 @@ import MusicPlayer from "./MusicPlayer/MusicPlayer";
 import PlaylistList from "./PlaylistList/PlaylistList";
 
 const RoomMusic = ({connector, ...props}) => {
+    const countByPage = 10;
+    const maxCount = 50;
     const [roomMusicList, setRoomMusicList] = useState([]);
     const [playlists, setPlaylists] = useState([]);
     const [currentAudioInfo, setCurrentAudioInfo] = useState(null);
     const [needToDisplayMusicPlayer, setNeedToDisplayMusicPlayer] = useState(false);
     const [needToDisplayLoadingScreen, setNeedToDisplayLoadingScreen] = useState(true);
+    const [scrollPage, setScrollPage] = useState(0);
+    const [isLoadingMusicList, setIsLoadingMusicList] = useState(true);
 
     useEffect(() => {
         setNeedToDisplayMusicPlayer(roomMusicList.length > 0);
@@ -18,18 +22,38 @@ const RoomMusic = ({connector, ...props}) => {
 
     useEffect(() => {
         function addEventHandlers() {
-            connector.addEventHandler("SetRoomMusicList", receiveRoomMusicList);
+            connector.addEventHandler("AppendRoomMusicList", appendRoomMusicList);
+            connector.addEventHandler("AppendBeforeRoomMusicList", appendBeforeRoomMusicList);
             connector.addEventHandler("SetRoomPlaylists", receiveRoomPlaylists);
         }
 
         function removeEventHandlers() {
-            connector.removeEventHandler("SetRoomMusicList", receiveRoomMusicList);
+            connector.removeEventHandler("AppendRoomMusicList", appendRoomMusicList);
+            connector.removeEventHandler("AppendBeforeRoomMusicList", appendBeforeRoomMusicList);
             connector.removeEventHandler("SetRoomPlaylists", receiveRoomPlaylists);
         }
 
         //Handlers
-        async function receiveRoomMusicList(data) {
-            setRoomMusicList(await connector.musicRepository.getMusicArrayFromApi(data));
+        async function appendRoomMusicList(data) {
+            let music = await connector.musicRepository.getMusicArrayFromApi(data);
+            if (music.length > 0) {
+                setRoomMusicList([...roomMusicList, ...music]);
+                setScrollPage(scrollPage + 1);
+            }
+            setIsLoadingMusicList(false);
+            if (roomMusicList.length > maxCount)
+                setRoomMusicList(roomMusicList.slice(roomMusicList.length - maxCount, roomMusicList.length));
+        }
+
+        async function appendBeforeRoomMusicList(data) {
+            let music = await connector.musicRepository.getMusicArrayFromApi(data);
+            if (music.length > 0) {
+                setRoomMusicList([...music, ...roomMusicList]);
+                setScrollPage(scrollPage - 1);
+            }
+            setIsLoadingMusicList(false);
+            if (roomMusicList.length > maxCount)
+                setRoomMusicList(roomMusicList.slice(0, roomMusicList.length - (roomMusicList.length - maxCount)));
         }
 
         async function receiveRoomPlaylists(data) {
@@ -43,7 +67,8 @@ const RoomMusic = ({connector, ...props}) => {
 
     useEffect(() => {
         async function getRoomMusicList() {
-            await connector.getRoomMusicList();
+            if (!needToDisplayLoadingScreen)
+                await connector.getRoomMusicList(0, countByPage, true);
         }
 
         async function getRoomPlaylists() {
@@ -54,7 +79,21 @@ const RoomMusic = ({connector, ...props}) => {
             void getRoomMusicList();
             void getRoomPlaylists();
         }
-    }, [connector, connector.connected]);
+    }, [connector, connector.connected, needToDisplayLoadingScreen]);
+
+    function onNext() {
+        let start = scrollPage * countByPage;
+        setIsLoadingMusicList(true);
+        void connector.getRoomMusicList(start, countByPage, true);
+    }
+
+    function onPrev() {
+        if (scrollPage > maxCount / countByPage && scrollPage > 1) {
+            let start = scrollPage - maxCount / countByPage - 1;
+            setIsLoadingMusicList(true);
+            void connector.getRoomMusicList(start, countByPage, false);
+        }
+    }
 
     async function addMusic(musicID) {
         await connector.addMusicToRoom(musicID);
@@ -97,7 +136,7 @@ const RoomMusic = ({connector, ...props}) => {
                 <Routes>
                     <Route exact path="music-list" element={
                         <MusicList musicList={roomMusicList} current={currentAudioInfo} setRoomMusic={setRoomMusic}
-                           onDelete={deleteRoomMusic}/>
+                           onDelete={deleteRoomMusic} onNextCallback={onNext} onPrevCallback={onPrev} loadingState={isLoadingMusicList}/>
                     }/>
                     <Route exact path="music-playlist-list" element={
                         <PlaylistList playlists={playlists} current={currentAudioInfo} addCallback={addPlaylist}
