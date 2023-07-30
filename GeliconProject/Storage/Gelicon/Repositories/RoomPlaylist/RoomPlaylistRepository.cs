@@ -39,5 +39,14 @@ namespace GeliconProject.Storage.Gelicon.Repositories.RoomPlaylist
         {
             storageContext.RoomPlaylists.Remove(storageContext.RoomPlaylists.Where(r => r.roomPlaylistID == roomPlaylistID).Single());
         }
+
+        public void ChangeRoomPlaylist(int roomID, int roomPlaylistID, string name)
+        {
+            Models.RoomPlaylist roomPlaylist = storageContext.RoomPlaylists.Where(r => r.roomPlaylistID == roomPlaylistID &&
+                r.roomID == roomID).Single();
+
+            if (roomPlaylist != null)
+                roomPlaylist.name = name;
+        }
     }
 }

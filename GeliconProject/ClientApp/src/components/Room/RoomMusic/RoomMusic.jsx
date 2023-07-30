@@ -115,6 +115,10 @@ const RoomMusic = ({connector, ...props}) => {
         await connector.deletePlaylist(playlist);
     }
 
+    async function editPlaylist(playlist, name) {
+        await connector.editRoomPlaylist(playlist, name);
+    }
+
     return (
         <div className={"room__room-music room-music"}>
             {!needToDisplayLoadingScreen ? null :
@@ -140,7 +144,7 @@ const RoomMusic = ({connector, ...props}) => {
                     }/>
                     <Route exact path="music-playlist-list" element={
                         <PlaylistList playlists={playlists} current={currentAudioInfo} addCallback={addPlaylist}
-                            deleteCallback={deletePlaylist}/>
+                            deleteCallback={deletePlaylist} editCallback={editPlaylist}/>
                     }/>
                     <Route path="*" element={
                         <MusicSearch connector={connector} addMusicCallback={addMusic}

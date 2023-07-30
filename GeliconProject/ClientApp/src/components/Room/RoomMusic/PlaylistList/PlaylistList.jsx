@@ -2,12 +2,21 @@ import React, {useState} from 'react';
 import PlaylistListItem from "./PlaylistListItem/PlaylistListItem";
 import AddPlaylistLabel from "./AddPlaylistLabel/AddPlaylistLabel";
 import AddPlaylistDialog from "./AddPlaylistDialog/AddPlaylistDialog";
+import EditPlaylistDialog from "./EditPlaylistDialog/EditPlaylistDialog";
 
-const PlaylistList = ({playlists, current, addCallback, deleteCallback}) => {
+const PlaylistList = ({playlists, current, addCallback, deleteCallback, editCallback}) => {
     const [addPlaylistDialogOpened, setAddPlaylistDialogOpened] = useState(false);
+    const [editPlaylistDialogOpened, setEditPlaylistDialogOpened] = useState(false);
+    const [currentEditPlaylist, setCurrentEditPlaylist] = useState(null);
 
     function onItemClick(item) {
+        setEditPlaylistDialogOpened(true);
+        setCurrentEditPlaylist(item);
+    }
 
+    async function setChanges(playlist, name) {
+        editCallback(playlist, name);
+        setEditPlaylistDialogOpened(false);
     }
 
     function onDeleteClick(item) {
@@ -18,14 +27,23 @@ const PlaylistList = ({playlists, current, addCallback, deleteCallback}) => {
         setAddPlaylistDialogOpened(true);
     }
 
-    function onCancelPlaylistDialog() {
+    function onCancelAddPlaylistDialog() {
         setAddPlaylistDialogOpened(false);
+    }
+
+    function onCancelEditPlaylistDialog() {
+        setEditPlaylistDialogOpened(false);
     }
 
     return (
         <div className={"room-music__playlists playlists"}>
+            {editPlaylistDialogOpened ?
+                <EditPlaylistDialog playlist={currentEditPlaylist} cancelCallback={onCancelEditPlaylistDialog}
+                    editCallback={setChanges}/>
+                : null
+            }
             {addPlaylistDialogOpened ?
-                <AddPlaylistDialog addCallback={addCallback} cancelCallback={onCancelPlaylistDialog}/>
+                <AddPlaylistDialog addCallback={addCallback} cancelCallback={onCancelAddPlaylistDialog}/>
                 : null
             }
             <AddPlaylistLabel onClick={onAddPlaylistLabelClick}/>

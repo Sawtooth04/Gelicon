@@ -19,10 +19,7 @@ namespace GeliconProject.Storage.Gelicon.Repositories.RoomUserColor
                 .roomUsersColors!.Where(r => r.userID == userID).FirstOrDefault();
 
             if (roomUserColor != null)
-            {
                 roomUserColor.color = color;
-                storageContext.SaveChanges();
-            }
         }
 
         public async Task<List<Models.RoomUserColor>> GetRoomUsersColor(int roomID)

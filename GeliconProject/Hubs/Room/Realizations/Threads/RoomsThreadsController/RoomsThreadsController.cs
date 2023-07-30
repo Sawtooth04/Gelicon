@@ -4,6 +4,7 @@ using GeliconProject.Hubs.Room.Abstractions.Threads.RoomThreadsProvider;
 using GeliconProject.Hubs.Room.Abstractions.Threads.ThreadsController;
 using GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer.Controllers;
 using GeliconProject.Storage.Abstractions;
+using GeliconProject.Storage.Abstractions.Repositories.RoomPlaylist;
 using GeliconProject.Storage.Abstractions.Repositories.RoomUserColor;
 using Microsoft.AspNetCore.SignalR;
 using System.Text.Json;
@@ -173,6 +174,7 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads.ThreadsController
             List<Models.RoomUserColor> userColors;
 
             repository.ChangeRoomUserColor(int.Parse(roomID), userID, color);
+            storage.Save();
             userColors = await repository.GetRoomUsersColor(int.Parse(roomID));
             userColors = userColors.ConvertAll(u =>
             {
@@ -202,6 +204,15 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads.ThreadsController
         public async Task DeletePlaylist(IClientProxy clients, string roomID, int roomPlaylistID)
         {
             await roomMusicPlayerController.DeletePlaylist(clients, int.Parse(roomID), roomPlaylistID);
+        }
+
+        public async Task SetRoomPlaylistChanges(IClientProxy clients, string roomID, int roomPlaylistID, string name)
+        {
+            IRoomPlaylistRepository repository = storage.GetRepository<IRoomPlaylistRepository>()!;
+
+            repository.ChangeRoomPlaylist(int.Parse(roomID), roomPlaylistID, name);
+            storage.Save();
+            await GetPlaylists(clients, roomID);
         }
     }
 }

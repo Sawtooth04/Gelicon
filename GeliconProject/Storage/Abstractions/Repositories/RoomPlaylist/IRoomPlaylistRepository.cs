@@ -9,5 +9,7 @@ namespace GeliconProject.Storage.Abstractions.Repositories.RoomPlaylist
         public Task AddRoomPlaylist(int roomID, string name);
 
         public void DeleteRoomPlaylist(int roomPlaylistID);
+
+        public void ChangeRoomPlaylist(int roomID, int roomPlaylistID, string name);
     }
 }

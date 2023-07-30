@@ -47,5 +47,7 @@ namespace GeliconProject.Hubs.Room.Abstractions.Threads.ThreadsController
         public Task AddPlaylist(IClientProxy clients, string roomID, string name);
 
         public Task DeletePlaylist(IClientProxy clients, string roomID, int roomPlaylistID);
+
+        public Task SetRoomPlaylistChanges(IClientProxy clients, string roomID, int roomPlaylistID, string name);
     }
 }

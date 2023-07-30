@@ -110,6 +110,10 @@ class HubConnector {
         await this._connection.invoke("SetRoomUserChanges", this.roomID, user.userID, color);
     }
 
+    async editRoomPlaylist(playlist, name) {
+        await this._connection.invoke("SetRoomPlaylistChanges", this.roomID, playlist.roomPlaylistID, name);
+    }
+
     //Music player
     async getCurrentMusic() {
         await this._connection.invoke("GetCurrentMusic", this.roomID);
