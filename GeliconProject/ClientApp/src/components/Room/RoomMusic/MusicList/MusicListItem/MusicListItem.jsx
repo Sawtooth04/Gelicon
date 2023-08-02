@@ -1,13 +1,17 @@
 import React from 'react';
 import Button from "../../../../UI/Button/Button";
 
-const MusicListItem = ({item, current, onItemClick, onDelete}) => {
+const MusicListItem = ({item, current, onItemClick, onDelete, showPlaylists, onShowPlaylistsClick}) => {
     function onClick() {
         onItemClick(item);
     }
 
     function onDeleteClick() {
         onDelete(item);
+    }
+
+    function onShowPlaylists() {
+        onShowPlaylistsClick(item);
     }
 
     return (
@@ -17,6 +21,7 @@ const MusicListItem = ({item, current, onItemClick, onDelete}) => {
             </div>
             <div className={"music-list-item__controls"}>
                 <Button onClick={onDeleteClick} src={"/source/images/delete-music.png"}/>
+                {showPlaylists ? <Button onClick={onShowPlaylists} src={"/source/images/playlist.png"}/> : null}
             </div>
         </div>
     );

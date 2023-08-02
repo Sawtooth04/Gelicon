@@ -2,24 +2,33 @@ $loading_spinner_color: #4f4f4f;
 $loading_spinner_triangle_color: #151515;
 
 .loading-spinner {
-  position: relative;
-  width: 2vw;
-  height: 2vw;
+  width: 2.48vw;
+  height: 2.48vw;
   border-radius: 100%;
-  border: 0.24vw solid $loading_spinner_color;
+  overflow: hidden;
+  z-index: 2;
 
-  & .loading-spinner__triangle {
-    z-index: 1;
-    position: absolute;
-    right: -0.24vw;
-    top: 0;
-    transform-origin: left;
-    border-left: 0 solid transparent;
-    border-right: 1.25vw solid $loading_spinner_triangle_color;
-    border-bottom: 1vw solid transparent;
-    border-top: 1vw solid transparent;
-    animation: animation-logo-spinner 1.2s ease;
-    animation-iteration-count: infinite;
+  .loading-spinner__wrapper {
+    position: relative;
+    width: 2vw;
+    height: 2vw;
+    border-radius: 100%;
+    border: 0.24vw solid $loading_spinner_color;
+    background-color: $loading_spinner_triangle_color;
+
+    & .loading-spinner__triangle {
+      z-index: 3;
+      position: absolute;
+      right: -0.24vw;
+      top: 0;
+      transform-origin: left;
+      border-left: 0 solid transparent;
+      border-right: 1.25vw solid $loading_spinner_triangle_color;
+      border-bottom: 1vw solid transparent;
+      border-top: 1vw solid transparent;
+      animation: animation-logo-spinner 1.2s ease;
+      animation-iteration-count: infinite;
+    }
   }
 }
 

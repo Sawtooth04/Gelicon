@@ -214,5 +214,28 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads.ThreadsController
             storage.Save();
             await GetPlaylists(clients, roomID);
         }
+
+        public async Task GetPlaylistMusicList(IClientProxy clients, string roomID, int roomPlaylistID, int start, int count, bool append)
+        {
+            IRoomThread? roomObserver = roomObserversProvider.FindRoomObserverThread(roomID);
+
+            if (roomObserver != null && roomObserver.RoomMusicPlayerModel != null)
+                await roomMusicPlayerController.SetClientsPlaylistMusicList(clients, int.Parse(roomID), roomPlaylistID, start, count, append);
+        }
+
+        public void DeletePlaylistMusic(IClientProxy clients, int roomPlaylistID, string musicID)
+        {
+            roomMusicPlayerController.DeletePlaylistMusic(clients, roomPlaylistID, musicID);
+        }
+
+        public async Task AddPlaylistMusic(IClientProxy clients, string roomID, int roomPlaylistID, string musicID)
+        {
+            await roomMusicPlayerController.AddPlaylistMusic(clients, roomID, roomPlaylistID, musicID);
+        }
+
+        public async Task GetRoomMusicPlaylists(IClientProxy clients, string roomID, string musicID)
+        {
+            await roomMusicPlayerController.GetRoomMusicPlaylists(clients, roomID, musicID);
+        }
     }
 }

@@ -41,5 +41,13 @@ namespace GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer.Controllers
         public Task AddPlaylist(IClientProxy clients, int roomID, string name);
 
         public Task DeletePlaylist(IClientProxy clients, int roomID, int roomPlaylistID);
+
+        public Task SetClientsPlaylistMusicList(IClientProxy clients, int roomID, int roomPlaylistID, int start, int count, bool append);
+
+        public void DeletePlaylistMusic(IClientProxy clients, int roomPlaylistID, string musicID);
+
+        public Task AddPlaylistMusic(IClientProxy clients, string roomID, int roomPlaylistID, string musicID);
+
+        public Task GetRoomMusicPlaylists(IClientProxy clients, string roomID, string musicID);
     }
 }

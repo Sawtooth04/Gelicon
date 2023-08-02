@@ -6,6 +6,7 @@ using GeliconProject.Models;
 using GeliconProject.Storage.Abstractions;
 using GeliconProject.Storage.Abstractions.Repositories.RoomMusic;
 using GeliconProject.Storage.Abstractions.Repositories.RoomPlaylist;
+using GeliconProject.Storage.Abstractions.Repositories.RoomPlaylistMusic;
 using Microsoft.AspNetCore.SignalR;
 
 namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer.Controllers
@@ -36,6 +37,7 @@ namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer.Controllers
         public async Task SetClientsRoomMusicList(IClientProxy clients, int roomID, int start, int count, bool append)
         {
             List<RoomMusic> roomMusic = await storage.GetRepository<IRoomMusicRepository>().GetRoomMusic(roomID, start, count);
+
             if (append)
                 await clients.SendAsync("AppendRoomMusicList", roomMusic);
             else
@@ -158,6 +160,38 @@ namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer.Controllers
             storage.GetRepository<IRoomPlaylistRepository>().DeleteRoomPlaylist(roomPlaylistID);
             storage.Save();
             await SetClientsPlaylists(clients, roomID);
+        }
+
+        public async Task SetClientsPlaylistMusicList(IClientProxy clients, int roomID, int roomPlaylistID, int start, int count, bool append)
+        {
+            List<RoomMusic>? roomMusic = storage.GetRepository<IRoomPlaylistMusicRepository>().GetRoomMusicFromPlaylist(roomPlaylistID, start, count);
+
+            if (append)
+                await clients.SendAsync("AppendPlaylistMusicList", roomMusic);
+            else
+                await clients.SendAsync("AppendBeforePlaylistMusicList", roomMusic);
+        }
+
+        public void DeletePlaylistMusic(IClientProxy clients, int roomPlaylistID, string musicID)
+        {
+            storage.GetRepository<IRoomPlaylistMusicRepository>().DeleteRoomMusicFromPlaylist(roomPlaylistID, musicID);
+            storage.Save();
+        }
+
+        public async Task AddPlaylistMusic(IClientProxy clients, string roomID, int roomPlaylistID, string musicID)
+        {
+            RoomMusic? roomMusic = storage.GetRepository<IRoomMusicRepository>().GetRoomMusic(int.Parse(roomID), musicID);
+
+            if (roomMusic != null)
+            {
+                await storage.GetRepository<IRoomPlaylistMusicRepository>().AddRoomPlaylistMusic(roomPlaylistID, roomMusic);
+                storage.Save();
+            }
+        }
+
+        public async Task GetRoomMusicPlaylists(IClientProxy clients, string roomID, string musicID)
+        {
+            storage.GetRepository<IRoomPlaylistMusicRepository>().AddRoomPlaylistMusic(roomPlaylistID, roomMusic);
         }
     }
 }

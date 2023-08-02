@@ -632,10 +632,12 @@
   position: relative;
   width: 20%;
 }
+.music-list-item .music-list-item__controls * {
+  margin: 0 5%;
+}
 .music-list-item .music-list-item__controls .icon-button {
   width: 1.5vw;
   height: 1.5vw;
-  margin: 0 1%;
 }
 
 .music-list-item_current {
@@ -652,7 +654,7 @@
 }
 .music-list .loading-spinner {
   position: absolute;
-  animation: show-loading-animation 200ms ease-out;
+  animation: show-loading-animation 800ms ease-out;
   animation-fill-mode: forwards;
 }
 .music-list .scroll-view {
@@ -710,10 +712,13 @@
 }
 
 @keyframes show-loading-animation {
-  from {
+  0% {
     opacity: 0;
   }
-  to {
+  70% {
+    opacity: 0;
+  }
+  100% {
     opacity: 1;
   }
 }
@@ -1046,14 +1051,23 @@
 }
 .edit-playlist-dialog .edit-playlist-dialog__content {
   width: 90%;
+  max-height: 72%;
+  height: 72%;
   opacity: 1;
   z-index: 2;
   background-color: #1e1e1e;
   border: 0.1vw solid #4f4f4f;
   border-radius: 0.5vw;
 }
+.edit-playlist-dialog .edit-playlist-dialog__content .loading-spinner__wrapper {
+  background-color: #1e1e1e;
+}
+.edit-playlist-dialog .edit-playlist-dialog__content .loading-spinner__wrapper .loading-spinner__triangle {
+  border-right-color: #1e1e1e;
+}
 .edit-playlist-dialog .edit-playlist-dialog__content .edit-playlist-dialog__content__header {
   display: flex;
+  height: 6%;
   justify-content: center;
   align-items: center;
   padding: 1%;
@@ -1069,7 +1083,8 @@
   flex-direction: column;
   justify-items: center;
   align-items: center;
-  padding: 0 4%;
+  padding: 0 4% 2% 4%;
+  height: 8%;
 }
 .edit-playlist-dialog .edit-playlist-dialog__content .edit-playlist-dialog__content__body .edit-playlist-dialog__content__body__title {
   width: 90%;
@@ -1103,6 +1118,10 @@
   background-color: inherit;
   border: none;
   outline: none;
+}
+.edit-playlist-dialog .edit-playlist-dialog__content .music-list {
+  margin: 4% 0 0 0;
+  height: 71%;
 }
 .edit-playlist-dialog .edit-playlist-dialog__content .edit-playlist-dialog__content__footer {
   display: flex;
@@ -1185,6 +1204,145 @@
   border-radius: 0.5vw;
 }
 
+.playlist-music-dialog-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1em;
+  width: 90%;
+  height: 1.5em;
+  padding: 2%;
+}
+.playlist-music-dialog-label .playlist-music-dialog-label__description {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+}
+.playlist-music-dialog-label .playlist-music-dialog-label__description * {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.add-playlist-music-dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  background-color: #0f0f0f;
+  animation: display-dialog-animation ease-out 200ms forwards;
+}
+.add-playlist-music-dialog .add-playlist-music-dialog__content {
+  width: 90%;
+  height: 60%;
+  opacity: 1;
+  z-index: 2;
+  background-color: #1e1e1e;
+  border: 0.1vw solid #4f4f4f;
+  border-radius: 0.5vw;
+}
+.add-playlist-music-dialog .add-playlist-music-dialog__content .add-playlist-music-dialog__content__header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1%;
+  overflow: hidden;
+  height: 8%;
+}
+.add-playlist-music-dialog .add-playlist-music-dialog__content .add-playlist-music-dialog__content__header .add-playlist-music-dialog__content__header__title {
+  font-size: 22px;
+  max-width: 100%;
+  white-space: nowrap;
+}
+.add-playlist-music-dialog .add-playlist-music-dialog__content .add-playlist-music-dialog__content__body {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  padding: 0 2%;
+  width: 100%;
+  height: 78%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.add-playlist-music-dialog .add-playlist-music-dialog__content .add-playlist-music-dialog__content__body::-webkit-scrollbar {
+  width: 0.5vw;
+}
+.add-playlist-music-dialog .add-playlist-music-dialog__content .add-playlist-music-dialog__content__body::-webkit-scrollbar-track {
+  background-color: #323232;
+  border-radius: 0.5vw;
+}
+.add-playlist-music-dialog .add-playlist-music-dialog__content .add-playlist-music-dialog__content__body::-webkit-scrollbar-thumb {
+  background-color: #0f0f0f;
+  border-radius: 0.5vw;
+}
+.add-playlist-music-dialog .add-playlist-music-dialog__content .add-playlist-music-dialog__content__body .playlist-music-dialog-label {
+  position: relative;
+  transition: margin 200ms ease-out;
+}
+.add-playlist-music-dialog .add-playlist-music-dialog__content .add-playlist-music-dialog__content__body .playlist-music-dialog-label.playlist-music-dialog-label_target {
+  background-color: #4f4f4f;
+}
+.add-playlist-music-dialog .add-playlist-music-dialog__content .add-playlist-music-dialog__content__body .playlist-music-dialog-label:before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0.5%;
+  top: 0;
+  background-color: #4f4f4f;
+  transition: width 200ms ease-out;
+}
+.add-playlist-music-dialog .add-playlist-music-dialog__content .add-playlist-music-dialog__content__body .playlist-music-dialog-label:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0.5%;
+  bottom: 0;
+  background-color: #4f4f4f;
+  transition: width 200ms ease-out;
+}
+.add-playlist-music-dialog .add-playlist-music-dialog__content .add-playlist-music-dialog__content__body .playlist-music-dialog-label:hover {
+  margin: 2% 0 2% 0;
+}
+.add-playlist-music-dialog .add-playlist-music-dialog__content .add-playlist-music-dialog__content__body .playlist-music-dialog-label:not(.playlist-music-dialog-label_target):hover:before {
+  width: 100%;
+}
+.add-playlist-music-dialog .add-playlist-music-dialog__content .add-playlist-music-dialog__content__body .playlist-music-dialog-label:not(.playlist-music-dialog-label_target):hover:after {
+  width: 100%;
+}
+.add-playlist-music-dialog .add-playlist-music-dialog__content .add-playlist-music-dialog__content__footer {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 1%;
+}
+.add-playlist-music-dialog .add-playlist-music-dialog__content .add-playlist-music-dialog__content__footer .add-playlist-music-dialog__content__footer__button {
+  margin: 2%;
+  padding: 1% 2%;
+  font-size: 22px;
+  border: none;
+  border-radius: 0.3em;
+  background-color: inherit;
+  outline: none;
+}
+.add-playlist-music-dialog .add-playlist-music-dialog__content .add-playlist-music-dialog__content__footer .add-playlist-music-dialog__content__footer__button.main-button {
+  background-color: #7a7a7a;
+  color: #1e1e1e;
+}
+
+@keyframes display-dialog-animation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.98;
+  }
+}
 .room-music {
   display: flex;
   position: relative;
@@ -1893,14 +2051,22 @@
 }
 
 .loading-spinner {
+  width: 2.48vw;
+  height: 2.48vw;
+  border-radius: 100%;
+  overflow: hidden;
+  z-index: 2;
+}
+.loading-spinner .loading-spinner__wrapper {
   position: relative;
   width: 2vw;
   height: 2vw;
   border-radius: 100%;
   border: 0.24vw solid #4f4f4f;
+  background-color: #151515;
 }
-.loading-spinner .loading-spinner__triangle {
-  z-index: 1;
+.loading-spinner .loading-spinner__wrapper .loading-spinner__triangle {
+  z-index: 3;
   position: absolute;
   right: -0.24vw;
   top: 0;

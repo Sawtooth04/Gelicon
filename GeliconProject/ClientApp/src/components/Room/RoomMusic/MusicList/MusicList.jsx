@@ -3,9 +3,10 @@ import MusicListItem from "./MusicListItem/MusicListItem";
 import ScrollView from "../../../UI/ScrollView/ScrollView";
 import LoadingSpinner from "../../../UI/LoadingSpinner/LoadingSpinner";
 
-const MusicList = ({musicList, current, setRoomMusic, onDelete, onNextCallback, onPrevCallback, loadingState}) => {
+const MusicList = ({musicList, showPlaylists, current, onClick, onDelete, onShowPlaylists, onNextCallback, onPrevCallback,
+        loadingState}) => {
     function onItemClick(item) {
-        setRoomMusic(item);
+        onClick(item);
     }
 
     function onDeleteClick(item) {
@@ -28,7 +29,8 @@ const MusicList = ({musicList, current, setRoomMusic, onDelete, onNextCallback, 
                     (current != null) ?
                     musicList.map((music) =>
                         <MusicListItem item={music.data} key={music.data.id} current={music.data.id === current.id}
-                            onItemClick={onItemClick} onDelete={onDeleteClick}/>
+                            onItemClick={onItemClick} onDelete={onDeleteClick} showPlaylists={showPlaylists}
+                            onShowPlaylistsClick={onShowPlaylists}/>
                     ) :
                     musicList.map((music) =>
                         <MusicListItem item={music.data} key={music.data.id} current={false}

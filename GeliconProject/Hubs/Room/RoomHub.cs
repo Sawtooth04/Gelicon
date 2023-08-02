@@ -198,5 +198,29 @@ namespace GeliconProject.Hubs.Room
         {
             await roomsThreadsController.SetRoomPlaylistChanges(Clients.Group(roomID), roomID, roomPlaylistID, name);
         }
+
+        [Authorize]
+        public async Task GetPlaylistMusicList(string roomID, int roomPlaylistID, int start, int count, bool append)
+        {
+            await roomsThreadsController.GetPlaylistMusicList(Clients.Caller, roomID, roomPlaylistID, start, count, append);
+        }
+
+        [Authorize]
+        public void DeletePlaylistMusic(string roomID, int roomPlaylistID, string musicID)
+        {
+            roomsThreadsController.DeletePlaylistMusic(Clients.Group(roomID), roomPlaylistID, musicID);
+        }
+
+        [Authorize]
+        public async Task AddPlaylistMusic(string roomID, int roomPlaylistID, string musicID)
+        {
+            await roomsThreadsController.AddPlaylistMusic(Clients.Group(roomID), roomID, roomPlaylistID, musicID);
+        }
+
+        [Authorize]
+        public async Task GetRoomMusicPlaylists(string roomID, string musicID)
+        {
+            await roomsThreadsController.GetRoomMusicPlaylists(Clients.Group(roomID), roomID, musicID);
+        }
     }
 }

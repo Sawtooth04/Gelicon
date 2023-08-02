@@ -4,7 +4,8 @@ import AddPlaylistLabel from "./AddPlaylistLabel/AddPlaylistLabel";
 import AddPlaylistDialog from "./AddPlaylistDialog/AddPlaylistDialog";
 import EditPlaylistDialog from "./EditPlaylistDialog/EditPlaylistDialog";
 
-const PlaylistList = ({playlists, current, addCallback, deleteCallback, editCallback}) => {
+const PlaylistList = ({playlists, current, addCallback, deleteCallback, editCallback, onClick, onDelete, addEventHandler,
+        removeEventHandler, getMusicList, getMusicFromApi}) => {
     const [addPlaylistDialogOpened, setAddPlaylistDialogOpened] = useState(false);
     const [editPlaylistDialogOpened, setEditPlaylistDialogOpened] = useState(false);
     const [currentEditPlaylist, setCurrentEditPlaylist] = useState(null);
@@ -39,7 +40,8 @@ const PlaylistList = ({playlists, current, addCallback, deleteCallback, editCall
         <div className={"room-music__playlists playlists"}>
             {editPlaylistDialogOpened ?
                 <EditPlaylistDialog playlist={currentEditPlaylist} cancelCallback={onCancelEditPlaylistDialog}
-                    editCallback={setChanges}/>
+                    editCallback={setChanges} onClick={onClick} onDelete={onDelete} addEventHandler={addEventHandler}
+                    removeEventHandler={removeEventHandler} getMusicList={getMusicList} getMusicFromApi={getMusicFromApi}/>
                 : null
             }
             {addPlaylistDialogOpened ?

@@ -11,7 +11,7 @@
 
   & .loading-spinner {
     position: absolute;
-    animation: show-loading-animation 200ms ease-out;
+    animation: show-loading-animation 800ms ease-out;
     animation-fill-mode: forwards;
   }
 
@@ -77,15 +77,18 @@
   & .music-list__music-list-item:hover:after {
     width: 100%;
   }
-  
 }
 
 @keyframes show-loading-animation {
-  from {
+  0% {
     opacity: 0;
   }
 
-  to {
+  70% {
+    opacity: 0;
+  }
+
+  100% {
     opacity: 1;
   }
 }

@@ -1,0 +1,19 @@
+.playlist-music-dialog-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5%;
+  width: 90%;
+  height: 1.5em;
+  padding: 2%;
+}
+.playlist-music-dialog-label .playlist-music-dialog-label__description {
+  width: 100%;
+  overflow: hidden;
+}
+.playlist-music-dialog-label .playlist-music-dialog-label__description * {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/*# sourceMappingURL=playlist-music-dialog-label.css.map */

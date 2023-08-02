@@ -4,6 +4,7 @@ import MusicSearch from "./MusicSearch/MusicSearch";
 import MusicList from "./MusicList/MusicList";
 import MusicPlayer from "./MusicPlayer/MusicPlayer";
 import PlaylistList from "./PlaylistList/PlaylistList";
+import AddPlaylistMusicDialog from "./AddPlaylistMusicDialog/AddPlaylistMusicDialog";
 
 const RoomMusic = ({connector, ...props}) => {
     const countByPage = 10;
@@ -15,6 +16,8 @@ const RoomMusic = ({connector, ...props}) => {
     const [needToDisplayLoadingScreen, setNeedToDisplayLoadingScreen] = useState(true);
     const [scrollPage, setScrollPage] = useState(0);
     const [isLoadingMusicList, setIsLoadingMusicList] = useState(true);
+    const [needToDisplayAddPlaylistMusicDialog, setNeedToDisplayAddPlaylistMusicDialog] = useState(false);
+    const [currentAddPlaylistMusicDialogTarget, setCurrentAddPlaylistMusicDialogTarget] = useState(null);
 
     useEffect(() => {
         setNeedToDisplayMusicPlayer(roomMusicList.length > 0);
@@ -119,8 +122,25 @@ const RoomMusic = ({connector, ...props}) => {
         await connector.editRoomPlaylist(playlist, name);
     }
 
+    async function showPlaylistsClick(music) {
+        setNeedToDisplayAddPlaylistMusicDialog(true);
+        setCurrentAddPlaylistMusicDialogTarget(music);
+    }
+
+    function onShowPlaylistsCancelClick() {
+        setNeedToDisplayAddPlaylistMusicDialog(false);
+    }
+
+    async function addMusicToPlaylist(music, playlist) {
+        await connector.addPlaylistMusicToRoom(playlist, music.id);
+    }
+
     return (
         <div className={"room__room-music room-music"}>
+            {!needToDisplayAddPlaylistMusicDialog ? null :
+                <AddPlaylistMusicDialog music={currentAddPlaylistMusicDialogTarget} cancelCallback={onShowPlaylistsCancelClick}
+                    addToPlaylistCallback={addMusicToPlaylist} playlists={playlists}/>
+            }
             {!needToDisplayLoadingScreen ? null :
                 <div className={"room-music__loading-screen loading-screen"}>
                     <div className={"loading-screen__animation-logo animation-logo"}>
@@ -139,12 +159,17 @@ const RoomMusic = ({connector, ...props}) => {
             <div className={`room-music__routes${!needToDisplayMusicPlayer ? ' room-music__routes_max-size' : ''}`}>
                 <Routes>
                     <Route exact path="music-list" element={
-                        <MusicList musicList={roomMusicList} current={currentAudioInfo} setRoomMusic={setRoomMusic}
-                           onDelete={deleteRoomMusic} onNextCallback={onNext} onPrevCallback={onPrev} loadingState={isLoadingMusicList}/>
+                        <MusicList musicList={roomMusicList} current={currentAudioInfo} showPlaylists={true} onClick={setRoomMusic}
+                            onDelete={deleteRoomMusic} onNextCallback={onNext} onPrevCallback={onPrev} loadingState={isLoadingMusicList}
+                            onShowPlaylists={showPlaylistsClick}/>
                     }/>
                     <Route exact path="music-playlist-list" element={
                         <PlaylistList playlists={playlists} current={currentAudioInfo} addCallback={addPlaylist}
-                            deleteCallback={deletePlaylist} editCallback={editPlaylist}/>
+                            deleteCallback={deletePlaylist} editCallback={editPlaylist} onClick={setRoomMusic}
+                            onDelete={connector.deletePlaylistMusic.bind(connector)} addEventHandler={connector.addEventHandler.bind(connector)}
+                            removeEventHandler={connector.removeEventHandler.bind(connector)}
+                            getMusicList={connector.getPlaylistMusicList.bind(connector)}
+                            getMusicFromApi={connector.musicRepository.getMusicArrayFromApi.bind(connector.musicRepository)}/>
                     }/>
                     <Route path="*" element={
                         <MusicSearch connector={connector} addMusicCallback={addMusic}

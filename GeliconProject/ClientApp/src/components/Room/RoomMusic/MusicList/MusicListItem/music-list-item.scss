@@ -26,10 +26,13 @@
     position: relative;
     width: 20%;
 
+    & * {
+      margin: 0 5%;
+    }
+
     & .icon-button {
       width: 1.5vw;
       height: 1.5vw;
-      margin: 0 1%;
     }
   }
 }

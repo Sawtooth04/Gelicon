@@ -1,0 +1,139 @@
+@import "../../../variables";
+@import "../PlaylistMusicDialogLabel/playlist-music-dialog-label";
+
+.add-playlist-music-dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  background-color: $dialog_background_color;
+  animation: display-dialog-animation ease-out 200ms forwards;
+
+  & .add-playlist-music-dialog__content {
+    width: 90%;
+    height: 60%;
+    opacity: 1;
+    z-index: 2;
+    background-color: $dialog_content_background_color;
+    border: 0.1vw solid $dialog_content_border_color;
+    border-radius: 0.5vw;
+
+    & .add-playlist-music-dialog__content__header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1%;
+      overflow: hidden;
+      height: 8%;
+
+      & .add-playlist-music-dialog__content__header__title {
+        font-size: $dialog_header_font_size;
+        max-width: 100%;
+        white-space: nowrap;
+      }
+    }
+
+    & .add-playlist-music-dialog__content__body {
+      display: flex;
+      flex-direction: column;
+      justify-items: center;
+      align-items: center;
+      padding: 0 2%;
+      width: 100%;
+      height: 78%;
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      &::-webkit-scrollbar {
+        width: 0.5vw;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: $default_scroll_bar_color;
+        border-radius: 0.5vw;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $default_scroll_button_color;
+        border-radius: 0.5vw;
+      }
+
+      & .playlist-music-dialog-label {
+        position: relative;
+        transition: margin 200ms ease-out;
+
+        &.playlist-music-dialog-label_target {
+          background-color: $default_music_item_target_background_color;
+        }
+      }
+
+      & .playlist-music-dialog-label:before {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0.5%;
+        top: 0;
+        background-color: $default_music_item_borders_color;
+        transition: width 200ms ease-out;
+      }
+
+      & .playlist-music-dialog-label:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0.5%;
+        bottom: 0;
+        background-color: $default_music_item_borders_color;
+        transition: width 200ms ease-out;
+      }
+
+      & .playlist-music-dialog-label:hover {
+        margin: 2% 0 2% 0;
+      }
+
+      & .playlist-music-dialog-label:not(.playlist-music-dialog-label_target):hover:before {
+        width: 100%;
+      }
+
+      & .playlist-music-dialog-label:not(.playlist-music-dialog-label_target):hover:after {
+        width: 100%;
+      }
+    }
+
+    & .add-playlist-music-dialog__content__footer {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      padding: 1%;
+
+      & .add-playlist-music-dialog__content__footer__button {
+        margin: 2%;
+        padding: 1% 2%;
+        font-size: $dialog_footer_font_size;
+        border: none;
+        border-radius: 0.3em;
+        background-color: inherit;
+        outline: none;
+      }
+
+      & .add-playlist-music-dialog__content__footer__button.main-button {
+        background-color: $dialog_main_button_background_color;
+        color: $dialog_content_background_color;
+      }
+    }
+  }
+}
+
+@keyframes display-dialog-animation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.98;
+  }
+}
