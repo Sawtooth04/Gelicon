@@ -18,6 +18,7 @@ const RoomMusic = ({connector, ...props}) => {
     const [isLoadingMusicList, setIsLoadingMusicList] = useState(true);
     const [needToDisplayAddPlaylistMusicDialog, setNeedToDisplayAddPlaylistMusicDialog] = useState(false);
     const [currentAddPlaylistMusicDialogTarget, setCurrentAddPlaylistMusicDialogTarget] = useState(null);
+    const [targetMusicPlaylists, setTargetMusicPlaylists] = useState([]);
 
     useEffect(() => {
         setNeedToDisplayMusicPlayer(roomMusicList.length > 0);
@@ -28,12 +29,14 @@ const RoomMusic = ({connector, ...props}) => {
             connector.addEventHandler("AppendRoomMusicList", appendRoomMusicList);
             connector.addEventHandler("AppendBeforeRoomMusicList", appendBeforeRoomMusicList);
             connector.addEventHandler("SetRoomPlaylists", receiveRoomPlaylists);
+            connector.addEventHandler("SetRoomMusicPlaylists", setRoomMusicPlaylists);
         }
 
         function removeEventHandlers() {
             connector.removeEventHandler("AppendRoomMusicList", appendRoomMusicList);
             connector.removeEventHandler("AppendBeforeRoomMusicList", appendBeforeRoomMusicList);
             connector.removeEventHandler("SetRoomPlaylists", receiveRoomPlaylists);
+            connector.removeEventHandler("SetRoomMusicPlaylists", setRoomMusicPlaylists);
         }
 
         //Handlers
@@ -61,6 +64,10 @@ const RoomMusic = ({connector, ...props}) => {
 
         async function receiveRoomPlaylists(data) {
             setPlaylists(data);
+        }
+
+        async function setRoomMusicPlaylists(data) {
+            setTargetMusicPlaylists(data);
         }
 
         if (connector.connected)
@@ -106,6 +113,10 @@ const RoomMusic = ({connector, ...props}) => {
         await connector.setRoomMusic(music.id);
     }
 
+    async function setPlaylistRoomMusic(playlist, music) {
+        await connector.SetPlaylistRoomMusic(playlist, music.id);
+    }
+
     async function deleteRoomMusic(music) {
         await connector.deleteRoomMusic(music.id);
     }
@@ -125,10 +136,12 @@ const RoomMusic = ({connector, ...props}) => {
     async function showPlaylistsClick(music) {
         setNeedToDisplayAddPlaylistMusicDialog(true);
         setCurrentAddPlaylistMusicDialogTarget(music);
+        await connector.getRoomMusicPlaylists(music.id);
     }
 
     function onShowPlaylistsCancelClick() {
         setNeedToDisplayAddPlaylistMusicDialog(false);
+        setTargetMusicPlaylists([]);
     }
 
     async function addMusicToPlaylist(music, playlist) {
@@ -139,7 +152,7 @@ const RoomMusic = ({connector, ...props}) => {
         <div className={"room__room-music room-music"}>
             {!needToDisplayAddPlaylistMusicDialog ? null :
                 <AddPlaylistMusicDialog music={currentAddPlaylistMusicDialogTarget} cancelCallback={onShowPlaylistsCancelClick}
-                    addToPlaylistCallback={addMusicToPlaylist} playlists={playlists}/>
+                    addToPlaylistCallback={addMusicToPlaylist} playlists={playlists} targeted={targetMusicPlaylists}/>
             }
             {!needToDisplayLoadingScreen ? null :
                 <div className={"room-music__loading-screen loading-screen"}>
@@ -165,7 +178,7 @@ const RoomMusic = ({connector, ...props}) => {
                     }/>
                     <Route exact path="music-playlist-list" element={
                         <PlaylistList playlists={playlists} current={currentAudioInfo} addCallback={addPlaylist}
-                            deleteCallback={deletePlaylist} editCallback={editPlaylist} onClick={setRoomMusic}
+                            deleteCallback={deletePlaylist} editCallback={editPlaylist} onClick={setPlaylistRoomMusic}
                             onDelete={connector.deletePlaylistMusic.bind(connector)} addEventHandler={connector.addEventHandler.bind(connector)}
                             removeEventHandler={connector.removeEventHandler.bind(connector)}
                             getMusicList={connector.getPlaylistMusicList.bind(connector)}
@@ -179,7 +192,8 @@ const RoomMusic = ({connector, ...props}) => {
             </div>
             {
                 needToDisplayMusicPlayer ?
-                    <MusicPlayer connector={connector} setCurrentAudioInfoCallback={setCurrentAudioInfo}/> : null
+                    <MusicPlayer connector={connector} setCurrentAudioInfoCallback={setCurrentAudioInfo}/>
+                    : null
             }
         </div>
     );

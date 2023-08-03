@@ -11,5 +11,11 @@ namespace GeliconProject.Storage.Abstractions.Repositories.RoomPlaylistMusic
         public Task AddRoomPlaylistMusic(int roomPlaylistID, Models.RoomMusic roomMusic);
 
         public List<Models.RoomPlaylist?>? GetRoomMusicPlaylists(int roomID, string musicID);
+
+        public Models.RoomPlaylistMusic? GetRoomPlaylistMusic(int roomPlaylistID, string musicID);
+
+        public Models.RoomMusic GetNextMusic(int roomPlaylistID, Models.RoomMusic currentMusic, bool isDescending = true);
+
+        public Models.RoomMusic GetPreviousMusic(int roomPlaylistID, Models.RoomMusic currentMusic, bool isDescending = true);
     }
 }

@@ -79,6 +79,10 @@ const EditPlaylistDialog = ({playlist, editCallback, cancelCallback, onClick, on
         onDelete(playlist.roomPlaylistID, item.id);
     }
 
+    function onPlaylistMusicClick(music) {
+        onClick(playlist, music);
+    }
+
     return (
         <div className={"edit-playlist-dialog"}>
             <div className={"edit-playlist-dialog__content"}>
@@ -90,8 +94,8 @@ const EditPlaylistDialog = ({playlist, editCallback, cancelCallback, onClick, on
                     <input type="text" className="edit-playlist-dialog__content__body__input" value={name}
                            onChange={onNameChange}/>
                 </div>
-                <MusicList musicList={musicList} current={null} onClick={onClick} onDelete={onDeleteCallback} onNextCallback={onNext}
-                    onPrevCallback={onPrev} loadingState={isLoadingMusicList} showPlaylists={false}/>
+                <MusicList musicList={musicList} current={null} onClick={onPlaylistMusicClick} onDelete={onDeleteCallback}
+                    onNextCallback={onNext} onPrevCallback={onPrev} loadingState={isLoadingMusicList} showPlaylists={false}/>
                 <div className={"edit-playlist-dialog__content__footer"}>
                     <button className={"edit-playlist-dialog__content__footer__button"} onClick={cancelCallback}>
                         Cancel

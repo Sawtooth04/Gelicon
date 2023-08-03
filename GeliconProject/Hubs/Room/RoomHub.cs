@@ -222,5 +222,11 @@ namespace GeliconProject.Hubs.Room
         {
             await roomsThreadsController.GetRoomMusicPlaylists(Clients.Group(roomID), roomID, musicID);
         }
+
+        [Authorize]
+        public async Task SetPlaylistRoomMusic(string roomID, int roomPlaylistID, string musicID)
+        {
+            await roomsThreadsController.SetCurrentPlaylistRoomMusic(Clients.Group(roomID), roomID, roomPlaylistID, musicID);
+        }
     }
 }

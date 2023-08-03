@@ -65,5 +65,62 @@ namespace GeliconProject.Storage.Gelicon.Repositories.RoomPlaylistMusic
                 return null;
             }
         }
+
+        public Models.RoomPlaylistMusic? GetRoomPlaylistMusic(int roomPlaylistID, string musicID)
+        {
+            try
+            {
+                return storageContext.RoomPlaylistsMusic.Where(r => r.roomPlaylistID == roomPlaylistID && r.roomMusic!.musicID == musicID)
+                    .Include(r => r.roomMusic).Single();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public Models.RoomMusic GetNextMusic(int roomPlaylistID, Models.RoomMusic currentMusic, bool isDescending = true)
+        {
+            Models.RoomMusic result;
+
+            try
+            {
+                if (isDescending)
+                    result = storageContext.RoomPlaylistsMusic.Where(r => r.roomPlaylistID == roomPlaylistID && r.roomMusic!.addedAt < currentMusic.addedAt)
+                        .OrderByDescending(r => r.roomMusic!.addedAt).Include(r => r.roomMusic).First().roomMusic!;
+                else
+                    result = storageContext.RoomPlaylistsMusic.Where(r => r.roomPlaylistID == roomPlaylistID && r.roomMusic!.addedAt > currentMusic.addedAt)
+                        .OrderBy(r => r.roomMusic!.addedAt).Include(r => r.roomMusic).First().roomMusic!;
+                return result;
+            }
+            catch (Exception)
+            {
+                return (isDescending) ?
+                    storageContext.RoomPlaylistsMusic.OrderByDescending(r => r.roomMusic!.addedAt).Include(r => r.roomMusic).First().roomMusic! :
+                    storageContext.RoomPlaylistsMusic.OrderByDescending(r => r.roomMusic!.addedAt).Include(r => r.roomMusic).Last().roomMusic!;
+            }
+        }
+
+        public Models.RoomMusic GetPreviousMusic(int roomPlaylistID, Models.RoomMusic currentMusic, bool isDescending = true)
+        {
+            Models.RoomMusic result;
+
+            try
+            {
+                if (isDescending)
+                    result = storageContext.RoomPlaylistsMusic.Where(r => r.roomPlaylistID == roomPlaylistID && r.roomMusic!.addedAt > currentMusic.addedAt)
+                        .OrderByDescending(r => r.roomMusic!.addedAt).Include(r => r.roomMusic).Last().roomMusic!;
+                else
+                    result = storageContext.RoomPlaylistsMusic.Where(r => r.roomPlaylistID == roomPlaylistID && r.roomMusic!.addedAt < currentMusic.addedAt)
+                        .OrderBy(r => r.roomMusic!.addedAt).Include(r => r.roomMusic).Last().roomMusic!;
+                return result;
+            }
+            catch (Exception)
+            {
+                return (isDescending) ? 
+                    storageContext.RoomPlaylistsMusic.OrderByDescending(r => r.roomMusic!.addedAt).Include(r => r.roomMusic).Last().roomMusic! :
+                    storageContext.RoomPlaylistsMusic.OrderByDescending(r => r.roomMusic!.addedAt).Include(r => r.roomMusic).First().roomMusic!;
+            }
+        }
     }
 }

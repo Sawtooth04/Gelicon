@@ -11,5 +11,7 @@ namespace GeliconProject.Storage.Abstractions.Repositories.RoomPlaylist
         public void DeleteRoomPlaylist(int roomPlaylistID);
 
         public void ChangeRoomPlaylist(int roomID, int roomPlaylistID, string name);
+
+        public Models.RoomPlaylist? GetRoomPlaylist(int roomPlaylistID);
     }
 }

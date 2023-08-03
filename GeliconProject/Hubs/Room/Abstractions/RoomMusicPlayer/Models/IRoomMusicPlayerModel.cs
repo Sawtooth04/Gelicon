@@ -15,6 +15,7 @@ namespace GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer.Models
         public bool IsDescending { get; set; }
         public RoomMusicPlayerSource Source { get; set; }
         public bool PlayNext { get; set; }
+        public RoomPlaylist? currentPlaylist { get; set; }
 
         public void AddClientModel(string connectionID);
 

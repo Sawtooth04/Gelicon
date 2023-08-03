@@ -98,6 +98,10 @@ class HubConnector {
         await this._connection.invoke("GetPlaylists", this.roomID);
     }
 
+    async getRoomMusicPlaylists(musicID) {
+        await this._connection.invoke("GetRoomMusicPlaylists", this.roomID, musicID);
+    }
+
     async getOnlineUsersList() {
         await this._connection.invoke("GetOnlineUsersList", this.roomID);
     }
@@ -133,6 +137,10 @@ class HubConnector {
 
     async setRoomMusic(musicID) {
         await this._connection.invoke("SetRoomMusic", this.roomID, musicID);
+    }
+
+    async SetPlaylistRoomMusic(playlist, musicID) {
+        await this._connection.invoke("SetPlaylistRoomMusic", this.roomID, playlist.roomPlaylistID, musicID);
     }
 
     async setPlayState() {

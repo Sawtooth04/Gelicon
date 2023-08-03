@@ -20,9 +20,9 @@ namespace GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer.Controllers
 
         public Task SetPauseState(IClientProxy clients, IRoomMusicPlayerModel roomMusicPlayerModel);
 
-        public Task SetNextMusic(IClientProxy clients, int roomID, IRoomMusicPlayerModel roomMusicPlayerModel);
+        public Task SetNextMusic(IClientProxy clients, int sourceID, IRoomMusicPlayerModel roomMusicPlayerModel);
 
-        public Task SetPreviousMusic(IClientProxy clients, int roomID, IRoomMusicPlayerModel roomMusicPlayerModel);
+        public Task SetPreviousMusic(IClientProxy clients, int sourceID, IRoomMusicPlayerModel roomMusicPlayerModel);
 
         public Task SetAudioTime(IClientProxy clients, int roomID, IRoomMusicPlayerModel roomMusicPlayerModel, double value);
 
@@ -49,5 +49,8 @@ namespace GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer.Controllers
         public Task AddPlaylistMusic(IClientProxy clients, string roomID, int roomPlaylistID, string musicID);
 
         public Task GetRoomMusicPlaylists(IClientProxy clients, string roomID, string musicID);
+
+        public Task SetCurrentPlaylistRoomMusic(IClientProxy clients, int roomID, IRoomMusicPlayerModel roomMusicPlayerModel,
+            int roomPlaylistID, string musicID);
     }
 }

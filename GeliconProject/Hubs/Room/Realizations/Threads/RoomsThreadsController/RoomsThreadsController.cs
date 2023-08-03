@@ -237,5 +237,14 @@ namespace GeliconProject.Hubs.Room.Realizations.Threads.ThreadsController
         {
             await roomMusicPlayerController.GetRoomMusicPlaylists(clients, roomID, musicID);
         }
+
+        public async Task SetCurrentPlaylistRoomMusic(IClientProxy clients, string roomID, int roomPlaylistID, string musicID)
+        {
+            IRoomThread? roomObserver = roomObserversProvider.FindRoomObserverThread(roomID);
+
+            if (roomObserver != null && roomObserver.RoomMusicPlayerModel != null)
+                await roomMusicPlayerController.SetCurrentPlaylistRoomMusic(clients, int.Parse(roomID), roomObserver.RoomMusicPlayerModel,
+                    roomPlaylistID, musicID);
+        }
     }
 }

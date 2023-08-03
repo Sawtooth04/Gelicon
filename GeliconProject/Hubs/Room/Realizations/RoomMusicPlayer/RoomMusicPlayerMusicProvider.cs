@@ -3,6 +3,7 @@ using GeliconProject.Hubs.Room.Abstractions.RoomMusicPlayer.Models;
 using GeliconProject.Models;
 using GeliconProject.Storage.Abstractions;
 using GeliconProject.Storage.Abstractions.Repositories.RoomMusic;
+using GeliconProject.Storage.Abstractions.Repositories.RoomPlaylistMusic;
 
 namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer
 {
@@ -76,16 +77,19 @@ namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer
         private void ConfigureNextMusicActions()
         {
             nextMusicActions.Add(RoomMusicPlayerSource.Music, GetNextMusicInMusicList);
+            nextMusicActions.Add(RoomMusicPlayerSource.Playlist, GetNextMusicInPlaylist);
         }
 
         private void ConfigurePreviousMusicActions()
         {
             previousMusicActions.Add(RoomMusicPlayerSource.Music, GetPreviousMusicInMusicList);
+            previousMusicActions.Add(RoomMusicPlayerSource.Playlist, GetPreviousMusicInPlaylist);
         }
 
         private void ConfigureGetMusicActions()
         {
             getMusicActions.Add(RoomMusicPlayerSource.Music, GetRoomMusicInMusicList);
+            getMusicActions.Add(RoomMusicPlayerSource.Playlist, GetRoomMusicInPlaylist);
         }
 
         private void ConfigureDeleteMusicActions()
@@ -122,6 +126,21 @@ namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer
         {
             await storage.GetRepository<IRoomMusicRepository>()?.Add(roomID, musicID)!;
             storage.Save();
+        }
+
+        private RoomMusic? GetRoomMusicInPlaylist(IStorage storage, int roomPlaylistID, string musicID)
+        {
+            return storage.GetRepository<IRoomPlaylistMusicRepository>().GetRoomPlaylistMusic(roomPlaylistID, musicID)?.roomMusic;
+        }
+
+        private RoomMusic GetNextMusicInPlaylist(IStorage storage, int roomPlaylistID, RoomMusic currentMusic, bool isDescending = true)
+        {
+            return storage.GetRepository<IRoomPlaylistMusicRepository>().GetNextMusic(roomPlaylistID, currentMusic, isDescending);
+        }
+
+        private RoomMusic GetPreviousMusicInPlaylist(IStorage storage, int roomPlaylistID, RoomMusic currentMusic, bool isDescending = true)
+        {
+            return storage.GetRepository<IRoomPlaylistMusicRepository>().GetPreviousMusic(roomPlaylistID, currentMusic, isDescending);
         }
     }
 }

@@ -64,16 +64,20 @@ namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer.Controllers
         public async Task SetNextMusic(IClientProxy clients, int roomID, IRoomMusicPlayerModel roomMusicPlayerModel)
         {
             roomMusicPlayerModel.CurrentMusic = roomMusicPlayerMusicProvider.GetNextMusicAction(roomMusicPlayerModel.Source).Invoke(
-                storage, roomID, roomMusicPlayerModel.CurrentMusic, roomMusicPlayerModel.IsDescending
+                storage, roomMusicPlayerModel.Source == RoomMusicPlayerSource.Music ? roomID : roomMusicPlayerModel.currentPlaylist!.roomPlaylistID,
+                roomMusicPlayerModel.CurrentMusic, roomMusicPlayerModel.IsDescending
             );
+            roomMusicPlayerModel.CurrentMusic.roomPlaylistsMusic = null;
             await clients.SendAsync("SetMusicAfterInit", roomMusicPlayerModel.CurrentMusic);
         }
 
         public async Task SetPreviousMusic(IClientProxy clients, int roomID, IRoomMusicPlayerModel roomMusicPlayerModel)
         {
             roomMusicPlayerModel.CurrentMusic = roomMusicPlayerMusicProvider.GetPreviousMusicAction(roomMusicPlayerModel.Source).Invoke(
-                storage, roomID, roomMusicPlayerModel.CurrentMusic, roomMusicPlayerModel.IsDescending
+                storage, roomMusicPlayerModel.Source == RoomMusicPlayerSource.Music ? roomID : roomMusicPlayerModel.currentPlaylist!.roomPlaylistID,
+                roomMusicPlayerModel.CurrentMusic, roomMusicPlayerModel.IsDescending
             );
+            roomMusicPlayerModel.CurrentMusic.roomPlaylistsMusic = null;
             await clients.SendAsync("SetMusicAfterInit", roomMusicPlayerModel.CurrentMusic);
         }
 
@@ -84,6 +88,8 @@ namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer.Controllers
 
         public async Task SetCurrentMusic(IClientProxy clients, int roomID, IRoomMusicPlayerModel roomMusicPlayerModel, string musicID)
         {
+            roomMusicPlayerModel.Source = RoomMusicPlayerSource.Music;
+            roomMusicPlayerModel.currentPlaylist = null;
             RoomMusic? roomMusic = roomMusicPlayerMusicProvider.GetGetMusicAction(roomMusicPlayerModel.Source).Invoke(
                 storage, roomID, musicID);
 
@@ -132,11 +138,13 @@ namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer.Controllers
             if (currentMusic != null)
             {
                 nextMusic = roomMusicPlayerMusicProvider.GetNextMusicAction(roomMusicPlayerModel.Source).Invoke(
-                    storage, roomID, roomMusicPlayerModel.CurrentMusic, roomMusicPlayerModel.IsDescending
+                    storage, roomMusicPlayerModel.Source == RoomMusicPlayerSource.Music ? roomID : roomMusicPlayerModel.currentPlaylist!.roomPlaylistID,
+                    roomMusicPlayerModel.CurrentMusic, roomMusicPlayerModel.IsDescending
                 );
                 if (currentMusic.musicID != nextMusic.musicID)
                 {
                     roomMusicPlayerModel.CurrentMusic = nextMusic;
+                    nextMusic.roomPlaylistsMusic = null;
                     await clients.SendAsync("SetMusicAfterInit", roomMusicPlayerModel.CurrentMusic);
                 }
             }
@@ -191,7 +199,24 @@ namespace GeliconProject.Hubs.Room.Realizations.RoomMusicPlayer.Controllers
 
         public async Task GetRoomMusicPlaylists(IClientProxy clients, string roomID, string musicID)
         {
-            storage.GetRepository<IRoomPlaylistMusicRepository>().AddRoomPlaylistMusic(roomPlaylistID, roomMusic);
+            await clients.SendAsync("SetRoomMusicPlaylists", 
+                storage.GetRepository<IRoomPlaylistMusicRepository>().GetRoomMusicPlaylists(int.Parse(roomID), musicID));
+        }
+
+        public async Task SetCurrentPlaylistRoomMusic(IClientProxy clients, int roomID, IRoomMusicPlayerModel roomMusicPlayerModel,
+            int roomPlaylistID, string musicID)
+        {
+            roomMusicPlayerModel.Source = RoomMusicPlayerSource.Playlist;
+            roomMusicPlayerModel.currentPlaylist = storage.GetRepository<IRoomPlaylistRepository>().GetRoomPlaylist(roomPlaylistID);
+            RoomMusic? roomMusic = roomMusicPlayerMusicProvider.GetGetMusicAction(roomMusicPlayerModel.Source).Invoke(
+                storage, roomPlaylistID, musicID);
+
+            if (roomMusic != null)
+            {
+                roomMusicPlayerModel.CurrentMusic = roomMusic;
+                roomMusic.roomPlaylistsMusic = null;
+                await clients.SendAsync("SetMusicAfterInit", roomMusicPlayerModel.CurrentMusic);
+            }
         }
     }
 }

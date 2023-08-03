@@ -48,5 +48,17 @@ namespace GeliconProject.Storage.Gelicon.Repositories.RoomPlaylist
             if (roomPlaylist != null)
                 roomPlaylist.name = name;
         }
+
+        public Models.RoomPlaylist? GetRoomPlaylist(int roomPlaylistID)
+        {
+            try
+            {
+                return storageContext.RoomPlaylists.Where(r => r.roomPlaylistID == roomPlaylistID).Single();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }
