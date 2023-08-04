@@ -15,6 +15,21 @@
 
   & p {
     color: inherit;
+    @media (min-width: 1360px) {
+      & {
+        font-size: $user_list_item_font_size_b;
+      }
+    }
+    @media (min-width: 700px) and (max-width: 1359px) {
+      & {
+        font-size: $user_list_item_font_size_m;
+      }
+    }
+    @media (max-width: 699px) {
+      & {
+        font-size: $user_list_item_font_size_s;
+      }
+    }
   }
 }
 

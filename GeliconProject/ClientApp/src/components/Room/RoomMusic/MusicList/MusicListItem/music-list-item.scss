@@ -5,7 +5,6 @@
   justify-content: center;
   align-items: center;
   border-radius: 5%;
-  width: 90%;
   height: 1.5em;
   padding: 2%;
 
@@ -13,9 +12,25 @@
     width: 80%;
     overflow: hidden;
 
-    & * {
+    & > * {
       white-space: nowrap;
       overflow: hidden;
+
+      @media (min-width: 1360px) {
+        & {
+          font-size: $music_list_item_font_size_b;
+        }
+      }
+      @media (min-width: 700px) and (max-width: 1359px) {
+        & {
+          font-size: $music_list_item_font_size_m;
+        }
+      }
+      @media (max-width: 699px) {
+        & {
+          font-size: $music_list_item_font_size_s;
+        }
+      }
     }
   }
 

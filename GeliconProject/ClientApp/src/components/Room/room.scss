@@ -13,11 +13,13 @@
 
   & .room__room-music {
     width: 27%;
+    max-width: 27%;
     background-color: $room_music_background_color;
   }
 
   & .room__chat {
     width: 53%;
+    max-width: 53%;
   }
 
   & .room__users {
@@ -25,6 +27,7 @@
     flex-direction: column;
     align-items: center;
     width: 20%;
+    max-width: 20%;
     background-color: $room_users_background_color;
 
     & .users__user-label {

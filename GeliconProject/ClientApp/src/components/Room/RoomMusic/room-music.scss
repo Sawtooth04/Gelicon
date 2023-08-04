@@ -37,10 +37,24 @@
       display: flex;
       justify-content: center;
       position: relative;
-      font-size: $room_music_navbar_font_size;
       margin: 0 2%;
       padding: 1% 2% 1% 2%;
-      border-radius: 0.3em
+      border-radius: 0.3em;
+      @media (min-width: 1360px) {
+        & {
+          font-size: $room_music_navbar_font_size_b;
+        }
+      }
+      @media (min-width: 700px) and (max-width: 1359px) {
+        & {
+          font-size: $room_music_navbar_font_size_m;
+        }
+      }
+      @media (max-width: 699px) {
+        & {
+          font-size: $room_music_navbar_font_size_s;
+        }
+      }
     }
 
     & .room-music__navbar__link:after {
@@ -60,9 +74,9 @@
 
   & .room-music__routes {
     width: 100%;
+    max-width: 100%;
     flex-grow: 1;
     max-height: 83%;
-    font-size: $room_music_font_size;
 
     & .room-music__music-search {
       width: 100%;

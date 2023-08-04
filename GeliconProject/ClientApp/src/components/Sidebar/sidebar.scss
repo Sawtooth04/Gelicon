@@ -28,10 +28,11 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    padding: 0.5vh 0;
+    padding: 0.4vh 0;
+    margin: 0;
     background-color: $sidebar_room_buttons_background_color;
-    border-bottom-left-radius: 25%;
-    border-bottom-right-radius: 25%;
+    border-bottom-left-radius: 3vw;
+    border-bottom-right-radius: 3vw;
     animation: room-buttons-animation 2000ms ease-out;
     animation-fill-mode: forwards;
     overflow: hidden;

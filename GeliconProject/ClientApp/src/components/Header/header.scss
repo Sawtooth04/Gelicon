@@ -34,7 +34,21 @@
 
     & .header__content__article {
       font-family: Aquire, sans-serif;
-      font-size: $header_article_font_size;
+      @media (min-width: 1360px) {
+        & {
+          font-size: $header_article_font_size_b;
+        }
+      }
+      @media (min-width: 700px) and (max-width: 1359px) {
+        & {
+          font-size: $header_article_font_size_m;
+        }
+      }
+      @media (max-width: 500px) {
+        & {
+          font-size: $header_article_font_size_s;
+        }
+      }
     }
 
     & .header__links {
@@ -44,11 +58,28 @@
       align-items: center;
 
       & .header__links__link {
+        display: flex;
+        align-items: center;
         padding: 0 0.8vw;
 
         & a {
           text-decoration: none;
-          font-size: $header_font_size;
+        }
+
+        @media (min-width: 1360px) {
+          & a {
+            font-size: $header_font_size_b;
+          }
+        }
+        @media (min-width: 700px) and (max-width: 1359px) {
+          & a {
+            font-size: $header_font_size_m;
+          }
+        }
+        @media (max-width: 500px) {
+          & a {
+            font-size: $header_font_size_s;
+          }
         }
       }
     }

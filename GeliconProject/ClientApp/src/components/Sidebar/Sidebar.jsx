@@ -9,6 +9,13 @@ const Sidebar = ({showRoomButtons, setShowRoomJoinToken}) => {
         navigate("/rooms");
     }
 
+    function onGithubClick() {
+        window.open(
+            'https://github.com/Sawtooth04/Gelicon',
+            '_blank'
+        );
+    }
+
     return (
         <div className="sidebar">
             {showRoomButtons ?
@@ -17,6 +24,7 @@ const Sidebar = ({showRoomButtons, setShowRoomJoinToken}) => {
                 </div> : null
             }
             <Button className={'sidebar__button'} onClick={onHomeClick} src={'/source/images/home.png'}/>
+            <Button className={'sidebar__button'} onClick={onGithubClick} src={'/source/images/github.png'}/>
         </div>
     );
 };
